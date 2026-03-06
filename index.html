@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netter DMI | Data × Machine Intelligence</title>
+  <meta name="description" content="Netter is a Data-AI platform that connects, structures and activates your company's data, without requiring an engineering team." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+       ============================================================ */
+    :root {
+      --bg:         #FFFFFF;
+      --text:       #0A0A0A;
+      --secondary:  #555555;
+      --tertiary:   #999999;
+      --border:     #E5E5E5;
+      --border-med: #CCCCCC;
+      --accent:     #4F46E5;
+
+      --font:       'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono:       'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+      --radius:     2px;
+      --nav-h:      64px;
+
+      /* Spring easing — Apple-like settle */
+      --ease-spring:   cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out:      cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    /* ============================================================
+       RESET
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    button, input, textarea { font-family: inherit; font-size: inherit; }
+
+    /* ============================================================
+       LAYOUT
+       ============================================================ */
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    .section {
+      padding: 7rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+       ============================================================ */
+    .label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: opacity 0.25s, background 0.25s, color 0.25s;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: transparent;
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .btn-sm { padding: 0.55rem 1.1rem; font-size: 0.8rem; }
+
+    .btn-arrow::after {
+      content: '→';
+      font-size: 1em;
+      transition: transform 0.2s var(--ease-spring);
+    }
+
+    .btn-arrow:hover::after { transform: translateX(3px); }
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+       ============================================================ */
+
+    /* Simple fade + lift */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Scale + fade — for cards */
+    .reveal-card {
+      opacity: 0;
+      transform: translateY(32px) scale(0.97);
+      transition: opacity 0.65s var(--ease-spring), transform 0.65s var(--ease-spring);
+    }
+
+    .reveal-card.visible { opacity: 1; transform: translateY(0) scale(1); }
+
+    /* Staggered group */
+    .reveal-group > .reveal-card:nth-child(1) { transition-delay: 0s; }
+    .reveal-group > .reveal-card:nth-child(2) { transition-delay: 0.1s; }
+    .reveal-group > .reveal-card:nth-child(3) { transition-delay: 0.2s; }
+    .reveal-group > .reveal-card:nth-child(4) { transition-delay: 0.3s; }
+
+    /* Word split — Apple-style text reveal */
+    .word-outer {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+
+    .word-inner {
+      display: inline-block;
+      transform: translateY(110%);
+      transition: transform 0.85s var(--ease-spring);
+    }
+
+    .anim-words.animated .word-inner { transform: translateY(0); }
+
+    /* ============================================================
+       1. NAVIGATION
+       ============================================================ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .nav-logo-name {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .nav-logo-sub {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--tertiary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links a:not(.btn) {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--secondary);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:not(.btn):hover { color: var(--accent); }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text);
+      transition: transform 0.25s, opacity 0.25s;
+    }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: var(--nav-h); left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 99;
+    }
+
+    .nav-mobile.open { display: flex; }
+
+    .nav-mobile a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--secondary);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-mobile .btn { align-self: flex-start; margin-top: 0.25rem; }
+
+    /* ============================================================
+       2. HERO
+       ============================================================ */
+    #hero {
+      padding-top: calc(var(--nav-h) + 6rem);
+      padding-bottom: 5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* Dot grid background — subtle tech grid */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Ccircle cx='0.5' cy='0.5' r='0.85' fill='%23DCDCDC'/%3E%3C/svg%3E");
+      background-position: 0 0;
+    }
+
+    /* White fade at bottom of hero to blend with content */
+    #hero::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 200px;
+      background: linear-gradient(to bottom, transparent, #fff);
+      pointer-events: none;
+    }
+
+    #hero .container { position: relative; z-index: 1; }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--ease-out) 0.2s forwards;
+    }
+
+    .hero-title {
+      font-size: clamp(2.75rem, 6.5vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      line-height: 1.03;
+      color: var(--text);
+      max-width: 1100px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      font-weight: 300;
+      color: var(--secondary);
+      max-width: 500px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--ease-out) 0.55s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--ease-out) 1.2s forwards;
+    }
+
+    /* Hero network visualization */
+    .hero-visual {
+      margin-top: 4.5rem;
+      width: 100%;
+      max-width: 900px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out) 0.85s forwards;
+    }
+
+    .hero-visual svg { width: 100%; height: auto; display: block; }
+
+    /* Flow paths hidden initially, animated by JS */
+    .flow-path {
+      fill: none;
+      stroke-linecap: round;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       METRICS STRIP
+       ============================================================ */
+    #metrics {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 0;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .metric-item {
+      padding: 0 2rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .metric-item:first-child { padding-left: 0; }
+    .metric-item:last-child { border-right: none; }
+
+    .metric-value {
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .metric-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+
+    /* ============================================================
+       MARQUEE
+       ============================================================ */
+    #marquee {
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 0;
+      overflow: hidden;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding-right: 2rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      white-space: nowrap;
+    }
+
+    .marquee-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ============================================================
+       3. THE PROBLEM
+       ============================================================ */
+    #problem .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .problem-statement {
+      font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+    }
+
+    .problem-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .problem-item {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 0.5rem;
+      align-items: start;
+    }
+
+    .problem-num {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      color: var(--tertiary);
+      padding-top: 0.2rem;
+    }
+
+    .problem-text {
+      font-size: 0.9rem;
+      color: var(--secondary);
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       4. HOW IT WORKS
+       ============================================================ */
+    .section-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-label-row {
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.65rem, 3vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+
+    /* Step cards */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+    }
+
+    .step-card {
+      padding: 2rem 1.75rem 2.5rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .step-card:last-child { border-right: none; }
+
+    /* Connector arrow between steps */
+    .step-card:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -5px;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      border-top: 1px solid var(--border-med);
+      border-right: 1px solid var(--border-med);
+      transform: translateY(-50%) rotate(45deg);
+      background: var(--bg);
+      z-index: 1;
+    }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+    }
+
+    .step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.6rem;
+    }
+
+    .step-desc {
+      font-size: 0.875rem;
+      color: var(--secondary);
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       5. USE CASES
+       ============================================================ */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .case-card {
+      padding: 2rem 1.75rem 2.5rem;
+      border: 1px solid var(--border);
+      border-top: 1.5px solid var(--accent);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .case-tag {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: 1rem;
+    }
+
+    .case-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+    }
+
+    .case-desc {
+      font-size: 0.875rem;
+      color: var(--secondary);
+      line-height: 1.72;
+      flex: 1;
+    }
+
+    /* ============================================================
+       6. WHY NETTER
+       ============================================================ */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+    }
+
+    .why-item {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .why-item:last-child { border-right: none; }
+
+    .why-icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 1.75rem;
+    }
+
+    .why-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.65rem;
+    }
+
+    .why-desc {
+      font-size: 0.875rem;
+      color: var(--secondary);
+      line-height: 1.72;
+    }
+
+    /* ============================================================
+       7. CONTACT
+       ============================================================ */
+    .contact-simple {
+      max-width: 560px;
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+      align-items: start;
+    }
+
+    .contact-title {
+      font-size: clamp(1.65rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-sub {
+      font-size: 0.9rem;
+      color: var(--secondary);
+      line-height: 1.72;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.875rem;
+    }
+
+    .form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-field.full { grid-column: 1 / -1; }
+
+    .form-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 0.7rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.875rem;
+      outline: none;
+      appearance: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--text);
+    }
+
+    .form-input::placeholder, .form-textarea::placeholder {
+      color: var(--tertiary);
+    }
+
+    .form-textarea { resize: vertical; min-height: 100px; }
+
+    .form-submit { margin-top: 0.25rem; }
+
+    .form-success {
+      display: none;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      color: var(--secondary);
+      line-height: 1.65;
+    }
+
+    .form-success.visible { display: block; }
+
+    /* ============================================================
+       8. FOOTER
+       ============================================================ */
+    #footer {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+    }
+
+    .footer-brand {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      color: var(--tertiary);
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--tertiary);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+
+      #problem .problem-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .step-card:nth-child(2) { border-right: none; }
+      .step-card:nth-child(n+3) { border-top: 1px solid var(--border); }
+      .step-card:nth-child(4) { border-right: none; }
+      .step-card:not(:last-child)::after { display: none; }
+
+      .cases-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+      .why-grid { grid-template-columns: 1fr; }
+      .why-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .why-item:last-child { border-bottom: none; }
+
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 0; }
+      .metric-item:nth-child(2) { border-right: none; }
+      .metric-item:nth-child(3) { border-top: 1px solid var(--border); border-right: none; }
+    }
+
+    @media (max-width: 600px) {
+      .section { padding: 4rem 0; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .step-card { border-right: none; border-bottom: 1px solid var(--border); border-top: none; }
+      .step-card:first-child { border-top: none; }
+      .step-card:nth-child(n+2) { border-top: none; }
+      .form-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .metric-item { padding: 1.25rem 1rem; }
+      .metric-item:nth-child(2) { border-right: none; }
+      .hero-visual { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       1. NAVIGATION
+       ============================================================ -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <div class="container nav-inner">
+
+      <a href="#hero" class="nav-logo" aria-label="Netter DMI home">
+        <span class="nav-logo-name">Netter</span>
+        <span class="nav-logo-sub">DMI</span>
+      </a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#use-cases">Use Cases</a>
+        <a href="#how-it-works">How it Works</a>
+        <a href="#contact">Contact</a>
+        <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Book a Demo</a>
+      </div>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="#use-cases">Use Cases</a>
+    <a href="#how-it-works">How it Works</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="btn btn-primary btn-sm">Request Access</a>
+  </div>
+
+  <main>
+
+    <!-- ============================================================
+         2. HERO
+         ============================================================ -->
+    <section id="hero">
+      <div class="container">
+
+        <p class="hero-label">Data × Machine Intelligence</p>
+
+        <h1 class="hero-title anim-words" data-delay="0.3">
+          Turn your data into operational intelligence.
+        </h1>
+
+        <p class="hero-sub">
+          Netter connects, structures and activates your company's data,
+          without requiring an engineering team.
+        </p>
+
+        <!-- Network visualization — pure SVG, no images -->
+        <div class="hero-visual" aria-hidden="true" id="hero-visual">
+          <svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" fill="none">
+
+            <!-- Background grid lines (very subtle) -->
+            <line x1="0" y1="65"  x2="900" y2="65"  stroke="#F0F0F0" stroke-width="1"/>
+            <line x1="0" y1="130" x2="900" y2="130" stroke="#F0F0F0" stroke-width="1"/>
+            <line x1="0" y1="195" x2="900" y2="195" stroke="#F0F0F0" stroke-width="1"/>
+            <line x1="225" y1="0" x2="225" y2="260" stroke="#F0F0F0" stroke-width="1"/>
+            <line x1="450" y1="0" x2="450" y2="260" stroke="#F0F0F0" stroke-width="1"/>
+            <line x1="675" y1="0" x2="675" y2="260" stroke="#F0F0F0" stroke-width="1"/>
+
+            <!-- SOURCE PATHS (left cluster to hub) -->
+            <!-- Each path animated via JS stroke-dashoffset -->
+            <path class="flow-path" id="fp1"
+              d="M 68,62 C 180,62 300,130 450,130"
+              stroke="#CCCCCC" stroke-width="1"/>
+            <path class="flow-path" id="fp2"
+              d="M 105,148 C 220,148 330,135 450,130"
+              stroke="#CCCCCC" stroke-width="1"/>
+            <path class="flow-path" id="fp3"
+              d="M 72,210 C 190,210 320,150 450,130"
+              stroke="#CCCCCC" stroke-width="1"/>
+            <path class="flow-path" id="fp4"
+              d="M 185,40 C 280,40 360,100 450,130"
+              stroke="#CCCCCC" stroke-width="1"/>
+            <path class="flow-path" id="fp5"
+              d="M 215,198 C 310,198 370,155 450,130"
+              stroke="#CCCCCC" stroke-width="1"/>
+            <path class="flow-path" id="fp6"
+              d="M 272,108 C 350,108 395,122 450,130"
+              stroke="#DDDDDD" stroke-width="1" stroke-dasharray="3 4"/>
+
+            <!-- OUTPUT PATHS (hub to right cluster) -->
+            <path class="flow-path" id="fp7"
+              d="M 450,130 C 560,130 620,58 730,58"
+              stroke="#0A0A0A" stroke-width="1.5"/>
+            <path class="flow-path" id="fp8"
+              d="M 450,130 C 560,130 620,108 730,108"
+              stroke="#0A0A0A" stroke-width="1.5"/>
+            <path class="flow-path" id="fp9"
+              d="M 450,130 C 560,130 620,158 730,158"
+              stroke="#0A0A0A" stroke-width="1.5"/>
+            <path class="flow-path" id="fp10"
+              d="M 450,130 C 560,130 620,208 730,208"
+              stroke="#555555" stroke-width="1"/>
+
+            <!-- HUB NODE — Netter -->
+            <circle cx="450" cy="130" r="18" fill="#0A0A0A" opacity="0" id="hub-node"/>
+            <!-- Hub pulse ring -->
+            <circle cx="450" cy="130" r="18" fill="none" stroke="#0A0A0A" stroke-width="1" opacity="0" id="hub-ring">
+              <animate attributeName="r" from="18" to="38" dur="2.4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" from="0.35" to="0" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- SOURCE NODES -->
+            <circle cx="68"  cy="62"  r="5" fill="#BBBBBB" opacity="0" class="src-node"/>
+            <circle cx="105" cy="148" r="5" fill="#BBBBBB" opacity="0" class="src-node"/>
+            <circle cx="72"  cy="210" r="5" fill="#BBBBBB" opacity="0" class="src-node"/>
+            <circle cx="185" cy="40"  r="5" fill="#BBBBBB" opacity="0" class="src-node"/>
+            <circle cx="215" cy="198" r="5" fill="#BBBBBB" opacity="0" class="src-node"/>
+            <circle cx="272" cy="108" r="4" fill="#CCCCCC" opacity="0" class="src-node"/>
+
+            <!-- OUTPUT NODES -->
+            <circle cx="730" cy="58"  r="7" fill="#0A0A0A" opacity="0" class="out-node"/>
+            <circle cx="730" cy="108" r="7" fill="#0A0A0A" opacity="0" class="out-node"/>
+            <circle cx="730" cy="158" r="7" fill="#0A0A0A" opacity="0" class="out-node"/>
+            <circle cx="730" cy="208" r="5" fill="#555555" opacity="0" class="out-node"/>
+
+            <!-- SOURCE LABELS -->
+            <text x="30"  y="57"  font-family="'SF Mono','Fira Code',monospace" font-size="9" fill="#AAAAAA" letter-spacing="0.08em" opacity="0" class="node-label">CRM</text>
+            <text x="56"  y="144" font-family="'SF Mono','Fira Code',monospace" font-size="9" fill="#AAAAAA" letter-spacing="0.08em" opacity="0" class="node-label">ERP</text>
+            <text x="28"  y="206" font-family="'SF Mono','Fira Code',monospace" font-size="9" fill="#AAAAAA" letter-spacing="0.08em" opacity="0" class="node-label">FILES</text>
+            <text x="148" y="35"  font-family="'SF Mono','Fira Code',monospace" font-size="9" fill="#AAAAAA" letter-spacing="0.08em" opacity="0" class="node-label">DB</text>
+            <text x="172" y="194" font-family="'SF Mono','Fira Code',monospace" font-size="9" fill="#AAAAAA" letter-spacing="0.08em" opacity="0" class="node-label">API</text>
+
+            <!-- HUB LABEL -->
+            <text x="450" y="133" font-family="'SF Mono','Fira Code',monospace" font-size="8" fill="white" letter-spacing="0.1em" text-anchor="middle" dominant-baseline="middle" opacity="0" id="hub-label">NETTER</text>
+
+            <!-- OUTPUT LABELS -->
+            <text x="745" y="61"  font-family="'SF Mono','Fira Code',monospace" font-size="9" fill="#333333" letter-spacing="0.08em" opacity="0" class="out-label">WORKFLOWS</text>
+            <text x="745" y="111" font-family="'SF Mono','Fira Code',monospace" font-size="9" fill="#333333" letter-spacing="0.08em" opacity="0" class="out-label">AGENTS</text>
+            <text x="745" y="161" font-family="'SF Mono','Fira Code',monospace" font-size="9" fill="#333333" letter-spacing="0.08em" opacity="0" class="out-label">REPORTS</text>
+            <text x="745" y="211" font-family="'SF Mono','Fira Code',monospace" font-size="9" fill="#888888" letter-spacing="0.08em" opacity="0" class="out-label">OPS TOOLS</text>
+
+          </svg>
+        </div>
+
+        <div class="hero-actions">
+          <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener" class="btn btn-primary btn-arrow">Book a Demo</a>
+          <a href="#how-it-works" class="btn btn-outline">See how it works</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         METRICS STRIP
+         ============================================================ -->
+    <div id="metrics" class="reveal">
+      <div class="container">
+        <div class="metrics-grid">
+          <div class="metric-item">
+            <div class="metric-value">200+</div>
+            <div class="metric-label">Native Integrations</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-value">&lt; 48h</div>
+            <div class="metric-label">Time to First Insight</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-value">Zero</div>
+            <div class="metric-label">FDE Required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         MARQUEE
+         ============================================================ -->
+    <div id="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <!-- Content duplicated for seamless infinite loop -->
+        <div class="marquee-item">Connect<span class="marquee-dot"></span>Structure<span class="marquee-dot"></span>Build<span class="marquee-dot"></span>Operate<span class="marquee-dot"></span>Data Engineering<span class="marquee-dot"></span>ML Pipelines<span class="marquee-dot"></span>AI Agents<span class="marquee-dot"></span>Unified Ontology<span class="marquee-dot"></span>Automated Workflows<span class="marquee-dot"></span>Operational Intelligence</div>
+        <div class="marquee-item">Connect<span class="marquee-dot"></span>Structure<span class="marquee-dot"></span>Build<span class="marquee-dot"></span>Operate<span class="marquee-dot"></span>Data Engineering<span class="marquee-dot"></span>ML Pipelines<span class="marquee-dot"></span>AI Agents<span class="marquee-dot"></span>Unified Ontology<span class="marquee-dot"></span>Automated Workflows<span class="marquee-dot"></span>Operational Intelligence</div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         3. THE PROBLEM
+         ============================================================ -->
+    <section id="problem" class="section">
+      <div class="container">
+        <p class="label section-label-row reveal">The Problem</p>
+        <div class="problem-grid">
+
+          <h2 class="problem-statement anim-words">
+            Companies are data-rich and insight-poor.
+          </h2>
+
+          <ol class="problem-list">
+            <li class="problem-item reveal">
+              <span class="problem-num">01</span>
+              <p class="problem-text">Critical data is scattered across CRMs, spreadsheets, and data lakes. Never unified.</p>
+            </li>
+            <li class="problem-item reveal" style="transition-delay:0.1s">
+              <span class="problem-num">02</span>
+              <p class="problem-text">Existing platforms like Palantir Foundry require costly engineering teams and months of deployment.</p>
+            </li>
+            <li class="problem-item reveal" style="transition-delay:0.2s">
+              <span class="problem-num">03</span>
+              <p class="problem-text">Employees waste time on manual tasks that data and AI could automate instantly.</p>
+            </li>
+          </ol>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         4. HOW IT WORKS
+         ============================================================ -->
+    <section id="how-it-works" class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="label section-label-row reveal">How it Works</p>
+          <h2 class="section-title anim-words">From raw data to autonomous operations.</h2>
+        </div>
+
+        <div class="steps-grid reveal-group">
+          <div class="step-card reveal-card">
+            <p class="step-num">Step 01</p>
+            <h3 class="step-title">Connect</h3>
+            <p class="step-desc">Integrate any data source: CRM, ERP, data lakes, spreadsheets.</p>
+          </div>
+          <div class="step-card reveal-card">
+            <p class="step-num">Step 02</p>
+            <h3 class="step-title">Structure</h3>
+            <p class="step-desc">Automatically clean, centralize and organize your data into a unified ontology.</p>
+          </div>
+          <div class="step-card reveal-card">
+            <p class="step-num">Step 03</p>
+            <h3 class="step-title">Build</h3>
+            <p class="step-desc">Create ML pipelines, automated workflows, agents and internal apps.</p>
+          </div>
+          <div class="step-card reveal-card">
+            <p class="step-num">Step 04</p>
+            <h3 class="step-title">Operate</h3>
+            <p class="step-desc">Let Netter understand your business context and suggest what to build, deployed without engineers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         5. USE CASES
+         ============================================================ -->
+    <section id="use-cases" class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="label section-label-row reveal">Use Cases</p>
+          <h2 class="section-title anim-words">Built for operations, not dashboards.</h2>
+        </div>
+
+        <div class="cases-grid reveal-group">
+
+          <article class="case-card reveal-card">
+            <p class="case-tag">Healthcare</p>
+            <h3 class="case-title">Cash &amp; Billing Operations</h3>
+            <p class="case-desc">
+              A healthcare group reduced &euro;10M in client debt by centralizing billing data across
+              facilities, automatically identifying late payments, and triggering personalized recovery
+              workflows. No manual follow-up required.
+            </p>
+          </article>
+
+          <article class="case-card reveal-card">
+            <p class="case-tag">Manufacturing</p>
+            <h3 class="case-title">Supply Chain Intelligence</h3>
+            <p class="case-desc">
+              A manufacturing company unified production, inventory and supplier data into a single
+              platform. Netter detects bottlenecks in real-time and replans production dynamically.
+            </p>
+          </article>
+
+          <article class="case-card reveal-card">
+            <p class="case-tag">Multi-site Operations</p>
+            <h3 class="case-title">Operational Command Centers</h3>
+            <p class="case-desc">
+              A multi-site organization replaced disconnected reporting tools with a live operational
+              view, enabling real-time resource reallocation across thousands of locations.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         6. WHY NETTER
+         ============================================================ -->
+    <section id="why-netter" class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="label section-label-row reveal">Why Netter</p>
+          <h2 class="section-title anim-words">The next generation of enterprise software.</h2>
+        </div>
+
+        <div class="why-grid reveal-group">
+
+          <div class="why-item reveal-card">
+            <svg class="why-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path d="M17 4L7 18h8l-2 10 14-14h-8l2-10z" stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            <h3 class="why-title">No FDE required</h3>
+            <p class="why-desc">Deploy in days, not months. No dedicated engineering team needed to get from data to production.</p>
+          </div>
+
+          <div class="why-item reveal-card">
+            <svg class="why-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <!-- Neural net icon -->
+              <circle cx="6"  cy="10" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
+              <circle cx="6"  cy="22" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
+              <circle cx="16" cy="7"  r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
+              <circle cx="16" cy="16" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
+              <circle cx="16" cy="25" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
+              <circle cx="26" cy="13" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
+              <circle cx="26" cy="22" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
+              <line x1="8.5"  y1="10" x2="13.5" y2="7"  stroke="#0A0A0A" stroke-width="1"/>
+              <line x1="8.5"  y1="10" x2="13.5" y2="16" stroke="#0A0A0A" stroke-width="1"/>
+              <line x1="8.5"  y1="22" x2="13.5" y2="16" stroke="#0A0A0A" stroke-width="1"/>
+              <line x1="8.5"  y1="22" x2="13.5" y2="25" stroke="#0A0A0A" stroke-width="1"/>
+              <line x1="18.5" y1="7"  x2="23.5" y2="13" stroke="#0A0A0A" stroke-width="1"/>
+              <line x1="18.5" y1="16" x2="23.5" y2="13" stroke="#0A0A0A" stroke-width="1"/>
+              <line x1="18.5" y1="16" x2="23.5" y2="22" stroke="#0A0A0A" stroke-width="1"/>
+              <line x1="18.5" y1="25" x2="23.5" y2="22" stroke="#0A0A0A" stroke-width="1"/>
+            </svg>
+            <h3 class="why-title">AI-native from day one</h3>
+            <p class="why-desc">Built for the LLM era. Not a legacy system retrofitted with AI: intelligence is the foundation, not an add-on.</p>
+          </div>
+
+          <div class="why-item reveal-card">
+            <svg class="why-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path d="M16 4v8M16 20v8M4 16h8M20 16h8" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="square"/>
+              <circle cx="16" cy="16" r="5" stroke="#0A0A0A" stroke-width="1.5"/>
+              <circle cx="16" cy="4"  r="2" fill="#0A0A0A"/>
+              <circle cx="16" cy="28" r="2" fill="#0A0A0A"/>
+              <circle cx="4"  cy="16" r="2" fill="#0A0A0A"/>
+              <circle cx="28" cy="16" r="2" fill="#0A0A0A"/>
+            </svg>
+            <h3 class="why-title">Operational, not passive</h3>
+            <p class="why-desc">Netter doesn't just surface insights. It triggers actions, automates workflows and transforms how your team works.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         7. CONTACT / BOOK A DEMO
+         ============================================================ -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="contact-simple reveal">
+          <p class="label" style="margin-bottom:1rem">Book a Demo</p>
+          <h2 class="contact-title">Ready to activate your data?</h2>
+          <p class="contact-sub">
+            Join the companies using Netter to build the next generation of their operations.
+          </p>
+          <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener"
+             class="btn btn-primary btn-arrow" style="margin-top:2rem">Book a Demo</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       8. FOOTER
+       ============================================================ -->
+  <footer id="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">Netter DMI</span>
+        <span class="footer-copy">&copy; 2025</span>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="#">Privacy</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    // ── Nav toggle ────────────────────────────────────────────────
+    const navToggle = document.getElementById('nav-toggle');
+    const navMobile = document.getElementById('nav-mobile');
+
+    navToggle.addEventListener('click', () => {
+      const open = navMobile.classList.toggle('open');
+      navToggle.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    navMobile.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navMobile.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ── Nav border on scroll ──────────────────────────────────────
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.borderBottomColor = window.scrollY > 10 ? '#D0D0D0' : '#E5E5E5';
+    }, { passive: true });
+
+    // ── Word split animation ──────────────────────────────────────
+    // Splits headline text into words, each wrapped for clip-path reveal.
+    function splitWords(el) {
+      const words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = words.map((word, i) => {
+        const delay = (parseFloat(el.dataset.delay || 0) + i * 0.07).toFixed(2);
+        return `<span class="word-outer"><span class="word-inner" style="transition-delay:${delay}s">${word}</span></span>`;
+      }).join(' ');
+    }
+
+    document.querySelectorAll('.anim-words').forEach(el => splitWords(el));
+
+    // ── IntersectionObserver ──────────────────────────────────────
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible', 'animated');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .reveal-card, .reveal-group, .anim-words').forEach(el => io.observe(el));
+
+    // ── Hero SVG: sequential path-drawing animation ───────────────
+    // Uses getTotalLength() for precise dash values, then animates to 0.
+    function animateHeroSVG() {
+      const svg = document.querySelector('#hero-visual svg');
+      if (!svg) return;
+
+      // Animate source paths first (left cluster in)
+      const srcPaths = ['fp1','fp2','fp3','fp4','fp5','fp6'];
+      srcPaths.forEach((id, i) => {
+        const path = document.getElementById(id);
+        if (!path) return;
+        const len = path.getTotalLength();
+        path.style.strokeDasharray = len;
+        path.style.strokeDashoffset = len;
+        setTimeout(() => {
+          path.style.transition = `stroke-dashoffset 0.9s cubic-bezier(0.16,1,0.3,1)`;
+          path.style.strokeDashoffset = 0;
+        }, 900 + i * 120);
+      });
+
+      // Fade in source nodes and labels
+      document.querySelectorAll('.src-node, .node-label').forEach((el, i) => {
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.5s ease';
+          el.style.opacity = '1';
+        }, 800 + i * 80);
+      });
+
+      // Hub node appears after source paths finish
+      setTimeout(() => {
+        const hub = document.getElementById('hub-node');
+        const hubLabel = document.getElementById('hub-label');
+        const hubRing = document.getElementById('hub-ring');
+        if (hub) { hub.style.transition = 'opacity 0.4s ease'; hub.style.opacity = '1'; }
+        if (hubLabel) { hubLabel.style.transition = 'opacity 0.4s ease 0.15s'; hubLabel.style.opacity = '1'; }
+        if (hubRing) { hubRing.style.opacity = '1'; }
+      }, 1900);
+
+      // Output paths draw after hub appears
+      const outPaths = ['fp7','fp8','fp9','fp10'];
+      outPaths.forEach((id, i) => {
+        const path = document.getElementById(id);
+        if (!path) return;
+        const len = path.getTotalLength();
+        path.style.strokeDasharray = len;
+        path.style.strokeDashoffset = len;
+        setTimeout(() => {
+          path.style.transition = `stroke-dashoffset 0.75s cubic-bezier(0.16,1,0.3,1)`;
+          path.style.strokeDashoffset = 0;
+        }, 2200 + i * 110);
+      });
+
+      // Output nodes and labels fade in
+      document.querySelectorAll('.out-node, .out-label').forEach((el, i) => {
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.45s ease';
+          el.style.opacity = '1';
+        }, 2400 + i * 90);
+      });
+    }
+
+    // Start SVG animation after a short delay (page load feel)
+    window.addEventListener('load', () => {
+      setTimeout(animateHeroSVG, 400);
+    });
+
+    // Fallback if load event already fired
+    if (document.readyState === 'complete') {
+      setTimeout(animateHeroSVG, 400);
+    }
+
+    // ── Form submit (client-side demo) ────────────────────────────
+    document.getElementById('access-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const inputs = e.target.querySelectorAll('[required]');
+      let valid = true;
+
+      inputs.forEach(input => {
+        input.style.borderColor = '';
+        const empty = !input.value.trim();
+        const badEmail = input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+        if (empty || badEmail) {
+          input.style.borderColor = '#0A0A0A';
+          valid = false;
+        }
+      });
+
+      if (!valid) return;
+
+      e.target.style.display = 'none';
+      document.getElementById('form-success').classList.add('visible');
+    });
+  </script>
+
+</body>
+</html>
