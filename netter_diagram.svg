@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="1200" height="480" style="background:#ffffff; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+
+  <!-- Dot grid background -->
+  <defs>
+    <pattern id="dots" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="15" cy="15" r="1" fill="#d8d8d8"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="480" fill="url(#dots)"/>
+
+  <!-- === LEFT SIDE CONNECTIONS (gray) === -->
+  <!-- CRM to center -->
+  <path d="M 130,140 C 350,140 430,240 590,240" stroke="#b0b0b0" stroke-width="1.5" fill="none"/>
+  <!-- DB to center -->
+  <path d="M 290,118 C 420,118 480,200 590,240" stroke="#b0b0b0" stroke-width="1.5" fill="none"/>
+  <!-- ERP to center -->
+  <path d="M 130,248 C 340,248 460,244 590,240" stroke="#b0b0b0" stroke-width="1.5" fill="none"/>
+  <!-- FILES to center -->
+  <path d="M 130,340 C 340,340 460,280 590,240" stroke="#b0b0b0" stroke-width="1.5" fill="none"/>
+  <!-- API to center -->
+  <path d="M 295,310 C 420,310 480,270 590,240" stroke="#b0b0b0" stroke-width="1.5" fill="none"/>
+
+  <!-- === RIGHT SIDE CONNECTIONS (black) === -->
+  <!-- center to WORKFLOWS -->
+  <path d="M 610,240 C 760,240 860,148 1070,148" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <!-- center to AGENTS -->
+  <path d="M 610,240 C 780,240 880,210 1070,210" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <!-- center to REPORTS -->
+  <path d="M 610,240 C 780,240 880,268 1070,268" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <!-- center to OPS TOOLS -->
+  <path d="M 610,240 C 760,240 860,330 1070,330" stroke="#888888" stroke-width="1.5" fill="none"/>
+
+  <!-- === CENTER NODE === -->
+  <circle cx="600" cy="240" r="36" fill="#1a1a1a"/>
+  <text x="600" y="236" text-anchor="middle" fill="white" font-size="10.5" font-weight="600" letter-spacing="1.5">NETTER</text>
+
+  <!-- === LEFT NODES === -->
+  <!-- CRM -->
+  <circle cx="118" cy="140" r="7" fill="#b0b0b0"/>
+  <text x="90" y="136" text-anchor="end" fill="#888888" font-size="11" letter-spacing="1">CRM</text>
+
+  <!-- DB -->
+  <circle cx="280" cy="118" r="7" fill="#b0b0b0"/>
+  <text x="268" y="105" text-anchor="middle" fill="#888888" font-size="11" letter-spacing="1">DB</text>
+
+  <!-- ERP -->
+  <circle cx="118" cy="248" r="7" fill="#b0b0b0"/>
+  <text x="90" y="252" text-anchor="end" fill="#888888" font-size="11" letter-spacing="1">ERP</text>
+
+  <!-- FILES -->
+  <circle cx="118" cy="340" r="7" fill="#b0b0b0"/>
+  <text x="90" y="344" text-anchor="end" fill="#888888" font-size="11" letter-spacing="1">FILES</text>
+
+  <!-- API -->
+  <circle cx="285" cy="310" r="7" fill="#b0b0b0"/>
+  <text x="273" y="298" text-anchor="middle" fill="#888888" font-size="11" letter-spacing="1">API</text>
+
+  <!-- === RIGHT NODES === -->
+  <!-- WORKFLOWS -->
+  <circle cx="1070" cy="148" r="9" fill="#1a1a1a"/>
+  <text x="1088" y="152" text-anchor="start" fill="#1a1a1a" font-size="11" letter-spacing="1" font-weight="500">WORKFLOWS</text>
+
+  <!-- AGENTS -->
+  <circle cx="1070" cy="210" r="9" fill="#1a1a1a"/>
+  <text x="1088" y="214" text-anchor="start" fill="#1a1a1a" font-size="11" letter-spacing="1" font-weight="500">AGENTS</text>
+
+  <!-- REPORTS -->
+  <circle cx="1070" cy="268" r="9" fill="#1a1a1a"/>
+  <text x="1088" y="272" text-anchor="start" fill="#1a1a1a" font-size="11" letter-spacing="1" font-weight="500">REPORTS</text>
+
+  <!-- OPS TOOLS -->
+  <circle cx="1070" cy="330" r="7" fill="#888888"/>
+  <text x="1088" y="334" text-anchor="start" fill="#888888" font-size="11" letter-spacing="1">OPS TOOLS</text>
+
+</svg>
