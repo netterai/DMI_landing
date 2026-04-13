@@ -546,11 +546,9 @@
     /* ============================================================
        3. THE PROBLEM
        ============================================================ */
-    #problem .problem-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(2rem, 6vw, 5rem);
-      align-items: start;
+    #problem .problem-header {
+      text-align: center;
+      margin-bottom: 3rem;
     }
 
     .problem-statement {
@@ -561,33 +559,58 @@
     }
 
     .problem-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1rem, 2vw, 1.5rem);
     }
 
     .problem-item {
-      display: grid;
-      grid-template-columns: 2.5rem 1fr;
-      gap: 0.5rem;
-      align-items: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: clamp(1.5rem, 2.5vw, 2rem);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .problem-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
+
+    .problem-icon {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 1.25rem;
     }
 
     .problem-num {
       font-family: var(--mono);
       font-size: 0.55rem;
       letter-spacing: 0.06em;
-      color: #fff;
-      padding: 0.25rem 0.45rem;
+      color: var(--amber-text);
+      padding: 0.2rem 0.5rem;
       font-weight: 600;
-      background: var(--amber);
-      border-radius: var(--radius);
+      background: var(--amber-subtle);
+      border: 1px solid var(--amber-muted);
+      border-radius: 100px;
       display: inline-block;
       text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .problem-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
     }
 
     .problem-text {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--secondary);
       line-height: 1.7;
     }
@@ -614,61 +637,67 @@
     .steps-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      border: 1px solid var(--border);
+      gap: clamp(1rem, 2vw, 1.5rem);
     }
 
     .step-card {
-      padding: clamp(1.5rem, 2.5vw, 2rem) clamp(1.25rem, 2vw, 1.75rem) clamp(2rem, 3vw, 2.5rem);
-      border-right: 1px solid var(--border);
+      padding: clamp(1.5rem, 2.5vw, 2rem);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       position: relative;
       background: #fff;
-      transition: background 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
-    .step-card:last-child { border-right: none; }
+    .step-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
 
-    .step-card:hover { background: var(--accent-subtle); }
-
-    /* Connector arrow between steps */
-    .step-card:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      right: -5px;
-      width: 8px;
-      height: 8px;
-      border-top: 1px solid var(--border-med);
-      border-right: 1px solid var(--border-med);
-      transform: translateY(-50%) rotate(45deg);
-      background: #fff;
-      z-index: 1;
+    .step-icon {
+      width: 48px;
+      height: 48px;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
     }
 
     .step-num {
       font-family: var(--mono);
-      font-size: 0.6rem;
+      font-size: 0.55rem;
       letter-spacing: 0.1em;
-      color: #fff;
+      color: var(--accent);
       text-transform: uppercase;
-      margin-bottom: 1.75rem;
+      margin-bottom: 0.5rem;
       font-weight: 600;
-      background: var(--accent);
-      display: inline-block;
-      padding: 0.2rem 0.55rem;
-      border-radius: var(--radius);
     }
 
     .step-title {
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 700;
       letter-spacing: -0.025em;
       margin-bottom: 0.6rem;
     }
 
     .step-desc {
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       color: var(--secondary);
-      line-height: 1.65;
+      line-height: 1.7;
+    }
+
+    .step-connector {
+      display: none;
+      position: absolute;
+      top: 50%;
+      right: -1.25rem;
+      transform: translateY(-50%);
+      color: var(--border-med);
+    }
+
+    @media (min-width: 681px) {
+      .step-card:not(:last-child) .step-connector { display: block; }
     }
 
     /* ============================================================
@@ -755,38 +784,112 @@
     }
 
     /* ============================================================
-       6. WHY NETTER
+       6. GET STARTED
        ============================================================ */
-    .why-grid {
+    .phases-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    .phase-card {
       border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .why-item {
-      padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 2rem);
-      border-right: 1px solid var(--border);
+    .phase-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
     }
 
-    .why-item:last-child { border-right: none; }
-
-    .why-icon {
-      width: 32px;
-      height: 32px;
-      margin-bottom: 1.75rem;
+    .phase-header {
+      padding: 1.5rem 1.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .why-title {
-      font-size: 1rem;
+    .phase-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+
+    .phase-num {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .phase-title {
+      font-size: 1.25rem;
       font-weight: 700;
-      letter-spacing: -0.025em;
-      margin-bottom: 0.65rem;
+      letter-spacing: -0.03em;
     }
 
-    .why-desc {
-      font-size: 0.875rem;
+    .phase-subtitle {
+      font-size: 0.8rem;
+      color: var(--tertiary);
+      font-style: italic;
+    }
+
+    .phase-body {
+      padding: 0 1.75rem 1.75rem;
+    }
+
+    .phase-bullets {
+      list-style: none;
+    }
+
+    .phase-bullets li {
+      font-size: 0.85rem;
       color: var(--secondary);
-      line-height: 1.72;
+      line-height: 1.7;
+      padding: 0.4rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      border-bottom: 1px solid var(--bg-sunken);
+    }
+
+    .phase-bullets li:last-child { border-bottom: none; }
+
+    .phase-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.85em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .phase-footer {
+      padding: 1rem 1.75rem;
+      background: var(--accent-subtle);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .phase-footer svg {
+      width: 16px;
+      height: 16px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .phase-footer span {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-text);
     }
 
     /* ============================================================
@@ -937,19 +1040,13 @@
       .nav-links { display: none; }
       .nav-toggle { display: flex; }
 
-      #problem .problem-grid {
+      .problem-list {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
       }
 
       .cases-grid { grid-template-columns: repeat(2, 1fr); }
 
-      .why-grid { grid-template-columns: repeat(2, 1fr); }
-      .why-item:nth-child(2) { border-right: none; }
-      .why-item:nth-child(n+3) {
-        border-top: 1px solid var(--border);
-        border-right: none;
-      }
+      .phases-grid { grid-template-columns: 1fr 1fr; }
 
       .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
     }
@@ -958,13 +1055,7 @@
     @media (max-width: 680px) {
       .cases-grid { grid-template-columns: 1fr; }
 
-      .why-grid { grid-template-columns: 1fr; }
-      .why-item {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        border-top: none !important;
-      }
-      .why-item:last-child { border-bottom: none; }
+      .phases-grid { grid-template-columns: 1fr; }
 
       .hero-title { letter-spacing: -0.03em; }
     }
@@ -1580,69 +1671,69 @@
          ============================================================ -->
     <section id="problem" class="section">
       <div class="container">
-        <p class="label section-label-row reveal">The Problem</p>
-        <div class="problem-grid">
+        <div class="problem-header">
+          <p class="label section-label-row reveal">The Problem</p>
+          <h2 class="problem-statement anim-words">Data is too scattered to act on.</h2>
+        </div>
 
-          <h2 class="problem-statement anim-words">
-            Companies are data-rich and insight-poor.
-          </h2>
+        <div class="problem-list reveal-group">
 
-          <ol class="problem-list">
-            <li class="problem-item reveal">
-              <span class="problem-num">01</span>
-              <p class="problem-text">Critical data is scattered across CRMs, spreadsheets, and data lakes. Never unified.</p>
-            </li>
-            <li class="problem-item reveal" style="transition-delay:0.1s">
-              <span class="problem-num">02</span>
-              <p class="problem-text">Existing platforms like Palantir Foundry require costly engineering teams and months of deployment.</p>
-            </li>
-            <li class="problem-item reveal" style="transition-delay:0.2s">
-              <span class="problem-num">03</span>
-              <p class="problem-text">Employees waste time on manual tasks that data and AI could automate instantly.</p>
-            </li>
-          </ol>
+          <div class="problem-item reveal-card">
+            <svg class="problem-icon" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+              <rect x="4" y="4" width="18" height="18" rx="3" stroke="#D97706" stroke-width="1.6"/>
+              <rect x="34" y="4" width="18" height="18" rx="3" stroke="#D97706" stroke-width="1.6"/>
+              <rect x="4" y="34" width="18" height="18" rx="3" stroke="#D97706" stroke-width="1.6"/>
+              <rect x="34" y="34" width="18" height="18" rx="3" stroke="#D97706" stroke-width="1.6"/>
+              <path d="M22 13h12M22 43h12M13 22v12M43 22v12" stroke="#D97706" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="3 3" opacity="0.4"/>
+              <line x1="20" y1="20" x2="36" y2="36" stroke="#D97706" stroke-width="1.4" stroke-dasharray="3 3" opacity="0.3"/>
+              <line x1="36" y1="20" x2="20" y2="36" stroke="#D97706" stroke-width="1.4" stroke-dasharray="3 3" opacity="0.3"/>
+            </svg>
+            <span class="problem-num">01</span>
+            <h3 class="problem-title">Siloed data</h3>
+            <p class="problem-text">Data is scattered across entities and systems (CRMs, ERPs, data lakes).</p>
+          </div>
+
+          <div class="problem-item reveal-card" style="transition-delay:0.1s">
+            <svg class="problem-icon" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+              <circle cx="28" cy="22" r="10" stroke="#D97706" stroke-width="1.6"/>
+              <path d="M10 48c0-8 8-14 18-14s18 6 18 14" stroke="#D97706" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M28 18v8M24 22h8" stroke="#D97706" stroke-width="1.6" stroke-linecap="round" opacity="0.5"/>
+              <path d="M38 14l4-4M42 10l-2 6M42 10l-6 2" stroke="#D97706" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
+            </svg>
+            <span class="problem-num">02</span>
+            <h3 class="problem-title">Ideas stuck</h3>
+            <p class="problem-text">The smartest operators have ideas they can't bring to life.</p>
+          </div>
+
+          <div class="problem-item reveal-card" style="transition-delay:0.2s">
+            <svg class="problem-icon" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+              <!-- Head -->
+              <circle cx="28" cy="32" r="14" stroke="#D97706" stroke-width="1.6"/>
+              <!-- Eyes (X X) -->
+              <path d="M21 30l4 4M25 30l-4 4" stroke="#D97706" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M31 30l4 4M35 30l-4 4" stroke="#D97706" stroke-width="1.6" stroke-linecap="round"/>
+              <!-- Mouth -->
+              <path d="M22 40c2-2 4-2 6 0s4 2 6 0" stroke="#D97706" stroke-width="1.4" stroke-linecap="round"/>
+              <!-- Explosion particles -->
+              <path d="M20 16l-4-8M28 14v-10M36 16l4-8" stroke="#D97706" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M14 20l-6-4M42 20l6-4" stroke="#D97706" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
+              <circle cx="16" cy="6" r="2" fill="#D97706" opacity="0.4"/>
+              <circle cx="40" cy="6" r="1.5" fill="#D97706" opacity="0.3"/>
+              <circle cx="28" cy="2" r="2.5" fill="#D97706" opacity="0.35"/>
+              <circle cx="8" cy="14" r="1.5" fill="#D97706" opacity="0.25"/>
+              <circle cx="48" cy="14" r="2" fill="#D97706" opacity="0.3"/>
+            </svg>
+            <span class="problem-num">03</span>
+            <h3 class="problem-title">Painful tools</h3>
+            <p class="problem-text">Existing tools require engineers. Non-technical teams can't build what they need.</p>
+          </div>
 
         </div>
       </div>
     </section>
 
     <!-- ============================================================
-         4. HOW IT WORKS
-         ============================================================ -->
-    <section id="how-it-works" class="section section-sunken">
-      <div class="container">
-        <div class="section-header">
-          <p class="label section-label-row reveal">How it Works</p>
-          <h2 class="section-title anim-words">From raw data to autonomous operations.</h2>
-        </div>
-
-        <div class="steps-grid reveal-group">
-          <div class="step-card reveal-card">
-            <p class="step-num">Step 01</p>
-            <h3 class="step-title">Connect</h3>
-            <p class="step-desc">Integrate any data source: CRM, ERP, data lakes, spreadsheets.</p>
-          </div>
-          <div class="step-card reveal-card">
-            <p class="step-num">Step 02</p>
-            <h3 class="step-title">Structure</h3>
-            <p class="step-desc">Automatically clean, centralize and organize your data into a unified ontology.</p>
-          </div>
-          <div class="step-card reveal-card">
-            <p class="step-num">Step 03</p>
-            <h3 class="step-title">Build</h3>
-            <p class="step-desc">Create ML pipelines, automated workflows, agents and internal apps.</p>
-          </div>
-          <div class="step-card reveal-card">
-            <p class="step-num">Step 04</p>
-            <h3 class="step-title">Operate</h3>
-            <p class="step-desc">Let Netter understand your business context and suggest what to build, deployed without engineers.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         5. USE CASES
+         USE CASES
          ============================================================ -->
     <section id="use-cases" class="section">
       <div class="container">
@@ -1756,59 +1847,138 @@
     </section>
 
     <!-- ============================================================
-         6. WHY NETTER
+         HOW IT WORKS
          ============================================================ -->
-    <section id="why-netter" class="section">
+    <section id="how-it-works" class="section section-sunken">
       <div class="container">
         <div class="section-header">
-          <p class="label section-label-row reveal">Why Netter</p>
-          <h2 class="section-title anim-words">The next generation of enterprise software.</h2>
+          <p class="label section-label-row reveal">How it Works</p>
+          <h2 class="section-title anim-words">From raw data to autonomous operations.</h2>
         </div>
 
-        <div class="why-grid reveal-group">
+        <div class="steps-grid reveal-group">
 
-          <div class="why-item reveal-card">
-            <svg class="why-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-              <path d="M17 4L7 18h8l-2 10 14-14h-8l2-10z" stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="round"/>
+          <div class="step-card reveal-card">
+            <svg class="step-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M18 24h-12M30 24h12M24 18v-12M24 30v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="6" cy="24" r="3" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="42" cy="24" r="3" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="24" cy="6" r="3" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="24" cy="42" r="3" stroke="currentColor" stroke-width="1.3"/>
             </svg>
-            <h3 class="why-title">No FDE required</h3>
-            <p class="why-desc">Deploy in days, not months. No dedicated engineering team needed to get from data to production.</p>
+            <p class="step-num">01</p>
+            <h3 class="step-title">Connect</h3>
+            <p class="step-desc">Plug any source (CRM, ERP, data lake) or simply upload raw files (CSV, JSON, Excel).</p>
+            <svg class="step-connector" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 10h8M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
 
-          <div class="why-item reveal-card">
-            <svg class="why-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-              <!-- Neural net icon -->
-              <circle cx="6"  cy="10" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
-              <circle cx="6"  cy="22" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
-              <circle cx="16" cy="7"  r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
-              <circle cx="16" cy="16" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
-              <circle cx="16" cy="25" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
-              <circle cx="26" cy="13" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
-              <circle cx="26" cy="22" r="2.5" stroke="#0A0A0A" stroke-width="1.5"/>
-              <line x1="8.5"  y1="10" x2="13.5" y2="7"  stroke="#0A0A0A" stroke-width="1"/>
-              <line x1="8.5"  y1="10" x2="13.5" y2="16" stroke="#0A0A0A" stroke-width="1"/>
-              <line x1="8.5"  y1="22" x2="13.5" y2="16" stroke="#0A0A0A" stroke-width="1"/>
-              <line x1="8.5"  y1="22" x2="13.5" y2="25" stroke="#0A0A0A" stroke-width="1"/>
-              <line x1="18.5" y1="7"  x2="23.5" y2="13" stroke="#0A0A0A" stroke-width="1"/>
-              <line x1="18.5" y1="16" x2="23.5" y2="13" stroke="#0A0A0A" stroke-width="1"/>
-              <line x1="18.5" y1="16" x2="23.5" y2="22" stroke="#0A0A0A" stroke-width="1"/>
-              <line x1="18.5" y1="25" x2="23.5" y2="22" stroke="#0A0A0A" stroke-width="1"/>
+          <div class="step-card reveal-card">
+            <svg class="step-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <path d="M24 6L4 16l20 10 20-10L24 6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M4 24l20 10 20-10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M4 32l20 10 20-10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
             </svg>
-            <h3 class="why-title">AI-native from day one</h3>
-            <p class="why-desc">Built for the LLM era. Not a legacy system retrofitted with AI: intelligence is the foundation, not an add-on.</p>
+            <p class="step-num">02</p>
+            <h3 class="step-title">Structure</h3>
+            <p class="step-desc">Netter cleans, normalizes and organizes everything into a unified ontology, automatically.</p>
+            <svg class="step-connector" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 10h8M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
 
-          <div class="why-item reveal-card">
-            <svg class="why-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-              <path d="M16 4v8M16 20v8M4 16h8M20 16h8" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="square"/>
-              <circle cx="16" cy="16" r="5" stroke="#0A0A0A" stroke-width="1.5"/>
-              <circle cx="16" cy="4"  r="2" fill="#0A0A0A"/>
-              <circle cx="16" cy="28" r="2" fill="#0A0A0A"/>
-              <circle cx="4"  cy="16" r="2" fill="#0A0A0A"/>
-              <circle cx="28" cy="16" r="2" fill="#0A0A0A"/>
+          <div class="step-card reveal-card">
+            <svg class="step-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <rect x="4" y="4" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="26" y="4" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="4" y="30" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="26" y="30" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M13 18v12M35 18v12M22 11h4M22 37h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 2"/>
             </svg>
-            <h3 class="why-title">Operational, not passive</h3>
-            <p class="why-desc">Netter doesn't just surface insights. It triggers actions, automates workflows and transforms how your team works.</p>
+            <p class="step-num">03</p>
+            <h3 class="step-title">Build</h3>
+            <p class="step-desc">Create dashboards, workflows, ML pipelines, AI agents and internal apps. No code.</p>
+            <svg class="step-connector" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 10h8M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <div class="step-card reveal-card">
+            <svg class="step-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <path d="M24 4c-6 8-8 16-8 24h16c0-8-2-16-8-24z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="24" cy="22" r="3" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M16 28c-4 0-8 2-10 6h10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M32 28c4 0 8 2 10 6H32" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M20 42h8M22 38h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <p class="step-num">04</p>
+            <h3 class="step-title">Operate</h3>
+            <p class="step-desc">Netter runs, monitors and optimizes. Your team stays focused on the business.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         GET STARTED
+         ============================================================ -->
+    <section id="get-started" class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="label section-label-row reveal">Get Started</p>
+          <h2 class="section-title anim-words">Start with one use case. Then transform your operations.</h2>
+        </div>
+
+        <div class="phases-grid reveal-group">
+
+          <div class="phase-card reveal-card">
+            <div class="phase-header">
+              <svg class="phase-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <circle cx="24" cy="24" r="18" stroke="#6366F1" stroke-width="1.6"/>
+                <path d="M18 24l4 4 8-8" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <p class="phase-num">Phase 01</p>
+                <h3 class="phase-title">Pilot</h3>
+                <p class="phase-subtitle">One use case, clear ROI</p>
+              </div>
+            </div>
+            <div class="phase-body">
+              <ul class="phase-bullets">
+                <li>Pick one operational issue with measurable impact</li>
+                <li>Live in 2 weeks with easy data integration</li>
+                <li>Discover the platform and its possibilities</li>
+                <li>No consulting, no engineering dependency</li>
+              </ul>
+            </div>
+            <div class="phase-footer">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/></svg>
+              <span>Live in 2 weeks</span>
+            </div>
+          </div>
+
+          <div class="phase-card reveal-card">
+            <div class="phase-header">
+              <svg class="phase-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <path d="M10 34l8-10 6 6 14-18" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M32 12h6v6" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="4" y="8" width="40" height="32" rx="3" stroke="#6366F1" stroke-width="1.6"/>
+              </svg>
+              <div>
+                <p class="phase-num">Phase 02</p>
+                <h3 class="phase-title">Scale</h3>
+                <p class="phase-subtitle">Deploy across your entire organization</p>
+              </div>
+            </div>
+            <div class="phase-body">
+              <ul class="phase-bullets">
+                <li>Data is centralized and organized in one place</li>
+                <li>Build anything: dashboards, workflows, agents, apps</li>
+                <li>Unified across teams and sites</li>
+                <li>Accelerate your digital transformation</li>
+              </ul>
+            </div>
+            <div class="phase-footer">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M4 8h8M8 4v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span>One platform, unlimited use cases</span>
+            </div>
           </div>
 
         </div>
@@ -1824,7 +1994,7 @@
           <p class="label" style="margin-bottom:1rem">Book a Demo</p>
           <h2 class="contact-title">Ready to activate your data?</h2>
           <p class="contact-sub">
-            Join the companies using Netter to build the next generation of their operations.
+            Tell us about your use cases. We'll figure out the rest together.
           </p>
           <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener"
              class="btn btn-primary btn-arrow" style="margin-top:2rem">Book a Demo</a>
