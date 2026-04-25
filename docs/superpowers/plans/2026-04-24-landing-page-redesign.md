@@ -1932,3 +1932,87 @@ git commit -m "Record QA results for landing page redesign"
 **Type/identifier consistency:** Class names used in the plan are consistent across tasks. The two new spans `.serif-italic` (Task 4 hero, Task 7 case-outcome, Task 8 confidence line) all share the same definition from Task 4. The variable `--border-strong` is introduced in Task 1 and referenced in Tasks 6, 7, 8.
 
 **Out-of-scope items honored:** No A/B testing, no analytics changes, no real product screenshots, no internationalization, no blog. Favicon generation noted as manual / external.
+
+---
+
+## QA Results — 2026-04-24
+
+### Code-side audit (this report, not browser-based)
+
+- **Stale-reference grep audit:** PASS — all 24 grep targets returned 0 hits. Confirmed:
+  - `--accent-pressed`, `--accent-subtle`, `--accent-muted`, `--accent-text`: 0 hits
+  - `--amber`, `--mono`, `--border-med`: 0 hits
+  - `anim-words`, `data-delay`, `word-outer/inner`, `splitWords`, `nth-child(1) { transition-delay`: 0 hits
+  - `phase-`, `problem-`: 0 hits
+  - `hero-visual`, `hero-tagline`, `hero-label`, `hero-uc`, `hero-usecases`, `animateHeroSVG`: 0 hits
+  - `chip-grad`, `card-glass`, `plat-*`, `ambient-glow`, `depth-fog`, `shadow-card/platform/src`: 0 hits
+  - `INSEE`, `DSO`, `sell-in`, `sell-out`, `TMS, ERP`: 0 hits
+  - `Customer Enrichment`, `Data Monetization`: 0 hits
+  - `Phase 01`, `Phase 02`, `Pilot, clear ROI`: 0 hits
+  - `Doordash` (lowercase d): 0 hits — only correct `DoorDash` (line 1167, YC row) remains
+  - `nav.style.borderBottomColor`, `'#D0D0D0'`, `'#E5E5E5'`, `'#0A0A0A'` (in JS): 0 hits
+  - `id="problem"`, `id="get-started"`: 0 hits
+  - `<form`, `<input`, `<textarea`: 0 hits
+  - `class="nav-logo-mark"`, `class="nav-logo-name"`, `class="nav-logo-sub"`: 0 hits
+  - `Switch on your data with Netter`, `Data is too scattered to act on`: 0 hits
+  - `Real operations. Real impact.`: exactly 1 hit (line 1006, Use Cases `<h2>`) — correct
+  - `Live in 2 weeks`: exactly 1 hit (line 1153, How it Works confidence line) — correct
+  - `Backed by Y Combinator`: 3 hits — line 7 (meta description), line 853 (nav chip), line 894 (hero subline) — all legitimate
+
+- **Section structure:** PASS — HTML section order matches spec exactly:
+  1. `<!-- 1. NAVIGATION -->` / `<nav id="nav">`
+  2. `<!-- 2. HERO -->` / `<section id="hero">`
+  3. `<!-- 3. OUTPUTS -->` / `<section id="outputs">`
+  4. `<!-- 4. USE CASES -->` / `<section id="use-cases">`
+  5. `<!-- 5. HOW IT WORKS -->` / `<section id="how-it-works">`
+  6. `<!-- YC TRUST ROW -->` (unnumbered) / `<section class="yc-row">`
+  7. `<!-- 6. CONTACT / BOOK A DEMO -->` / `<section id="contact">`
+  8. `<!-- 7. FOOTER -->` / `<footer class="footer">`
+  - CSS ordering anomaly fixed in this task (see Issues section below).
+
+- **HTML/CSS/JS structural validation:** PASS
+  - Exactly one `<head>`, `<body>`, `<nav id="nav">`, `<main id="main">`, `<footer>`
+  - `<main id="main" tabindex="-1">` confirmed present
+  - `<html lang="en">` confirmed
+  - `<title>Netter — Switch on your data</title>` set and non-empty
+  - All block-level tags balanced: div (26/26), section (6/6), article (8/8), ul (5/5), li (15/15), nav (1/1), main (1/1), footer (1/1), head (1/1), body (1/1)
+  - Exactly one `IntersectionObserver` in the JS (line 1239)
+
+- **Token system audit:** PASS — all required tokens present in `:root`:
+  - Background: `--bg`, `--bg-raised`, `--bg-sunken`
+  - Text: `--text`, `--secondary`, `--tertiary`
+  - Border: `--border`, `--border-strong`
+  - Accent: `--accent`, `--accent-hover`
+  - Brand: `--yc-orange`
+  - Status: `--success`, `--error`
+  - Typography: `--font`, `--serif`
+  - Radius: `--radius`, `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-pill`
+  - Layout: `--nav-h`
+  - Motion: `--ease-spring`, `--ease-out`, `--ease-in-out`
+  - No extra tokens found outside this list.
+
+- **Inline literal audit:** 3 rgba() literals outside `:root` — all legitimate exceptions:
+  - Line 236: `rgba(252, 250, 247, 0.85)` — nav glassmorphism background (`--bg` at 85% opacity; cannot use `var()` with alpha modifier without `color-mix()`)
+  - Line 245: `rgba(252, 250, 247, 0.92)` — nav scrolled state (`--bg` at 92% opacity; same reason)
+  - Line 524: `rgba(21,23,28,0.04)` — output tile subtle box-shadow (`--text` at 4% opacity; same reason)
+  - Zero hex literals outside `:root`.
+
+- **File line count:** 1255 lines (plan estimated ~1700; final is leaner due to section cuts)
+
+### Issues found and fixed in Task 13
+
+- **CSS section ordering:** `/* 5. HOW IT WORKS */` appeared before `/* 4. USE CASES */` in the CSS block (lines ~546–706), while the HTML order is USE CASES then HOW IT WORKS. Fixed by swapping the two CSS blocks so source order matches HTML order. No rendering impact (CSS cascade is unaffected by source order for these non-overlapping selectors), but cleaner for maintenance.
+
+### Browser-based QA
+
+To be performed by user: visual review across desktop widths (1280, 1440, 1920) and mobile (375, 390, 768), keyboard tab-through, reduced-motion test, Lighthouse run.
+
+### Open items deferred to user (NOT for redesign-landing merge)
+
+- **OG image:** `Netter-LinkedIn-Banner.png` is 4512×764 (LinkedIn banner aspect 5.9:1) — wrong for social shares which expect 1200×630 (1.91:1). User to generate a proper `og-image.png` at 1200×630 and update `og:image` + `twitter:image` references, plus add `og:image:width` / `og:image:height` meta tags.
+- **French LCEN compliance:** Footer "Legal" link currently points to `mailto:samuel@netter.ai`. Before public launch, replace with link to a proper `/legal` page containing: company name + legal form (SAS/SARL), share capital, RCS/SIRET, head office address, director of publication, hosting provider name + contact.
+- **Operate icon:** flagged as the visually weakest of the four step icons. Optional polish.
+
+### Taste pass to follow (post-Task-13)
+
+After this task, the orchestrator will run `polish` and `critique` skills against the live page to surface remaining alignment / spacing / hierarchy / copy issues, plus possibly `delight` for any remaining motion or micro-interaction opportunities.

@@ -544,84 +544,6 @@
     }
 
     /* ============================================================
-       5. HOW IT WORKS
-       ============================================================ */
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.25rem;
-      align-items: start;
-    }
-
-    @media (max-width: 980px) {
-      .steps-grid { grid-template-columns: repeat(2, 1fr); }
-      .step-connector { display: none; }
-    }
-    @media (max-width: 540px) {
-      .steps-grid { grid-template-columns: 1fr; }
-    }
-
-    .step-card {
-      position: relative;
-      padding: 1.5rem;
-      background: var(--bg-raised);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      color: var(--text);
-    }
-
-    .step-icon {
-      width: 32px;
-      height: 32px;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-    }
-
-    .step-num {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      color: var(--tertiary);
-    }
-
-    .step-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--text);
-    }
-
-    .step-desc {
-      font-size: 0.9rem;
-      color: var(--secondary);
-      line-height: 1.5;
-    }
-
-    .step-connector {
-      position: absolute;
-      top: 50%;
-      right: -20px;
-      transform: translateY(-50%);
-      color: var(--tertiary);
-      z-index: 1;
-    }
-
-    .how-confidence {
-      text-align: center;
-      font-size: clamp(1.1rem, 1.8vw, 1.35rem);
-      color: var(--text);
-      margin-top: clamp(2.5rem, 5vw, 4rem);
-      max-width: 50ch;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.5;
-    }
-
-    /* ============================================================
        4. USE CASES
        ============================================================ */
     .cases-grid {
@@ -702,6 +624,84 @@
       margin-top: auto;
       padding-top: 1rem;
       border-top: 1px solid var(--border);
+    }
+
+    /* ============================================================
+       5. HOW IT WORKS
+       ============================================================ */
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .step-connector { display: none; }
+    }
+    @media (max-width: 540px) {
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+
+    .step-card {
+      position: relative;
+      padding: 1.5rem;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: var(--text);
+    }
+
+    .step-icon {
+      width: 32px;
+      height: 32px;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-num {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--tertiary);
+    }
+
+    .step-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .step-desc {
+      font-size: 0.9rem;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+
+    .step-connector {
+      position: absolute;
+      top: 50%;
+      right: -20px;
+      transform: translateY(-50%);
+      color: var(--tertiary);
+      z-index: 1;
+    }
+
+    .how-confidence {
+      text-align: center;
+      font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+      color: var(--text);
+      margin-top: clamp(2.5rem, 5vw, 4rem);
+      max-width: 50ch;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
     }
 
     /* ============================================================
