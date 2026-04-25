@@ -91,7 +91,7 @@
     }
 
     .section {
-      padding: clamp(4rem, 8vw, 7rem) 0;
+      padding: clamp(5rem, 9vw, 8rem) 0;
       border-top: 1px solid var(--border);
     }
 
@@ -437,21 +437,87 @@
     }
 
     /* ============================================================
-       4. HOW IT WORKS
+       3. OUTPUTS
        ============================================================ */
     .section-header {
-      margin-bottom: 3.5rem;
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
     }
 
-    .section-label-row {
-      margin-bottom: 1rem;
+    .section-header .label {
+      margin-bottom: 0.75rem;
     }
 
     .section-title {
-      font-size: clamp(1.65rem, 3vw, 2.5rem);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text);
+    }
+
+    /* Outputs section centers its header */
+    #outputs .section-header {
+      text-align: center;
+    }
+    #outputs .section-title {
+      max-width: 22ch;
+      margin: 0 auto;
+    }
+
+    .outputs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 1000px) {
+      .outputs-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .outputs-grid { grid-template-columns: 1fr; }
+    }
+
+    .output-tile {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .output-preview {
+      width: 100%;
+      aspect-ratio: 220 / 140;
+      border-radius: var(--radius-md);
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(21,23,28,0.04);
+    }
+
+    .output-preview svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .output-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 0.5rem;
+    }
+
+    .output-desc {
+      font-size: 0.9rem;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       4. HOW IT WORKS
+       ============================================================ */
+
+    .section-label-row {
+      margin-bottom: 1rem;
     }
 
     /* Step cards */
@@ -968,9 +1034,108 @@
       </div>
     </section>
 
+    <!-- ============================================================
+         3. OUTPUTS
+         ============================================================ -->
+    <section id="outputs" class="section reveal">
+      <div class="container">
+
+        <div class="section-header">
+          <p class="label">What you can build</p>
+          <h2 class="section-title">Four shapes for your data.</h2>
+        </div>
+
+        <div class="outputs-grid">
+
+          <article class="output-tile">
+            <div class="output-preview output-preview-dashboards" aria-hidden="true">
+              <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
+                <text x="16" y="32" font-family="Inter" font-size="22" font-weight="700" fill="var(--text)">2.4k</text>
+                <text x="62" y="32" font-family="Inter" font-size="10" font-weight="600" fill="var(--success)">+12%</text>
+                <text x="16" y="48" font-family="Inter" font-size="9" font-weight="500" fill="var(--tertiary)" letter-spacing="0.1em">REVENUE · WTD</text>
+                <polyline points="16,90 36,80 56,86 76,68 96,76 116,60 136,66 156,52 176,58 196,40" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="16,90 36,80 56,86 76,68 96,76 116,60 136,66 156,52 176,58 196,40 196,116 16,116" fill="var(--text)" opacity="0.06"/>
+                <line x1="16" y1="116" x2="204" y2="116" stroke="var(--border)" stroke-width="1"/>
+                <rect x="16" y="124" width="40" height="6" rx="3" fill="var(--text)" opacity="0.18"/>
+                <rect x="60" y="124" width="24" height="6" rx="3" fill="var(--text)" opacity="0.10"/>
+              </svg>
+            </div>
+            <h3 class="output-title">Dashboards</h3>
+            <p class="output-desc">Real-time KPIs and operational metrics, built without engineering.</p>
+          </article>
+
+          <article class="output-tile">
+            <div class="output-preview output-preview-workflows" aria-hidden="true">
+              <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
+                <rect x="20" y="55" width="44" height="30" rx="6" fill="var(--bg)" stroke="var(--border-strong)"/>
+                <path d="M 38,62 l -5,8 h 4 l -3,8 l 8,-10 h -4 l 3,-6 z" fill="var(--text)" stroke="none"/>
+                <line x1="64" y1="70" x2="84" y2="70" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
+                <rect x="84" y="55" width="44" height="30" rx="6" fill="var(--bg)" stroke="var(--border-strong)"/>
+                <circle cx="106" cy="70" r="6" fill="none" stroke="var(--text)" stroke-width="1.4"/>
+                <circle cx="106" cy="70" r="2" fill="var(--text)"/>
+                <line x1="128" y1="70" x2="148" y2="70" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
+                <polygon points="146,67 152,70 146,73" fill="var(--text)"/>
+                <rect x="148" y="55" width="44" height="30" rx="6" fill="var(--text)" stroke="var(--text)"/>
+                <path d="M 161,70 l 3,4 l 8,-8" fill="none" stroke="var(--bg-raised)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="20" y="40" font-family="Inter" font-size="9" font-weight="600" fill="var(--tertiary)" letter-spacing="0.1em">3 STEPS · LIVE</text>
+              </svg>
+            </div>
+            <h3 class="output-title">Workflows</h3>
+            <p class="output-desc">Automate cross-system operations end to end.</p>
+          </article>
+
+          <article class="output-tile">
+            <div class="output-preview output-preview-apps" aria-hidden="true">
+              <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
+                <text x="16" y="28" font-family="Inter" font-size="11" font-weight="600" fill="var(--text)">New supplier</text>
+                <rect x="16" y="40" width="120" height="14" rx="4" fill="var(--bg)" stroke="var(--border)"/>
+                <text x="22" y="50" font-family="Inter" font-size="9" fill="var(--tertiary)">Acme Logistics</text>
+                <rect x="16" y="62" width="120" height="14" rx="4" fill="var(--bg)" stroke="var(--border)"/>
+                <text x="22" y="72" font-family="Inter" font-size="9" fill="var(--tertiary)">Net 60</text>
+                <rect x="16" y="84" width="80" height="14" rx="4" fill="var(--bg)" stroke="var(--border)"/>
+                <text x="22" y="94" font-family="Inter" font-size="9" fill="var(--tertiary)">€ 42,000</text>
+                <rect x="16" y="108" width="60" height="20" rx="5" fill="var(--text)"/>
+                <text x="46" y="121" font-family="Inter" font-size="9" font-weight="600" fill="var(--bg-raised)" text-anchor="middle">Submit</text>
+                <rect x="160" y="40" width="44" height="44" rx="6" fill="var(--bg)" stroke="var(--border)"/>
+                <text x="182" y="60" font-family="Inter" font-size="9" font-weight="600" fill="var(--tertiary)" text-anchor="middle" letter-spacing="0.1em">DOC</text>
+                <line x1="170" y1="68" x2="194" y2="68" stroke="var(--text)" stroke-width="1.2" opacity="0.3"/>
+                <line x1="170" y1="74" x2="190" y2="74" stroke="var(--text)" stroke-width="1.2" opacity="0.3"/>
+              </svg>
+            </div>
+            <h3 class="output-title">Apps</h3>
+            <p class="output-desc">Internal tools your teams actually want to use.</p>
+          </article>
+
+          <article class="output-tile">
+            <div class="output-preview output-preview-agents" aria-hidden="true">
+              <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
+                <circle cx="24" cy="32" r="10" fill="var(--bg)" stroke="var(--border-strong)"/>
+                <path d="M19 32 h10 M24 27 v10" stroke="var(--text)" stroke-width="1.4" stroke-linecap="round"/>
+                <rect x="42" y="22" width="160" height="22" rx="6" fill="var(--bg)" stroke="var(--border)"/>
+                <text x="52" y="36" font-family="Inter" font-size="10" fill="var(--text)">Find unpaid invoices over 60 days</text>
+                <rect x="22" y="56" width="180" height="32" rx="6" fill="var(--text)" opacity="0.05"/>
+                <text x="32" y="70" font-family="Inter" font-size="10" font-weight="500" fill="var(--text)">14 invoices · €128k outstanding</text>
+                <text x="32" y="82" font-family="Inter" font-size="9" fill="var(--secondary)">Drafted 14 reminder emails. Send all?</text>
+                <rect x="22" y="98" width="68" height="22" rx="5" fill="var(--text)"/>
+                <text x="56" y="112" font-family="Inter" font-size="9" font-weight="600" fill="var(--bg-raised)" text-anchor="middle">Send all</text>
+                <rect x="98" y="98" width="68" height="22" rx="5" fill="var(--bg)" stroke="var(--border-strong)"/>
+                <text x="132" y="112" font-family="Inter" font-size="9" font-weight="600" fill="var(--text)" text-anchor="middle">Review</text>
+              </svg>
+            </div>
+            <h3 class="output-title">AI Agents</h3>
+            <p class="output-desc">Autonomous operators that act on your data.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
 
     <!-- ============================================================
-         USE CASES
+         4. USE CASES
          ============================================================ -->
     <section id="use-cases" class="section">
       <div class="container">
@@ -1084,7 +1249,7 @@
     </section>
 
     <!-- ============================================================
-         HOW IT WORKS
+         5. HOW IT WORKS
          ============================================================ -->
     <section id="how-it-works" class="section section-sunken">
       <div class="container">
@@ -1154,7 +1319,7 @@
     </section>
 
     <!-- ============================================================
-         GET STARTED
+         6. GET STARTED
          ============================================================ -->
     <section id="get-started" class="section">
       <div class="container">
