@@ -485,61 +485,47 @@
       color: var(--text);
     }
 
-    /* Outputs section centers its header */
-    #outputs .section-header {
-      text-align: center;
-    }
-    #outputs .section-title {
-      max-width: 22ch;
+    .outputs-list {
+      max-width: 760px;
       margin: 0 auto;
+      list-style: none;
+      padding: 0;
     }
 
-    .outputs-grid {
+    .output-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
+      grid-template-columns: minmax(160px, 1fr) 2fr;
+      gap: 2.5rem;
+      align-items: baseline;
+      padding: 1.75rem 0;
+      border-top: 1px solid var(--border);
     }
 
-    @media (max-width: 1000px) {
-      .outputs-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 540px) {
-      .outputs-grid { grid-template-columns: 1fr; }
+    .output-row:last-child {
+      border-bottom: 1px solid var(--border);
     }
 
-    .output-tile {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .output-preview {
-      width: 100%;
-      aspect-ratio: 220 / 140;
-      border-radius: var(--radius-md);
-      background: var(--bg-raised);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      box-shadow: 0 1px 2px rgba(21,23,28,0.04);
-    }
-
-    .output-preview svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    .output-title {
-      font-size: 1rem;
+    .output-row-title {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
       font-weight: 600;
+      letter-spacing: -0.02em;
       color: var(--text);
-      margin-top: 0.5rem;
+      margin: 0;
     }
 
-    .output-desc {
-      font-size: 0.9rem;
+    .output-row-desc {
+      font-size: 1rem;
       color: var(--secondary);
-      line-height: 1.5;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    @media (max-width: 600px) {
+      .output-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        padding: 1.5rem 0;
+      }
     }
 
     /* ============================================================
@@ -863,7 +849,7 @@
 
         <span class="yc-chip">
           <img src="YC square logo.png" alt="" width="14" height="14" />
-          <span>Backed by <span class="yc-name">Y Combinator</span> · P26</span>
+          <span>Backed by <span class="yc-name">Y Combinator</span> · Spring 2026</span>
         </span>
 
         <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Book a Demo</a>
@@ -896,7 +882,7 @@
 
         <p class="hero-sub">
           <span class="serif-italic">Most of your data sits in silos.</span>
-          Netter centralizes it, structures it, and turns it into dashboards, workflows, apps, and AI agents — without an engineering team.
+          Netter turns it into dashboards, workflows, apps, and AI agents — live in 2 weeks, no engineering team.
         </p>
 
         <div class="hero-actions">
@@ -913,111 +899,28 @@
          ============================================================ -->
     <section id="outputs" class="section reveal">
       <div class="container">
-
         <div class="section-header">
-          <p class="label">What you can build</p>
           <h2 class="section-title">Four shapes for your data.</h2>
         </div>
 
-        <div class="outputs-grid">
-
-          <article class="output-tile">
-            <div class="output-preview output-preview-dashboards" aria-hidden="true">
-              <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
-                <text x="16" y="22" font-family="Inter" font-size="9" font-weight="600" fill="var(--tertiary)" letter-spacing="0.1em">REVENUE · WTD</text>
-                <rect x="166" y="12" width="40" height="16" rx="8" fill="var(--success)" opacity="0.12"/>
-                <text x="186" y="23" font-family="Inter" font-size="9" font-weight="600" fill="var(--success)" text-anchor="middle">+12%</text>
-                <text x="16" y="58" font-family="Inter" font-size="28" font-weight="700" fill="var(--text)">2.4k</text>
-                <polyline points="16,108 36,98 56,104 76,82 96,90 116,72 136,80 156,62 176,68 200,48" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                <polyline points="16,108 36,98 56,104 76,82 96,90 116,72 136,80 156,62 176,68 200,48 200,124 16,124" fill="var(--text)" opacity="0.06"/>
-                <line x1="16" y1="124" x2="204" y2="124" stroke="var(--border)" stroke-width="1"/>
-              </svg>
-            </div>
-            <h3 class="output-title">Dashboards</h3>
-            <p class="output-desc">Real-time KPIs and operational metrics, built without engineering.</p>
-          </article>
-
-          <article class="output-tile">
-            <div class="output-preview output-preview-workflows" aria-hidden="true">
-              <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
-                <text x="16" y="22" font-family="Inter" font-size="9" font-weight="600" fill="var(--tertiary)" letter-spacing="0.1em">3 STEPS · LIVE</text>
-
-                <!-- Box 1: Trigger (lightning bolt) -->
-                <rect x="20" y="50" width="44" height="30" rx="6" fill="var(--bg)" stroke="var(--border-strong)"/>
-                <polygon points="43,58 38,66 42,66 42,72 47,64 42,64" fill="var(--text)"/>
-
-                <!-- Connector 1 -->
-                <line x1="64" y1="65" x2="88" y2="65" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
-
-                <!-- Box 2: Process (target/dot) -->
-                <rect x="88" y="50" width="44" height="30" rx="6" fill="var(--bg)" stroke="var(--border-strong)"/>
-                <circle cx="110" cy="65" r="6" fill="none" stroke="var(--text)" stroke-width="1.4"/>
-                <circle cx="110" cy="65" r="2" fill="var(--text)"/>
-
-                <!-- Connector 2 with arrow ending before box 3 -->
-                <line x1="132" y1="65" x2="148" y2="65" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
-                <polygon points="148,62 154,65 148,68" fill="var(--text)"/>
-
-                <!-- Box 3: Success (check mark) -->
-                <rect x="156" y="50" width="44" height="30" rx="6" fill="var(--text)" stroke="var(--text)"/>
-                <path d="M 172,66 l 4,4 l 8,-8" fill="none" stroke="var(--bg-raised)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-
-                <!-- Bottom status -->
-                <circle cx="16" cy="115" r="2.5" fill="var(--success)"/>
-                <text x="24" y="118" font-family="Inter" font-size="9" font-weight="500" fill="var(--secondary)">Last run · 2 min ago</text>
-              </svg>
-            </div>
-            <h3 class="output-title">Workflows</h3>
-            <p class="output-desc">Automate cross-system operations end to end.</p>
-          </article>
-
-          <article class="output-tile">
-            <div class="output-preview output-preview-apps" aria-hidden="true">
-              <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
-                <text x="16" y="28" font-family="Inter" font-size="11" font-weight="600" fill="var(--text)">New supplier</text>
-                <rect x="16" y="40" width="120" height="14" rx="4" fill="var(--bg)" stroke="var(--border)"/>
-                <text x="22" y="50" font-family="Inter" font-size="9" fill="var(--tertiary)">Acme Logistics</text>
-                <rect x="16" y="62" width="120" height="14" rx="4" fill="var(--bg)" stroke="var(--border)"/>
-                <text x="22" y="72" font-family="Inter" font-size="9" fill="var(--tertiary)">Net 60</text>
-                <rect x="16" y="84" width="80" height="14" rx="4" fill="var(--bg)" stroke="var(--border)"/>
-                <text x="22" y="94" font-family="Inter" font-size="9" fill="var(--tertiary)">€ 42,000</text>
-                <rect x="16" y="108" width="60" height="20" rx="5" fill="var(--text)"/>
-                <text x="46" y="121" font-family="Inter" font-size="9" font-weight="600" fill="var(--bg-raised)" text-anchor="middle">Submit</text>
-                <rect x="160" y="40" width="44" height="44" rx="6" fill="var(--bg)" stroke="var(--border)"/>
-                <text x="182" y="60" font-family="Inter" font-size="9" font-weight="600" fill="var(--tertiary)" text-anchor="middle" letter-spacing="0.1em">DOC</text>
-                <line x1="170" y1="68" x2="194" y2="68" stroke="var(--text)" stroke-width="1.2" opacity="0.3"/>
-                <line x1="170" y1="74" x2="190" y2="74" stroke="var(--text)" stroke-width="1.2" opacity="0.3"/>
-              </svg>
-            </div>
-            <h3 class="output-title">Apps</h3>
-            <p class="output-desc">Internal tools your teams actually want to use.</p>
-          </article>
-
-          <article class="output-tile">
-            <div class="output-preview output-preview-agents" aria-hidden="true">
-              <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
-                <circle cx="26" cy="32" r="9" fill="var(--bg)" stroke="var(--border-strong)"/>
-                <path d="M21 32 h10 M26 27 v10" stroke="var(--text)" stroke-width="1.4" stroke-linecap="round"/>
-                <rect x="44" y="22" width="152" height="22" rx="6" fill="var(--bg)" stroke="var(--border)"/>
-                <text x="54" y="36" font-family="Inter" font-size="10" fill="var(--text)">Find overdue invoices</text>
-                <rect x="22" y="56" width="176" height="32" rx="6" fill="var(--text)" opacity="0.05"/>
-                <text x="32" y="70" font-family="Inter" font-size="10" font-weight="500" fill="var(--text)">14 invoices · €128k outstanding</text>
-                <text x="32" y="82" font-family="Inter" font-size="9" fill="var(--secondary)">Drafted 14 reminder emails. Send all?</text>
-                <rect x="22" y="98" width="64" height="22" rx="5" fill="var(--text)"/>
-                <text x="54" y="112" font-family="Inter" font-size="9" font-weight="600" fill="var(--bg-raised)" text-anchor="middle">Send all</text>
-                <rect x="94" y="98" width="64" height="22" rx="5" fill="var(--bg)" stroke="var(--border-strong)"/>
-                <text x="126" y="112" font-family="Inter" font-size="9" font-weight="600" fill="var(--text)" text-anchor="middle">Review</text>
-              </svg>
-            </div>
-            <h3 class="output-title">AI Agents</h3>
-            <p class="output-desc">Autonomous operators that act on your data.</p>
-          </article>
-
-        </div>
+        <ul class="outputs-list">
+          <li class="output-row">
+            <h3 class="output-row-title">Dashboards</h3>
+            <p class="output-row-desc">Real-time KPIs and operational metrics, built without engineering.</p>
+          </li>
+          <li class="output-row">
+            <h3 class="output-row-title">Workflows</h3>
+            <p class="output-row-desc">Automate cross-system operations end to end.</p>
+          </li>
+          <li class="output-row">
+            <h3 class="output-row-title">Apps</h3>
+            <p class="output-row-desc">Internal tools your teams actually want to use.</p>
+          </li>
+          <li class="output-row">
+            <h3 class="output-row-title">AI Agents</h3>
+            <p class="output-row-desc">Autonomous operators that act on your data.</p>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -1048,7 +951,7 @@
           <li>Structure receivables into a single control layer</li>
           <li>Automate reminders, task routing, and recovery</li>
         </ul>
-        <p class="case-outcome"><span class="serif-italic">Reduce time-to-payment</span> and free up working capital.</p>
+        <p class="case-outcome">Aging invoices trigger automatic outreach. No manual chasing.</p>
       </article>
 
       <article class="case-card">
@@ -1065,7 +968,7 @@
           <li>Optimize routes, loads, and costs automatically</li>
           <li>Eliminate manual planning</li>
         </ul>
-        <p class="case-outcome"><span class="serif-italic">Lower fuel costs,</span> higher margins.</p>
+        <p class="case-outcome">Routes recompute in real time as constraints change.</p>
       </article>
 
       <article class="case-card">
@@ -1081,7 +984,7 @@
           <li>Forecast demand by SKU, region, and channel</li>
           <li>Alert on stockouts and market-share shifts</li>
         </ul>
-        <p class="case-outcome"><span class="serif-italic">Protect revenue</span> and react faster to the market.</p>
+        <p class="case-outcome">Stockouts surface within the hour, not at week's end.</p>
       </article>
 
       <article class="case-card">
@@ -1099,7 +1002,7 @@
           <li>Generate optimized schedules automatically</li>
           <li>Push directly into your existing planning tools</li>
         </ul>
-        <p class="case-outcome"><span class="serif-italic">Maximize utilization,</span> reduce waste.</p>
+        <p class="case-outcome">Schedules regenerate the moment supply or capacity shifts.</p>
       </article>
 
     </div>
