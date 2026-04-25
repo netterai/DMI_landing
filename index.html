@@ -7,46 +7,52 @@
   <meta name="description" content="Netter is a Data-AI platform that connects, structures and activates your company's data, without requiring an engineering team." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital@1&display=swap" rel="stylesheet" />
 
   <style>
     /* ============================================================
        DESIGN TOKENS
        ============================================================ */
     :root {
-      --bg:           #FFFFFF;
-      --bg-raised:    #FAFAFA;
-      --bg-sunken:    #F5F5F5;
-      --text:         #0A0A0A;
-      --secondary:    #525252;
-      --tertiary:     #A3A3A3;
-      --border:       #E5E5E5;
-      --border-med:   #D4D4D4;
+      /* Warm neutrals — monochrome */
+      --bg:           #FCFAF7;
+      --bg-raised:    #FFFFFF;
+      --bg-sunken:    #F4EFE7;
+      --text:         #15171C;
+      --secondary:    #5A5854;
+      --tertiary:     #97938C;
+      --border:       #E8E2D8;
+      --border-strong: #D7CFC0;
 
-      --accent:         #6366F1;
-      --accent-hover:   #4F46E5;
-      --accent-pressed: #4338CA;
-      --accent-subtle:  #EEF2FF;
-      --accent-muted:   #E0E7FF;
-      --accent-text:    #312E81;
+      /* Single chromatic accent — used ONLY for YC moments */
+      --yc-orange:    #FF6B00;
 
-      --amber:          #D97706;
-      --amber-subtle:   #FFFBEB;
-      --amber-muted:    #FEF3C7;
-      --amber-text:     #78350F;
+      /* Primary CTA = warm-near-black, NOT colored */
+      --accent:       #15171C;
+      --accent-hover: #000000;
 
-      --success:        #16A34A;
-      --error:          #DC2626;
+      /* Status (rarely used; kept for any future need) */
+      --success:      #16A34A;
+      --error:        #DC2626;
 
-      --font:       'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --mono:       'SF Mono', 'Fira Code', 'Consolas', monospace;
+      /* Typography */
+      --font:         'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --serif:        'Newsreader', Georgia, serif;
 
-      --radius:     2px;
-      --nav-h:      64px;
+      /* Radius — softer than before to honor brand mark roundness */
+      --radius:       6px;
+      --radius-sm:    6px;
+      --radius-md:    10px;
+      --radius-lg:    14px;
+      --radius-pill:  999px;
 
-      --ease-spring:   cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-out:      cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+      /* Layout */
+      --nav-h:        64px;
+
+      /* Motion */
+      --ease-spring:  cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-in-out:  cubic-bezier(0.65, 0, 0.35, 1);
     }
 
     /* ============================================================
@@ -65,8 +71,10 @@
       background: var(--bg);
       color: var(--text);
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.55;
       overflow-x: hidden;
+      font-weight: 420;
+      font-feature-settings: "ss01", "cv11";
     }
 
     a { color: inherit; text-decoration: none; }
@@ -77,7 +85,7 @@
        LAYOUT
        ============================================================ */
     .container {
-      max-width: 1160px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 0 clamp(1.25rem, 5vw, 4rem);
     }
@@ -93,11 +101,12 @@
        TYPOGRAPHY HELPERS
        ============================================================ */
     .label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
+      font-family: var(--font);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--tertiary);
+      font-weight: 600;
     }
 
     /* ============================================================
@@ -107,26 +116,31 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      font-size: 0.875rem;
+      padding: 0.85rem 1.5rem;
+      font-size: 0.9rem;
       font-weight: 500;
-      letter-spacing: 0.01em;
-      border-radius: var(--radius);
+      letter-spacing: -0.005em;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      transition: opacity 0.25s, background 0.25s, color 0.25s;
+      transition: background 0.15s var(--ease-out), color 0.15s var(--ease-out), border-color 0.15s var(--ease-out), transform 0.1s var(--ease-out);
       border: 1px solid transparent;
       white-space: nowrap;
+      text-decoration: none;
     }
 
     .btn-primary {
       background: var(--accent);
-      color: #fff;
+      color: var(--bg-raised);
       border-color: var(--accent);
     }
 
     .btn-primary:hover {
       background: var(--accent-hover);
       border-color: var(--accent-hover);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
     }
 
     .btn-outline {
@@ -163,35 +177,22 @@
 
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* Scale + fade — for cards */
+    /* Section-level reveal — single unit fade-up, no per-child cascade */
     .reveal-card {
       opacity: 0;
-      transform: translateY(32px) scale(0.97);
-      transition: opacity 0.65s var(--ease-spring), transform 0.65s var(--ease-spring);
+      transform: translateY(16px);
+      transition: opacity 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
     }
 
-    .reveal-card.visible { opacity: 1; transform: translateY(0) scale(1); }
+    .reveal-card.visible { opacity: 1; transform: translateY(0); }
 
-    /* Staggered group */
-    .reveal-group > .reveal-card:nth-child(1) { transition-delay: 0s; }
-    .reveal-group > .reveal-card:nth-child(2) { transition-delay: 0.1s; }
-    .reveal-group > .reveal-card:nth-child(3) { transition-delay: 0.2s; }
-    .reveal-group > .reveal-card:nth-child(4) { transition-delay: 0.3s; }
-
-    /* Word split — Apple-style text reveal */
-    .word-outer {
-      display: inline-block;
-      overflow: hidden;
-      vertical-align: bottom;
+    .reveal-group {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
     }
 
-    .word-inner {
-      display: inline-block;
-      transform: translateY(110%);
-      transition: transform 0.85s var(--ease-spring);
-    }
-
-    .anim-words.animated .word-inner { transform: translateY(0); }
+    .reveal-group.visible { opacity: 1; transform: translateY(0); }
 
     /* ============================================================
        1. NAVIGATION
@@ -242,7 +243,7 @@
     }
 
     .nav-logo-sub {
-      font-family: var(--mono);
+      font-family: var(--font);
       font-size: 0.65rem;
       letter-spacing: 0.08em;
       color: var(--tertiary);
@@ -345,7 +346,7 @@
     }
 
     .hero-label {
-      font-family: var(--mono);
+      font-family: var(--font);
       font-size: 0.65rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -530,7 +531,7 @@
     }
 
     .hero-uc span {
-      font-family: var(--mono);
+      font-family: var(--font);
       font-size: 0.6rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -588,7 +589,7 @@
     }
 
     .problem-num {
-      font-family: var(--mono);
+      font-family: var(--font);
       font-size: 0.55rem;
       letter-spacing: 0.06em;
       color: var(--amber-text);
@@ -665,7 +666,7 @@
     }
 
     .step-num {
-      font-family: var(--mono);
+      font-family: var(--font);
       font-size: 0.55rem;
       letter-spacing: 0.1em;
       color: var(--accent);
@@ -693,7 +694,7 @@
       top: 50%;
       right: -1.25rem;
       transform: translateY(-50%);
-      color: var(--border-med);
+      color: var(--border-strong);
     }
 
     @media (min-width: 681px) {
@@ -732,7 +733,7 @@
     }
 
     .case-tag {
-      font-family: var(--mono);
+      font-family: var(--font);
       font-size: 0.6rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -776,8 +777,8 @@
     .case-outcome {
       font-size: 0.78rem;
       font-weight: 600;
-      color: var(--accent-text);
-      background: var(--accent-subtle);
+      color: var(--text);
+      background: var(--bg-sunken);
       padding: 0.45rem 0.7rem;
       border-radius: 4px;
       margin-top: auto;
@@ -819,7 +820,7 @@
     }
 
     .phase-num {
-      font-family: var(--mono);
+      font-family: var(--font);
       font-size: 0.55rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -873,7 +874,7 @@
 
     .phase-footer {
       padding: 1rem 1.75rem;
-      background: var(--accent-subtle);
+      background: var(--bg-sunken);
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -889,7 +890,7 @@
     .phase-footer span {
       font-size: 0.8rem;
       font-weight: 600;
-      color: var(--accent-text);
+      color: var(--text);
     }
 
     /* ============================================================
@@ -930,7 +931,7 @@
     .form-field.full { grid-column: 1 / -1; }
 
     .form-label {
-      font-family: var(--mono);
+      font-family: var(--font);
       font-size: 0.6rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -1002,7 +1003,7 @@
     }
 
     .footer-copy {
-      font-family: var(--mono);
+      font-family: var(--font);
       font-size: 0.65rem;
       letter-spacing: 0.04em;
       color: var(--tertiary);
@@ -1021,6 +1022,16 @@
     }
 
     .footer-links a:hover { color: var(--accent); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal, .reveal-card, .reveal-group { opacity: 1 !important; transform: none !important; }
+    }
 
     /* ============================================================
        RESPONSIVE
@@ -2048,29 +2059,19 @@
       nav.style.borderBottomColor = window.scrollY > 10 ? '#D0D0D0' : '#E5E5E5';
     }, { passive: true });
 
-    // ── Word split animation ──────────────────────────────────────
-    // Splits headline text into words, each wrapped for clip-path reveal.
-    function splitWords(el) {
-      const words = el.textContent.trim().split(/\s+/);
-      el.innerHTML = words.map((word, i) => {
-        const delay = (parseFloat(el.dataset.delay || 0) + i * 0.07).toFixed(2);
-        return `<span class="word-outer"><span class="word-inner" style="transition-delay:${delay}s">${word}</span></span>`;
-      }).join(' ');
-    }
-
-    document.querySelectorAll('.anim-words').forEach(el => splitWords(el));
-
-    // ── IntersectionObserver ──────────────────────────────────────
-    const io = new IntersectionObserver((entries) => {
+    // ── Section-level reveal ──────────────────────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible', 'animated');
-          io.unobserve(entry.target);
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
 
-    document.querySelectorAll('.reveal, .reveal-card, .reveal-group, .anim-words').forEach(el => io.observe(el));
+    document.querySelectorAll('.reveal, .reveal-card, .reveal-group').forEach(el => {
+      revealObserver.observe(el);
+    });
 
     // ── Hero SVG: layered architecture animation ──────────────────
     function animateHeroSVG() {
