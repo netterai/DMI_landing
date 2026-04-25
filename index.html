@@ -23,7 +23,7 @@
   <link rel="preload" as="image" href="Netter-Logo-Text.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital@1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
 
   <style>
     /* ============================================================
@@ -301,6 +301,11 @@
       display: block;
     }
 
+    .yc-name {
+      color: var(--yc-orange);
+      font-weight: 600;
+    }
+
     .nav-toggle {
       display: none;
       flex-direction: column;
@@ -414,7 +419,7 @@
     .serif-italic {
       font-family: var(--serif);
       font-style: italic;
-      font-weight: 400;
+      font-weight: 500;
     }
 
     .hero-sub .serif-italic {
@@ -443,24 +448,13 @@
 
     .btn-text:hover { color: var(--text); }
 
-    .hero-trust {
-      margin-top: clamp(2.5rem, 5vw, 4rem);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--tertiary);
-      opacity: 0;
-      animation: heroIn 0.8s var(--ease-spring) 0.6s forwards;
-    }
-
     @keyframes heroIn {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .hero-title, .hero-sub, .hero-actions, .hero-trust {
+      .hero-title, .hero-sub, .hero-actions {
         opacity: 1 !important;
         animation: none !important;
         transform: none !important;
@@ -634,7 +628,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1.25rem;
-      align-items: start;
+      align-items: stretch;
     }
 
     @media (max-width: 980px) {
@@ -696,12 +690,13 @@
     .how-confidence {
       text-align: center;
       font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+      font-weight: 400;
       color: var(--text);
       margin-top: clamp(2.5rem, 5vw, 4rem);
       max-width: 50ch;
       margin-left: auto;
       margin-right: auto;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     /* ============================================================
@@ -850,7 +845,7 @@
 
         <span class="yc-chip">
           <img src="YC square logo.png" alt="" width="14" height="14" />
-          <span>Backed by Y Combinator · P26</span>
+          <span>Backed by <span class="yc-name">Y Combinator</span> · P26</span>
         </span>
 
         <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Book a Demo</a>
@@ -891,7 +886,6 @@
           <a href="#how-it-works" class="btn btn-text">See how it works <span aria-hidden="true">↓</span></a>
         </div>
 
-        <p class="hero-trust">Backed by Y Combinator · P26</p>
 
       </div>
     </section>
@@ -913,14 +907,12 @@
             <div class="output-preview output-preview-dashboards" aria-hidden="true">
               <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
-                <text x="16" y="32" font-family="Inter" font-size="22" font-weight="700" fill="var(--text)">2.4k</text>
-                <text x="62" y="32" font-family="Inter" font-size="10" font-weight="600" fill="var(--success)">+12%</text>
-                <text x="16" y="48" font-family="Inter" font-size="9" font-weight="500" fill="var(--tertiary)" letter-spacing="0.1em">REVENUE · WTD</text>
-                <polyline points="16,90 36,80 56,86 76,68 96,76 116,60 136,66 156,52 176,58 196,40" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                <polyline points="16,90 36,80 56,86 76,68 96,76 116,60 136,66 156,52 176,58 196,40 196,116 16,116" fill="var(--text)" opacity="0.06"/>
-                <line x1="16" y1="116" x2="204" y2="116" stroke="var(--border)" stroke-width="1"/>
-                <rect x="16" y="124" width="40" height="6" rx="3" fill="var(--text)" opacity="0.18"/>
-                <rect x="60" y="124" width="24" height="6" rx="3" fill="var(--text)" opacity="0.10"/>
+                <text x="16" y="22" font-family="Inter" font-size="9" font-weight="600" fill="var(--tertiary)" letter-spacing="0.1em">REVENUE · WTD</text>
+                <text x="16" y="50" font-family="Inter" font-size="24" font-weight="700" fill="var(--text)">2.4k</text>
+                <text x="62" y="50" font-family="Inter" font-size="10" font-weight="600" fill="var(--success)">+12%</text>
+                <polyline points="16,108 36,98 56,104 76,82 96,90 116,72 136,80 156,62 176,68 200,48" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="16,108 36,98 56,104 76,82 96,90 116,72 136,80 156,62 176,68 200,48 200,124 16,124" fill="var(--text)" opacity="0.06"/>
+                <line x1="16" y1="124" x2="204" y2="124" stroke="var(--border)" stroke-width="1"/>
               </svg>
             </div>
             <h3 class="output-title">Dashboards</h3>
@@ -931,17 +923,19 @@
             <div class="output-preview output-preview-workflows" aria-hidden="true">
               <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
-                <rect x="20" y="55" width="44" height="30" rx="6" fill="var(--bg)" stroke="var(--border-strong)"/>
-                <path d="M 38,62 l -5,8 h 4 l -3,8 l 8,-10 h -4 l 3,-6 z" fill="var(--text)" stroke="none"/>
-                <line x1="64" y1="70" x2="84" y2="70" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
-                <rect x="84" y="55" width="44" height="30" rx="6" fill="var(--bg)" stroke="var(--border-strong)"/>
-                <circle cx="106" cy="70" r="6" fill="none" stroke="var(--text)" stroke-width="1.4"/>
-                <circle cx="106" cy="70" r="2" fill="var(--text)"/>
-                <line x1="128" y1="70" x2="148" y2="70" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
-                <polygon points="146,67 152,70 146,73" fill="var(--text)"/>
-                <rect x="148" y="55" width="44" height="30" rx="6" fill="var(--text)" stroke="var(--text)"/>
-                <path d="M 161,70 l 3,4 l 8,-8" fill="none" stroke="var(--bg-raised)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <text x="20" y="40" font-family="Inter" font-size="9" font-weight="600" fill="var(--tertiary)" letter-spacing="0.1em">3 STEPS · LIVE</text>
+                <text x="16" y="22" font-family="Inter" font-size="9" font-weight="600" fill="var(--tertiary)" letter-spacing="0.1em">3 STEPS · LIVE</text>
+                <rect x="20" y="50" width="44" height="30" rx="6" fill="var(--bg)" stroke="var(--border-strong)"/>
+                <path d="M 38,57 l -5,8 h 4 l -3,8 l 8,-10 h -4 l 3,-6 z" fill="var(--text)" stroke="none"/>
+                <line x1="64" y1="65" x2="84" y2="65" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
+                <rect x="84" y="50" width="44" height="30" rx="6" fill="var(--bg)" stroke="var(--border-strong)"/>
+                <circle cx="106" cy="65" r="6" fill="none" stroke="var(--text)" stroke-width="1.4"/>
+                <circle cx="106" cy="65" r="2" fill="var(--text)"/>
+                <line x1="128" y1="65" x2="148" y2="65" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
+                <polygon points="146,62 152,65 146,68" fill="var(--text)"/>
+                <rect x="148" y="50" width="44" height="30" rx="6" fill="var(--text)" stroke="var(--text)"/>
+                <path d="M 161,65 l 3,4 l 8,-8" fill="none" stroke="var(--bg-raised)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="20" cy="115" r="2.5" fill="var(--success)"/>
+                <text x="28" y="118" font-family="Inter" font-size="9" font-weight="500" fill="var(--secondary)">Last run · 2 min ago</text>
               </svg>
             </div>
             <h3 class="output-title">Workflows</h3>
@@ -1162,7 +1156,6 @@
          ============================================================ -->
     <section class="yc-row reveal">
       <div class="container yc-row-inner">
-        <p class="label">Backed by</p>
         <img src="YC logo + text.png" alt="Y Combinator" class="yc-row-mark" width="421" height="120" loading="lazy" />
         <p class="yc-row-supporting">From the same accelerator that backed Stripe, Airbnb, and DoorDash.</p>
       </div>
