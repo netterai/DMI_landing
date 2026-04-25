@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Netter DMI | Data × Machine Intelligence</title>
-  <meta name="description" content="Netter is a Data-AI platform that connects, structures and activates your company's data, without requiring an engineering team." />
+  <title>Netter — Switch on your data</title>
+  <meta name="description" content="Netter centralizes and structures your company's data, then turns it into dashboards, workflows, apps, and AI agents — without an engineering team. Backed by Y Combinator." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Netter — Switch on your data" />
+  <meta property="og:description" content="Netter centralizes and structures your company's data, then turns it into dashboards, workflows, apps, and AI agents — without an engineering team." />
+  <meta property="og:image" content="Netter-LinkedIn-Banner.png" />
+  <meta property="og:image:alt" content="Netter — Switch on your data" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Netter — Switch on your data" />
+  <meta name="twitter:description" content="Netter centralizes and structures your company's data, then turns it into dashboards, workflows, apps, and AI agents." />
+  <meta name="twitter:image" content="Netter-LinkedIn-Banner.png" />
+  <meta name="twitter:image:alt" content="Netter — Switch on your data" />
+
+  <link rel="preload" as="image" href="Netter-Logo-Text.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital@1&display=swap" rel="stylesheet" />
@@ -59,6 +75,38 @@
        RESET
        ============================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ============================================================
+       SKIP LINK
+       ============================================================ */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 8px;
+      background: var(--text);
+      color: var(--bg-raised);
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 200;
+      transition: top 0.15s var(--ease-out);
+    }
+
+    .skip-link:focus { top: 8px; }
+
+    /* ============================================================
+       FOCUS RING
+       ============================================================ */
+    :focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 3px;
+    }
+
+    button:focus-visible,
+    .btn:focus-visible {
+      outline-offset: 4px;
+    }
 
     html {
       scroll-behavior: smooth;
@@ -783,6 +831,8 @@
 </head>
 <body>
 
+  <a href="#main" class="skip-link">Skip to main content</a>
+
   <!-- ============================================================
        1. NAVIGATION
        ============================================================ -->
@@ -819,7 +869,7 @@
     <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Book a Demo</a>
   </div>
 
-  <main>
+  <main id="main" tabindex="-1">
 
     <!-- ============================================================
          2. HERO
@@ -1148,6 +1198,7 @@
       <p class="footer-copy">© 2026 Netter</p>
       <ul class="footer-links">
         <li><a href="#contact">Contact</a></li>
+        <li><a href="mailto:samuel@netter.ai">Legal</a></li>
         <li><a href="https://www.linkedin.com/company/netterai" target="_blank" rel="noopener">LinkedIn</a></li>
       </ul>
     </div>
