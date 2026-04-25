@@ -202,11 +202,16 @@
       top: 0; left: 0; right: 0;
       z-index: 100;
       height: var(--nav-h);
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      transition: border-color 0.3s;
+      background: rgba(252, 250, 247, 0.85);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s var(--ease-out), background 0.2s var(--ease-out);
+    }
+
+    #nav.scrolled {
+      border-bottom-color: var(--border);
+      background: rgba(252, 250, 247, 0.92);
     }
 
     .nav-inner {
@@ -214,58 +219,56 @@
       align-items: center;
       justify-content: space-between;
       height: 100%;
+      gap: 1.5rem;
     }
 
     .nav-logo {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
-    }
-
-    .nav-logo-mark {
-      width: 26px;
-      height: 26px;
-      background: var(--accent);
-      border-radius: var(--radius);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 700;
       flex-shrink: 0;
     }
 
-    .nav-logo-name {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
+    .nav-wordmark {
+      height: 22px;
+      width: auto;
+      display: block;
     }
-
-    .nav-logo-sub {
-      font-family: var(--font);
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      color: var(--tertiary);
-      margin-left: 0.15rem;
-    }
-
-    @media (max-width: 360px) { .nav-logo-sub { display: none; } }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 1.75rem;
     }
 
     .nav-links a:not(.btn) {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 500;
       color: var(--secondary);
-      transition: color 0.2s;
+      transition: color 0.15s var(--ease-out);
+      position: relative;
     }
 
-    .nav-links a:not(.btn):hover { color: var(--accent); }
+    .nav-links a:not(.btn):hover { color: var(--text); }
+
+    .yc-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.75rem 0.35rem 0.5rem;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--secondary);
+      white-space: nowrap;
+      letter-spacing: 0.005em;
+    }
+
+    .yc-chip img {
+      border-radius: 3px;
+      display: block;
+    }
 
     .nav-toggle {
       display: none;
@@ -312,6 +315,11 @@
     }
 
     .nav-mobile .btn { align-self: flex-start; margin-top: 0.25rem; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+    }
 
     /* ============================================================
        2. HERO
@@ -1048,8 +1056,6 @@
 
     /* ── Tablet (≤ 900px) ─────────────────────────────────────── */
     @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .nav-toggle { display: flex; }
 
       .problem-list {
         grid-template-columns: 1fr;
@@ -1100,16 +1106,20 @@
   <nav id="nav" role="navigation" aria-label="Main navigation">
     <div class="container nav-inner">
 
-      <a href="#hero" class="nav-logo" aria-label="Netter DMI home">
-        <span class="nav-logo-mark">N</span>
-        <span class="nav-logo-name">Netter</span>
-        <span class="nav-logo-sub">DMI</span>
+      <a href="#hero" class="nav-logo" aria-label="Netter home">
+        <img src="Netter-Logo-Text.png" alt="Netter" class="nav-wordmark" width="60" height="22" />
       </a>
 
       <div class="nav-links" id="nav-links">
         <a href="#use-cases">Use Cases</a>
         <a href="#how-it-works">How it Works</a>
         <a href="#contact">Contact</a>
+
+        <span class="yc-chip">
+          <img src="YC square logo.png" alt="" width="14" height="14" />
+          <span>Backed by Y Combinator · P26</span>
+        </span>
+
         <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Book a Demo</a>
       </div>
 
@@ -1123,7 +1133,7 @@
     <a href="#use-cases">Use Cases</a>
     <a href="#how-it-works">How it Works</a>
     <a href="#contact">Contact</a>
-    <a href="#contact" class="btn btn-primary btn-sm">Request Access</a>
+    <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Book a Demo</a>
   </div>
 
   <main>
@@ -2053,11 +2063,14 @@
       });
     });
 
-    // ── Nav border on scroll ──────────────────────────────────────
+    // Nav scroll state
     const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.style.borderBottomColor = window.scrollY > 10 ? '#D0D0D0' : '#E5E5E5';
-    }, { passive: true });
+    const updateNavState = () => {
+      if (window.scrollY > 8) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', updateNavState, { passive: true });
+    updateNavState();
 
     // ── Section-level reveal ──────────────────────────────────────
     const revealObserver = new IntersectionObserver((entries) => {
