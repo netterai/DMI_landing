@@ -110,6 +110,7 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-h);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -260,7 +261,7 @@
     }
 
     .nav-wordmark {
-      height: 22px;
+      height: 28px;
       width: auto;
       display: block;
     }
@@ -362,8 +363,11 @@
        ============================================================ */
     #hero {
       position: relative;
-      padding-top: calc(var(--nav-h) + clamp(4rem, 10vh, 7rem));
-      padding-bottom: clamp(5rem, 12vh, 9rem);
+      min-height: 100svh;
+      padding-top: var(--nav-h);
+      padding-bottom: clamp(3rem, 6vh, 5rem);
+      display: flex;
+      align-items: center;
       overflow: hidden;
       isolation: isolate;
     }
@@ -392,6 +396,7 @@
       text-align: center;
       position: relative;
       z-index: 1;
+      width: 100%;
     }
 
     .hero-title {
@@ -649,6 +654,13 @@
       flex-direction: column;
       gap: 0.5rem;
       color: var(--text);
+      transition: border-color 0.2s var(--ease-out), transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+    }
+
+    .step-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(21, 23, 28, 0.04);
     }
 
     .step-icon {
@@ -773,12 +785,18 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1.5rem;
+      gap: 1.5rem 2rem;
       flex-wrap: wrap;
     }
 
+    .footer-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
     .footer-logo img {
-      height: 20px;
+      height: 26px;
       width: auto;
       display: block;
     }
@@ -835,7 +853,7 @@
     <div class="container nav-inner">
 
       <a href="#hero" class="nav-logo" aria-label="Netter home">
-        <img src="Netter-Logo-Text.png" alt="Netter" class="nav-wordmark" width="60" height="22" />
+        <img src="Netter-Logo-Text.png" alt="Netter" class="nav-wordmark" width="76" height="28" />
       </a>
 
       <div class="nav-links" id="nav-links">
@@ -908,8 +926,9 @@
               <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
                 <text x="16" y="22" font-family="Inter" font-size="9" font-weight="600" fill="var(--tertiary)" letter-spacing="0.1em">REVENUE · WTD</text>
-                <text x="16" y="50" font-family="Inter" font-size="24" font-weight="700" fill="var(--text)">2.4k</text>
-                <text x="62" y="50" font-family="Inter" font-size="10" font-weight="600" fill="var(--success)">+12%</text>
+                <rect x="166" y="12" width="40" height="16" rx="8" fill="var(--success)" opacity="0.12"/>
+                <text x="186" y="23" font-family="Inter" font-size="9" font-weight="600" fill="var(--success)" text-anchor="middle">+12%</text>
+                <text x="16" y="58" font-family="Inter" font-size="28" font-weight="700" fill="var(--text)">2.4k</text>
                 <polyline points="16,108 36,98 56,104 76,82 96,90 116,72 136,80 156,62 176,68 200,48" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                 <polyline points="16,108 36,98 56,104 76,82 96,90 116,72 136,80 156,62 176,68 200,48 200,124 16,124" fill="var(--text)" opacity="0.06"/>
                 <line x1="16" y1="124" x2="204" y2="124" stroke="var(--border)" stroke-width="1"/>
@@ -925,17 +944,17 @@
                 <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
                 <text x="16" y="22" font-family="Inter" font-size="9" font-weight="600" fill="var(--tertiary)" letter-spacing="0.1em">3 STEPS · LIVE</text>
                 <rect x="20" y="50" width="44" height="30" rx="6" fill="var(--bg)" stroke="var(--border-strong)"/>
-                <path d="M 38,57 l -5,8 h 4 l -3,8 l 8,-10 h -4 l 3,-6 z" fill="var(--text)" stroke="none"/>
-                <line x1="64" y1="65" x2="84" y2="65" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
-                <rect x="84" y="50" width="44" height="30" rx="6" fill="var(--bg)" stroke="var(--border-strong)"/>
-                <circle cx="106" cy="65" r="6" fill="none" stroke="var(--text)" stroke-width="1.4"/>
-                <circle cx="106" cy="65" r="2" fill="var(--text)"/>
-                <line x1="128" y1="65" x2="148" y2="65" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
-                <polygon points="146,62 152,65 146,68" fill="var(--text)"/>
-                <rect x="148" y="50" width="44" height="30" rx="6" fill="var(--text)" stroke="var(--text)"/>
-                <path d="M 161,65 l 3,4 l 8,-8" fill="none" stroke="var(--bg-raised)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="20" cy="115" r="2.5" fill="var(--success)"/>
-                <text x="28" y="118" font-family="Inter" font-size="9" font-weight="500" fill="var(--secondary)">Last run · 2 min ago</text>
+                <path d="M 45,57 l -6,9 h 4 l -3,7 l 9,-9 h -4 l 4,-7 z" fill="var(--text)" stroke="none"/>
+                <line x1="64" y1="65" x2="88" y2="65" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
+                <rect x="88" y="50" width="44" height="30" rx="6" fill="var(--bg)" stroke="var(--border-strong)"/>
+                <circle cx="110" cy="65" r="6" fill="none" stroke="var(--text)" stroke-width="1.4"/>
+                <circle cx="110" cy="65" r="2" fill="var(--text)"/>
+                <line x1="132" y1="65" x2="156" y2="65" stroke="var(--text)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"/>
+                <polygon points="154,62 158,65 154,68" fill="var(--text)"/>
+                <rect x="156" y="50" width="44" height="30" rx="6" fill="var(--text)" stroke="var(--text)"/>
+                <path d="M 169,66 l 3,4 l 8,-8" fill="none" stroke="var(--bg-raised)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16" cy="115" r="2.5" fill="var(--success)"/>
+                <text x="24" y="118" font-family="Inter" font-size="9" font-weight="500" fill="var(--secondary)">Last run · 2 min ago</text>
               </svg>
             </div>
             <h3 class="output-title">Workflows</h3>
@@ -969,17 +988,17 @@
             <div class="output-preview output-preview-agents" aria-hidden="true">
               <svg viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0" y="0" width="220" height="140" rx="8" fill="var(--bg-raised)" stroke="var(--border)" />
-                <circle cx="24" cy="32" r="10" fill="var(--bg)" stroke="var(--border-strong)"/>
-                <path d="M19 32 h10 M24 27 v10" stroke="var(--text)" stroke-width="1.4" stroke-linecap="round"/>
-                <rect x="42" y="22" width="160" height="22" rx="6" fill="var(--bg)" stroke="var(--border)"/>
-                <text x="52" y="36" font-family="Inter" font-size="10" fill="var(--text)">Find unpaid invoices over 60 days</text>
-                <rect x="22" y="56" width="180" height="32" rx="6" fill="var(--text)" opacity="0.05"/>
+                <circle cx="26" cy="32" r="9" fill="var(--bg)" stroke="var(--border-strong)"/>
+                <path d="M21 32 h10 M26 27 v10" stroke="var(--text)" stroke-width="1.4" stroke-linecap="round"/>
+                <rect x="44" y="22" width="152" height="22" rx="6" fill="var(--bg)" stroke="var(--border)"/>
+                <text x="54" y="36" font-family="Inter" font-size="10" fill="var(--text)">Find unpaid invoices over 60 days</text>
+                <rect x="22" y="56" width="176" height="32" rx="6" fill="var(--text)" opacity="0.05"/>
                 <text x="32" y="70" font-family="Inter" font-size="10" font-weight="500" fill="var(--text)">14 invoices · €128k outstanding</text>
                 <text x="32" y="82" font-family="Inter" font-size="9" fill="var(--secondary)">Drafted 14 reminder emails. Send all?</text>
-                <rect x="22" y="98" width="68" height="22" rx="5" fill="var(--text)"/>
-                <text x="56" y="112" font-family="Inter" font-size="9" font-weight="600" fill="var(--bg-raised)" text-anchor="middle">Send all</text>
-                <rect x="98" y="98" width="68" height="22" rx="5" fill="var(--bg)" stroke="var(--border-strong)"/>
-                <text x="132" y="112" font-family="Inter" font-size="9" font-weight="600" fill="var(--text)" text-anchor="middle">Review</text>
+                <rect x="22" y="98" width="64" height="22" rx="5" fill="var(--text)"/>
+                <text x="54" y="112" font-family="Inter" font-size="9" font-weight="600" fill="var(--bg-raised)" text-anchor="middle">Send all</text>
+                <rect x="94" y="98" width="64" height="22" rx="5" fill="var(--bg)" stroke="var(--border-strong)"/>
+                <text x="126" y="112" font-family="Inter" font-size="9" font-weight="600" fill="var(--text)" text-anchor="middle">Review</text>
               </svg>
             </div>
             <h3 class="output-title">AI Agents</h3>
@@ -1185,10 +1204,12 @@
        ============================================================ -->
   <footer class="footer">
     <div class="container footer-inner">
-      <a href="#hero" class="footer-logo" aria-label="Netter home">
-        <img src="Netter-Logo-Text.png" alt="Netter" width="60" height="22" />
-      </a>
-      <p class="footer-copy">© 2026 Netter</p>
+      <div class="footer-meta">
+        <a href="#hero" class="footer-logo" aria-label="Netter home">
+          <img src="Netter-Logo-Text.png" alt="Netter" width="71" height="26" />
+        </a>
+        <p class="footer-copy">© 2026 Netter</p>
+      </div>
       <ul class="footer-links">
         <li><a href="#contact">Contact</a></li>
         <li><a href="mailto:samuel@netter.ai">Legal</a></li>
