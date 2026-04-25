@@ -177,23 +177,6 @@
 
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* Section-level reveal — single unit fade-up, no per-child cascade */
-    .reveal-card {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
-    }
-
-    .reveal-card.visible { opacity: 1; transform: translateY(0); }
-
-    .reveal-group {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
-    }
-
-    .reveal-group.visible { opacity: 1; transform: translateY(0); }
-
     /* ============================================================
        1. NAVIGATION
        ============================================================ */
@@ -674,116 +657,7 @@
     }
 
     /* ============================================================
-       6. GET STARTED
-       ============================================================ */
-    .phases-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(1.5rem, 3vw, 2rem);
-    }
-
-    .phase-card {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      background: #fff;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .phase-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
-    }
-
-    .phase-header {
-      padding: 1.5rem 1.75rem 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .phase-icon {
-      width: 48px;
-      height: 48px;
-      flex-shrink: 0;
-    }
-
-    .phase-num {
-      font-family: var(--font);
-      font-size: 0.55rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    .phase-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-    }
-
-    .phase-subtitle {
-      font-size: 0.8rem;
-      color: var(--tertiary);
-      font-style: italic;
-    }
-
-    .phase-body {
-      padding: 0 1.75rem 1.75rem;
-    }
-
-    .phase-bullets {
-      list-style: none;
-    }
-
-    .phase-bullets li {
-      font-size: 0.85rem;
-      color: var(--secondary);
-      line-height: 1.7;
-      padding: 0.4rem 0;
-      padding-left: 1.5rem;
-      position: relative;
-      border-bottom: 1px solid var(--bg-sunken);
-    }
-
-    .phase-bullets li:last-child { border-bottom: none; }
-
-    .phase-bullets li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.85em;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 0.4;
-    }
-
-    .phase-footer {
-      padding: 1rem 1.75rem;
-      background: var(--bg-sunken);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .phase-footer svg {
-      width: 16px;
-      height: 16px;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .phase-footer span {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    /* ============================================================
-       7. CONTACT
+       6. CONTACT
        ============================================================ */
     .contact-simple {
       max-width: min(560px, 100%);
@@ -865,7 +739,7 @@
     .form-success.visible { display: block; }
 
     /* ============================================================
-       8. FOOTER
+       7. FOOTER
        ============================================================ */
     #footer {
       border-top: 1px solid var(--border);
@@ -919,7 +793,7 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
-      .reveal, .reveal-card, .reveal-group { opacity: 1 !important; transform: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
     }
 
     /* ============================================================
@@ -929,16 +803,7 @@
     /* ── Tablet (≤ 900px) ─────────────────────────────────────── */
     @media (max-width: 900px) {
 
-      .phases-grid { grid-template-columns: 1fr 1fr; }
-
       .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-    }
-
-    /* ── Mobile landscape / small tablet (≤ 680px) ───────────── */
-    @media (max-width: 680px) {
-
-      .phases-grid { grid-template-columns: 1fr; }
-
     }
 
     /* ── Mobile (≤ 500px) ─────────────────────────────────────── */
@@ -1279,76 +1144,7 @@
     </section>
 
     <!-- ============================================================
-         6. GET STARTED
-         ============================================================ -->
-    <section id="get-started" class="section">
-      <div class="container">
-        <div class="section-header">
-          <p class="label section-label-row reveal">Get Started</p>
-          <h2 class="section-title anim-words">Start with one use case. Then transform your operations.</h2>
-        </div>
-
-        <div class="phases-grid reveal-group">
-
-          <div class="phase-card reveal-card">
-            <div class="phase-header">
-              <svg class="phase-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                <circle cx="24" cy="24" r="18" stroke="#6366F1" stroke-width="1.6"/>
-                <path d="M18 24l4 4 8-8" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <div>
-                <p class="phase-num">Phase 01</p>
-                <h3 class="phase-title">Pilot</h3>
-                <p class="phase-subtitle">One use case, clear ROI</p>
-              </div>
-            </div>
-            <div class="phase-body">
-              <ul class="phase-bullets">
-                <li>Pick one operational issue with measurable impact</li>
-                <li>Live in 2 weeks with easy data integration</li>
-                <li>Discover the platform and its possibilities</li>
-                <li>No consulting, no engineering dependency</li>
-              </ul>
-            </div>
-            <div class="phase-footer">
-              <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/></svg>
-              <span>Live in 2 weeks</span>
-            </div>
-          </div>
-
-          <div class="phase-card reveal-card">
-            <div class="phase-header">
-              <svg class="phase-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                <path d="M10 34l8-10 6 6 14-18" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M32 12h6v6" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <rect x="4" y="8" width="40" height="32" rx="3" stroke="#6366F1" stroke-width="1.6"/>
-              </svg>
-              <div>
-                <p class="phase-num">Phase 02</p>
-                <h3 class="phase-title">Scale</h3>
-                <p class="phase-subtitle">Deploy across your entire organization</p>
-              </div>
-            </div>
-            <div class="phase-body">
-              <ul class="phase-bullets">
-                <li>Data is centralized and organized in one place</li>
-                <li>Build anything: dashboards, workflows, agents, apps</li>
-                <li>Unified across teams and sites</li>
-                <li>Accelerate your digital transformation</li>
-              </ul>
-            </div>
-            <div class="phase-footer">
-              <svg viewBox="0 0 16 16" fill="none"><path d="M4 8h8M8 4v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              <span>One platform, unlimited use cases</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         7. CONTACT / BOOK A DEMO
+         6. CONTACT / BOOK A DEMO
          ============================================================ -->
     <section id="contact" class="section">
       <div class="container">
@@ -1367,7 +1163,7 @@
   </main>
 
   <!-- ============================================================
-       8. FOOTER
+       7. FOOTER
        ============================================================ -->
   <footer id="footer">
     <div class="container footer-inner">
@@ -1423,7 +1219,7 @@
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
 
-    document.querySelectorAll('.reveal, .reveal-card, .reveal-group').forEach(el => {
+    document.querySelectorAll('.reveal').forEach(el => {
       revealObserver.observe(el);
     });
 
