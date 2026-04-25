@@ -657,6 +657,36 @@
     }
 
     /* ============================================================
+       YC TRUST ROW
+       ============================================================ */
+    .yc-row {
+      padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .yc-row-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.25rem;
+    }
+
+    .yc-row-mark {
+      height: 36px;
+      width: auto;
+      display: block;
+    }
+
+    .yc-row-supporting {
+      font-size: 0.95rem;
+      color: var(--secondary);
+      max-width: 50ch;
+      line-height: 1.55;
+    }
+
+    /* ============================================================
        6. CONTACT
        ============================================================ */
     .contact-simple {
@@ -1140,6 +1170,17 @@
           No consulting. No engineering dependency.
         </p>
 
+      </div>
+    </section>
+
+    <!-- ============================================================
+         YC TRUST ROW
+         ============================================================ -->
+    <section class="yc-row reveal">
+      <div class="container yc-row-inner">
+        <p class="label">Backed by</p>
+        <img src="YC logo + text.png" alt="Y Combinator" class="yc-row-mark" width="421" height="120" loading="lazy" />
+        <p class="yc-row-supporting">From the same accelerator that backed Stripe, Airbnb, and DoorDash.</p>
       </div>
     </section>
 
