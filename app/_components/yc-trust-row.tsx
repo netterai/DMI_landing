@@ -39,7 +39,7 @@ export function YCTrustRow() {
               <p className="font-display text-text text-xl md:text-2xl lg:text-3xl leading-snug tracking-tight max-w-[40ch]">
                 From the same accelerator that backed{" "}
                 <span className="text-secondary">
-                  Stripe, Airbnb, and DoorDash.
+                  Flexport, Brex, and Gusto.
                 </span>
               </p>
             </div>

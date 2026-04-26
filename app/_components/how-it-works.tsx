@@ -79,7 +79,7 @@ export function HowItWorks() {
           {steps.map(({ num, title, description, Icon }) => (
             <StaggerItem
               key={num}
-              className="group grid grid-cols-12 items-start gap-x-6 md:gap-x-10 gap-y-3 py-7 md:py-8 border-b border-border-strong"
+              className="group grid grid-cols-12 items-start gap-x-6 md:gap-x-10 gap-y-3 py-7 md:py-8 border-b border-border-strong last:border-b-0"
             >
               {/* Numeral */}
               <div className="col-span-2 md:col-span-1 font-display font-bold text-text text-xl md:text-3xl tabular-nums tracking-tight leading-none pt-1">

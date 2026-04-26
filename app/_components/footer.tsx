@@ -29,12 +29,6 @@ export function Footer() {
               Contact
             </a>
             <a
-              href="mailto:samuel@netter.ai"
-              className="hover:text-text transition-colors"
-            >
-              Legal
-            </a>
-            <a
               href={LINKEDIN}
               target="_blank"
               rel="noopener noreferrer"

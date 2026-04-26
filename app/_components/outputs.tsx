@@ -15,23 +15,23 @@ type Output = {
 
 const outputs: Output[] = [
   {
-    title: "Dashboards.",
+    title: "Dashboards",
     description:
       "Real-time KPIs and operational metrics, built without engineering.",
     Icon: ChartLineUp,
   },
   {
-    title: "Workflows.",
+    title: "Workflows",
     description: "Automate cross-system operations end to end.",
     Icon: CirclesThreePlus,
   },
   {
-    title: "Apps.",
+    title: "Apps",
     description: "Internal tools your teams actually want to use.",
     Icon: Cube,
   },
   {
-    title: "AI Agents.",
+    title: "AI Agents",
     description: "Autonomous operators that act on your data.",
     Icon: Robot,
   },

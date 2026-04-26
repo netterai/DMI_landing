@@ -13,10 +13,7 @@ export function Hero() {
       className="relative w-full overflow-hidden min-h-[100dvh] flex flex-col"
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 relative w-full flex-1 flex flex-col">
-        {/* Upper area — flex-1 fills the viewport so the meta strip docks
-            near the bottom (with breathing room). overflow-hidden keeps the
-            watermark inside the upper region and off the meta strip. */}
-        <div className="relative grid grid-cols-12 pt-32 md:pt-44 lg:pt-52 pb-12 md:pb-16 flex-1 overflow-hidden">
+        <div className="relative grid grid-cols-12 gap-x-6 md:gap-x-10 pt-20 md:pt-24 lg:pt-44 pb-12 md:pb-16 flex-1 overflow-hidden">
           {/* Big brand symbol watermark on the right */}
           <div
             aria-hidden
@@ -31,8 +28,8 @@ export function Hero() {
             />
           </div>
 
+          {/* Headline + CTAs */}
           <div className="relative z-10 col-span-12 lg:col-span-9 xl:col-span-8">
-            {/* Eyebrow */}
             <Reveal delay={0}>
               <div className="flex items-center gap-3 mb-7 md:mb-9">
                 <span className="block w-8 h-px bg-border-strong" />
@@ -42,7 +39,6 @@ export function Hero() {
               </div>
             </Reveal>
 
-            {/* H1 */}
             <Reveal delay={0.05}>
               <h1 className="font-display font-bold text-text text-[44px] sm:text-5xl md:text-6xl lg:text-[78px] leading-[0.95] tracking-tighter">
                 Switch on{" "}
@@ -50,7 +46,6 @@ export function Hero() {
               </h1>
             </Reveal>
 
-            {/* Subhead */}
             <Reveal delay={0.15}>
               <p className="mt-7 md:mt-9 max-w-[55ch] text-base md:text-lg text-secondary leading-relaxed">
                 Most of your data sits in silos. Netter turns it into
@@ -59,7 +54,6 @@ export function Hero() {
               </p>
             </Reveal>
 
-            {/* CTAs */}
             <Reveal delay={0.25}>
               <div className="mt-9 md:mt-11 flex flex-wrap items-center gap-4 md:gap-6">
                 <MagneticButton
@@ -86,11 +80,10 @@ export function Hero() {
               </div>
             </Reveal>
           </div>
+
         </div>
 
-        {/* Hairline meta strip — three facts. Lifted off the viewport edge
-            with a bottom margin so it reads as "in the view" instead of
-            clinging to the fold. */}
+        {/* Hairline meta strip */}
         <Reveal delay={0.35} className="mb-16 md:mb-24">
           <div className="border-t border-border py-6 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-4">
             <div>

@@ -22,15 +22,16 @@ export function Contact() {
 
             <Reveal delay={0.05}>
               <h2 className="font-display font-bold text-text text-4xl sm:text-5xl md:text-6xl lg:text-[72px] leading-[0.98] tracking-tighter">
-                Ready to switch on{" "}
-                <span className="text-secondary">your data?</span>
+                Two weeks from now,{" "}
+                <span className="text-secondary">
+                  your first workflow is live.
+                </span>
               </h2>
             </Reveal>
 
             <Reveal delay={0.15}>
-              <p className="mt-8 max-w-[50ch] text-base md:text-lg text-secondary leading-relaxed">
-                Tell us about your operation. We&apos;ll show you what&apos;s
-                possible.
+              <p className="mt-8 max-w-[55ch] text-base md:text-lg text-secondary leading-relaxed">
+                Tell us about your operation. We&apos;ll show you exactly how.
               </p>
             </Reveal>
 
