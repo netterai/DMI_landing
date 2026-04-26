@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netter — Switch on your data</title>
+  <meta name="description" content="Netter centralizes and structures your company's data, then turns it into dashboards, workflows, apps, and AI agents — without an engineering team. Backed by Y Combinator." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Netter — Switch on your data" />
+  <meta property="og:description" content="Netter centralizes and structures your company's data, then turns it into dashboards, workflows, apps, and AI agents — without an engineering team." />
+  <meta property="og:image" content="Netter-LinkedIn-Banner.png" />
+  <meta property="og:image:alt" content="Netter — Switch on your data" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Netter — Switch on your data" />
+  <meta name="twitter:description" content="Netter centralizes and structures your company's data, then turns it into dashboards, workflows, apps, and AI agents." />
+  <meta name="twitter:image" content="Netter-LinkedIn-Banner.png" />
+  <meta name="twitter:image:alt" content="Netter — Switch on your data" />
+
+  <link rel="preload" as="image" href="Netter-Logo-Text.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+       ============================================================ */
+    :root {
+      /* Warm neutrals — monochrome */
+      --bg:           #FCFAF7;
+      --bg-raised:    #FFFFFF;
+      --bg-sunken:    #F4EFE7;
+      --text:         #15171C;
+      --secondary:    #5A5854;
+      --tertiary:     #97938C;
+      --border:       #E8E2D8;
+      --border-strong: #D7CFC0;
+
+      /* Single chromatic accent — used ONLY for YC moments */
+      --yc-orange:    #FF6B00;
+
+      /* Primary CTA = warm-near-black, NOT colored */
+      --accent:       #15171C;
+      --accent-hover: #000000;
+
+      /* Status (rarely used; kept for any future need) */
+      --success:      #16A34A;
+      --error:        #DC2626;
+
+      /* Typography */
+      --font:         'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --serif:        'Newsreader', Georgia, serif;
+
+      /* Radius — softer than before to honor brand mark roundness */
+      --radius:       6px;
+      --radius-sm:    6px;
+      --radius-md:    10px;
+      --radius-lg:    14px;
+      --radius-pill:  999px;
+
+      /* Layout */
+      --nav-h:        64px;
+
+      /* Motion */
+      --ease-spring:  cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ============================================================
+       RESET
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ============================================================
+       SKIP LINK
+       ============================================================ */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 8px;
+      background: var(--text);
+      color: var(--bg-raised);
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 200;
+      transition: top 0.15s var(--ease-out);
+    }
+
+    .skip-link:focus { top: 8px; }
+
+    /* ============================================================
+       FOCUS RING
+       ============================================================ */
+    :focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 3px;
+    }
+
+    button:focus-visible,
+    .btn:focus-visible {
+      outline-offset: 4px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-h);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.55;
+      overflow-x: hidden;
+      font-weight: 420;
+      font-feature-settings: "ss01", "cv11";
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    button, input, textarea { font-family: inherit; font-size: inherit; }
+
+    /* ============================================================
+       LAYOUT
+       ============================================================ */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 5vw, 4rem);
+    }
+
+    .section {
+      padding: clamp(5rem, 9vw, 8rem) 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-sunken { background: var(--bg-sunken); }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+       ============================================================ */
+    .label {
+      font-family: var(--font);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.15s var(--ease-out), color 0.15s var(--ease-out), border-color 0.15s var(--ease-out), transform 0.1s var(--ease-out);
+      border: 1px solid transparent;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg-raised);
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .btn-sm { padding: 0.55rem 1.1rem; font-size: 0.8rem; }
+
+    .btn-arrow::after {
+      content: '→';
+      font-size: 1em;
+      transition: transform 0.2s var(--ease-spring);
+    }
+
+    .btn-arrow:hover::after { transform: translateX(3px); }
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+       ============================================================ */
+
+    /* Simple fade + lift */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       1. NAVIGATION
+       ============================================================ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(252, 250, 247, 0.85);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s var(--ease-out), background 0.2s var(--ease-out);
+    }
+
+    #nav.scrolled {
+      border-bottom-color: var(--border);
+      background: rgba(252, 250, 247, 0.92);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      gap: 1.5rem;
+    }
+
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .nav-wordmark {
+      height: 28px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    .nav-links a:not(.btn) {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--secondary);
+      transition: color 0.15s var(--ease-out);
+      position: relative;
+    }
+
+    .nav-links a:not(.btn):hover { color: var(--text); }
+
+    .yc-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.75rem 0.35rem 0.5rem;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--secondary);
+      white-space: nowrap;
+      letter-spacing: 0.005em;
+    }
+
+    .yc-chip img {
+      border-radius: 3px;
+      display: block;
+    }
+
+    .yc-name {
+      color: var(--yc-orange);
+      font-weight: 600;
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text);
+      transition: transform 0.25s, opacity 0.25s;
+    }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: var(--nav-h); left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 99;
+    }
+
+    .nav-mobile.open { display: flex; }
+
+    .nav-mobile a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--secondary);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-mobile .btn { align-self: flex-start; margin-top: 0.25rem; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+    }
+
+    /* ============================================================
+       2. HERO
+       ============================================================ */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding-top: var(--nav-h);
+      padding-bottom: clamp(3rem, 6vh, 5rem);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: clamp(560px, 80vw, 880px);
+      height: auto;
+      transform: translate(-50%, -50%);
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @media (max-width: 720px) {
+      .hero-watermark { display: none; }
+    }
+
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text);
+      max-width: 18ch;
+      margin: 0 auto;
+      opacity: 0;
+      animation: heroIn 0.8s var(--ease-spring) 0.15s forwards;
+    }
+
+    .hero-sub {
+      font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+      color: var(--secondary);
+      max-width: 640px;
+      line-height: 1.55;
+      margin: clamp(1.25rem, 2.5vw, 2rem) auto 0;
+      opacity: 0;
+      animation: heroIn 0.8s var(--ease-spring) 0.3s forwards;
+    }
+
+    .serif-italic {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .hero-sub .serif-italic {
+      color: var(--text);
+      font-size: 1.05em;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: clamp(1.75rem, 3vw, 2.5rem);
+      opacity: 0;
+      animation: heroIn 0.8s var(--ease-spring) 0.45s forwards;
+    }
+
+    .btn-text {
+      background: transparent;
+      color: var(--secondary);
+      border-color: transparent;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .btn-text:hover { color: var(--text); }
+
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-title, .hero-sub, .hero-actions {
+        opacity: 1 !important;
+        animation: none !important;
+        transform: none !important;
+      }
+    }
+
+    /* ============================================================
+       3. OUTPUTS
+       ============================================================ */
+    .section-header {
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .section-header .label {
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text);
+    }
+
+    .outputs-list {
+      max-width: 760px;
+      margin: 0 auto;
+      list-style: none;
+      padding: 0;
+    }
+
+    .output-row {
+      display: grid;
+      grid-template-columns: minmax(160px, 1fr) 2fr;
+      gap: 2.5rem;
+      align-items: baseline;
+      padding: 1.75rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .output-row:last-child {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .output-row-title {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .output-row-desc {
+      font-size: 1rem;
+      color: var(--secondary);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    @media (max-width: 600px) {
+      .output-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        padding: 1.5rem 0;
+      }
+    }
+
+    /* ============================================================
+       4. USE CASES
+       ============================================================ */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 720px) {
+      .cases-grid { grid-template-columns: 1fr; }
+    }
+
+    .case-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      padding: clamp(1.5rem, 3vw, 2.25rem);
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text);
+      transition: border-color 0.2s var(--ease-out), transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+    }
+
+    .case-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(21, 23, 28, 0.04);
+    }
+
+    .case-icon {
+      width: 32px;
+      height: 32px;
+      color: var(--text);
+    }
+
+    .case-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+
+    .case-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--text);
+    }
+
+    .case-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin: 0.25rem 0 0.5rem;
+    }
+
+    .case-bullets li {
+      font-size: 0.95rem;
+      color: var(--secondary);
+      line-height: 1.5;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .case-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.78em;
+      width: 6px;
+      height: 1px;
+      background: var(--tertiary);
+    }
+
+    .case-outcome {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ============================================================
+       5. HOW IT WORKS
+       ============================================================ */
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+
+    @media (max-width: 980px) {
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .step-connector { display: none; }
+    }
+    @media (max-width: 540px) {
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+
+    .step-card {
+      position: relative;
+      padding: 1.5rem;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: var(--text);
+      transition: border-color 0.2s var(--ease-out), transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+    }
+
+    .step-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(21, 23, 28, 0.04);
+    }
+
+    .step-icon {
+      width: 32px;
+      height: 32px;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-num {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--tertiary);
+    }
+
+    .step-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .step-desc {
+      font-size: 0.9rem;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+
+    .step-connector {
+      position: absolute;
+      top: 50%;
+      right: -20px;
+      transform: translateY(-50%);
+      color: var(--tertiary);
+      z-index: 1;
+    }
+
+    .how-confidence {
+      text-align: center;
+      font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+      font-weight: 400;
+      color: var(--text);
+      margin-top: clamp(2.5rem, 5vw, 4rem);
+      max-width: 50ch;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       YC TRUST ROW
+       ============================================================ */
+    .yc-row {
+      padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .yc-row-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.25rem;
+    }
+
+    .yc-row-mark {
+      height: 36px;
+      width: auto;
+      display: block;
+    }
+
+    .yc-row-supporting {
+      font-size: 0.95rem;
+      color: var(--secondary);
+      max-width: 50ch;
+      line-height: 1.55;
+    }
+
+    /* ============================================================
+       6. CONTACT
+       ============================================================ */
+    .contact-simple {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .contact-simple .label { margin-bottom: 0.25rem; }
+
+    .contact-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .contact-sub {
+      font-size: 1.05rem;
+      color: var(--secondary);
+      line-height: 1.55;
+    }
+
+    .contact-simple .btn { margin-top: 1.5rem; }
+
+    /* ============================================================
+       7. FOOTER
+       ============================================================ */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      background: var(--bg);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .footer-logo img {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: var(--tertiary);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--secondary);
+      transition: color 0.15s var(--ease-out);
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1 !important; transform: none !important; }
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+
+    /* ── Mobile (≤ 500px) ─────────────────────────────────────── */
+    @media (max-width: 500px) {
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn { justify-content: center; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ============================================================
+       1. NAVIGATION
+       ============================================================ -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <div class="container nav-inner">
+
+      <a href="#hero" class="nav-logo" aria-label="Netter home">
+        <img src="Netter-Logo-Text.png" alt="Netter" class="nav-wordmark" width="76" height="28" />
+      </a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#use-cases">Use Cases</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#contact">Contact</a>
+
+        <span class="yc-chip">
+          <img src="YC square logo.png" alt="" width="14" height="14" />
+          <span>Backed by <span class="yc-name">Y Combinator</span> · Spring 2026</span>
+        </span>
+
+        <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Book a Demo</a>
+      </div>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="#use-cases">Use Cases</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#contact">Contact</a>
+    <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener" class="btn btn-primary">Book a Demo</a>
+  </div>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ============================================================
+         2. HERO
+         ============================================================ -->
+    <section id="hero" aria-label="Hero">
+      <img src="Netter-Symbol-Transparent.png" alt="" class="hero-watermark" aria-hidden="true" width="1024" height="1024" />
+
+      <div class="container hero-inner">
+
+        <h1 class="hero-title">Switch on your data.</h1>
+
+        <p class="hero-sub">
+          <span class="serif-italic">Most of your data sits in silos.</span>
+          Netter turns it into dashboards, workflows, apps, and AI agents — live in 2 weeks, no engineering team.
+        </p>
+
+        <div class="hero-actions">
+          <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener" class="btn btn-primary btn-arrow">Book a Demo</a>
+          <a href="#how-it-works" class="btn btn-text">See how it works <span aria-hidden="true">↓</span></a>
+        </div>
+
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         3. OUTPUTS
+         ============================================================ -->
+    <section id="outputs" class="section reveal">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Four shapes for your data.</h2>
+        </div>
+
+        <ul class="outputs-list">
+          <li class="output-row">
+            <h3 class="output-row-title">Dashboards.</h3>
+            <p class="output-row-desc">Real-time KPIs and operational metrics, built without engineering.</p>
+          </li>
+          <li class="output-row">
+            <h3 class="output-row-title">Workflows.</h3>
+            <p class="output-row-desc">Automate cross-system operations end to end.</p>
+          </li>
+          <li class="output-row">
+            <h3 class="output-row-title">Apps.</h3>
+            <p class="output-row-desc">Internal tools your teams actually want to use.</p>
+          </li>
+          <li class="output-row">
+            <h3 class="output-row-title">AI Agents.</h3>
+            <p class="output-row-desc">Autonomous operators that act on your data.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         4. USE CASES
+         ============================================================ -->
+    <section id="use-cases" class="section reveal">
+      <div class="container">
+        <div class="section-header">
+          <p class="label">Use Cases</p>
+          <h2 class="section-title">Real operations. Real impact.</h2>
+        </div>
+
+        <div class="cases-grid">
+
+          <article class="case-card">
+            <svg class="case-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <path d="M8 4 H26 L32 10 V36 H8 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M26 4 V10 H32" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <line x1="13" y1="18" x2="25" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="13" y1="23" x2="22" y2="23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M14 30 L18 33 L26 27" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="case-tag">Healthcare</p>
+            <h3 class="case-title">Cash Collection</h3>
+            <ul class="case-bullets">
+              <li>Centralize invoices and payments in real time</li>
+              <li>Structure receivables into a single control layer</li>
+              <li>Automate reminders, task routing, and recovery</li>
+            </ul>
+            <p class="case-outcome">Aging invoices trigger automatic outreach. No manual chasing.</p>
+          </article>
+
+          <article class="case-card">
+            <svg class="case-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <rect x="2" y="14" width="22" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M24 19h8l5 6v3H24v-9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="10" cy="30" r="3" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="31" cy="30" r="3" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <p class="case-tag">Logistics</p>
+            <h3 class="case-title">Route &amp; Load Optimization</h3>
+            <ul class="case-bullets">
+              <li>Unify your transport, ERP, and fleet systems into one model</li>
+              <li>Optimize routes, loads, and costs automatically</li>
+              <li>Eliminate manual planning</li>
+            </ul>
+            <p class="case-outcome">Routes recompute in real time as constraints change.</p>
+          </article>
+
+          <article class="case-card">
+            <svg class="case-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <circle cx="14" cy="34" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="30" cy="34" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M2 4h5l4 18h22l4-13H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="case-tag">Retail &amp; FMCG</p>
+            <h3 class="case-title">Market Intelligence</h3>
+            <ul class="case-bullets">
+              <li>Consolidate channel sales data from every source</li>
+              <li>Forecast demand by SKU, region, and channel</li>
+              <li>Alert on stockouts and market-share shifts</li>
+            </ul>
+            <p class="case-outcome">Stockouts surface within the hour, not at week's end.</p>
+          </article>
+
+          <article class="case-card">
+            <svg class="case-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <circle cx="20" cy="16" r="8" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M20 8V4M20 24v4M12 16H8M32 16h-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="20" cy="16" r="3" stroke="currentColor" stroke-width="1.4"/>
+              <rect x="6" y="30" width="28" height="6" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M13 33h5M22 33h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            <p class="case-tag">Manufacturing</p>
+            <h3 class="case-title">Scheduling Optimization</h3>
+            <ul class="case-bullets">
+              <li>Ingest supply, capacity, and deadline constraints</li>
+              <li>Generate optimized schedules automatically</li>
+              <li>Push directly into your existing planning tools</li>
+            </ul>
+            <p class="case-outcome">Schedules regenerate the moment supply or capacity shifts.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         5. HOW IT WORKS
+         ============================================================ -->
+    <section id="how-it-works" class="section section-sunken reveal">
+      <div class="container">
+        <div class="section-header">
+          <p class="label">How It Works</p>
+          <h2 class="section-title">From raw data to autonomous operations.</h2>
+        </div>
+
+        <div class="steps-grid">
+
+          <div class="step-card">
+            <svg class="step-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M18 24h-12M30 24h12M24 18v-12M24 30v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="6" cy="24" r="3" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="42" cy="24" r="3" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="24" cy="6" r="3" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="24" cy="42" r="3" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+            <p class="step-num">01</p>
+            <h3 class="step-title">Connect</h3>
+            <p class="step-desc">Plug any source (CRM, ERP, data lake) or simply upload raw files.</p>
+            <svg class="step-connector" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 10h8M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <div class="step-card">
+            <svg class="step-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <path d="M24 6L4 16l20 10 20-10L24 6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M4 24l20 10 20-10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M4 32l20 10 20-10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            <p class="step-num">02</p>
+            <h3 class="step-title">Structure</h3>
+            <p class="step-desc">Netter cleans, normalizes, and organizes everything into a unified data model — automatically.</p>
+            <svg class="step-connector" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 10h8M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <div class="step-card">
+            <svg class="step-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <rect x="4" y="4" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="26" y="4" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="4" y="30" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="26" y="30" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M13 18v12M35 18v12M22 11h4M22 37h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 2"/>
+            </svg>
+            <p class="step-num">03</p>
+            <h3 class="step-title">Build</h3>
+            <p class="step-desc">Create dashboards, workflows, apps, and AI agents. No code.</p>
+            <svg class="step-connector" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 10h8M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <div class="step-card">
+            <svg class="step-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <path d="M24 4c-6 8-8 16-8 24h16c0-8-2-16-8-24z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="24" cy="22" r="3" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M16 28c-4 0-8 2-10 6h10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M32 28c4 0 8 2 10 6H32" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M20 42h8M22 38h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <p class="step-num">04</p>
+            <h3 class="step-title">Operate</h3>
+            <p class="step-desc">Netter runs, monitors, and optimizes. Your team stays focused on the business.</p>
+          </div>
+
+        </div>
+
+        <p class="how-confidence">
+          <span class="serif-italic">Live in 2 weeks.</span>
+          No consulting. No engineering dependency.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         YC TRUST ROW
+         ============================================================ -->
+    <section class="yc-row reveal">
+      <div class="container yc-row-inner">
+        <img src="YC logo + text.png" alt="Y Combinator" class="yc-row-mark" width="421" height="120" loading="lazy" />
+        <p class="yc-row-supporting">From the same accelerator that backed Stripe, Airbnb, and DoorDash.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         6. CONTACT / BOOK A DEMO
+         ============================================================ -->
+    <section id="contact" class="section reveal">
+      <div class="container">
+        <div class="contact-simple">
+          <p class="label">Book a Demo</p>
+          <h2 class="contact-title">Ready to switch on your data?</h2>
+          <p class="contact-sub">
+            Tell us about your operation. We'll show you what's possible.
+          </p>
+          <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener"
+             class="btn btn-primary btn-arrow">Book a Demo</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       7. FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-meta">
+        <a href="#hero" class="footer-logo" aria-label="Netter home">
+          <img src="Netter-Logo-Text.png" alt="Netter" width="71" height="26" />
+        </a>
+        <p class="footer-copy">© 2026 Netter</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="mailto:samuel@netter.ai">Legal</a></li>
+        <li><a href="https://www.linkedin.com/company/netterai" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    // ── Nav toggle ────────────────────────────────────────────────
+    const navToggle = document.getElementById('nav-toggle');
+    const navMobile = document.getElementById('nav-mobile');
+
+    navToggle.addEventListener('click', () => {
+      const open = navMobile.classList.toggle('open');
+      navToggle.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    navMobile.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navMobile.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Nav scroll state
+    const nav = document.getElementById('nav');
+    const updateNavState = () => {
+      if (window.scrollY > 8) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', updateNavState, { passive: true });
+    updateNavState();
+
+    // ── Section-level reveal ──────────────────────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+  </script>
+
+</body>
+</html>
