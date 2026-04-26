@@ -157,7 +157,7 @@
       width: min(calc(100% - 2rem), 1140px);
       /* Right padding matches top/bottom so the gap around the CTA pill
          reads as visually equal on all three edges. */
-      padding: 0.5rem 0.5rem 0.5rem 1.65rem;
+      padding: 0.5rem 0.55rem 0.5rem 1.65rem;
       border: 1px solid var(--dmi-border);
       border-radius: var(--dmi-radius-pill);
       background: rgba(255, 255, 255, 0.78);
@@ -465,14 +465,6 @@
     }
     .preview-img {
       display: block; width: 100%; height: auto;
-    }
-
-    /* Bottom fade-out like Hessian */
-    .preview-fade {
-      position: absolute; left: 0; right: 0; bottom: 0;
-      height: 38%;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(247, 248, 248, 0) 0%, var(--dmi-bg) 88%);
     }
 
     /* ============================================================
@@ -1217,7 +1209,6 @@
         </div>
         <img src="assets/netter-dashboard.png" alt="Netter dashboard showing an email classifier workflow" class="preview-img" />
       </div>
-      <div class="preview-fade" aria-hidden="true"></div>
     </div>
   </section>
 
