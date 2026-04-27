@@ -233,30 +233,27 @@
     }
 
     /* ============================================================
-       HERO — centered composer-led layout with elegant background aura
+       HERO
        ============================================================ */
     .hero {
       position: relative;
-      padding: clamp(7rem, 14vh, 10rem) 0 clamp(3rem, 6vw, 5rem);
-      overflow: hidden;
+      padding: clamp(8.5rem, 18vh, 12rem) 0 clamp(2rem, 4vw, 3.5rem);
+      text-align: center;
     }
     .hero-content {
       position: relative; z-index: 1;
-      display: flex; flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 1.4rem;
+      max-width: 920px; margin: 0 auto;
     }
 
     /* YC backed pill */
     .yc-pill {
       display: inline-flex; align-items: center; gap: 0.5em;
-      padding: 0.38rem 0.85rem 0.38rem 0.5rem;
+      padding: 0.4rem 0.9rem;
       border: 1px solid var(--dmi-border);
       border-radius: var(--dmi-radius-pill);
       background: var(--dmi-panel);
       color: var(--dmi-secondary);
-      font-size: 0.8rem;
+      font-size: 0.81rem;
       font-weight: 500;
       letter-spacing: -0.005em;
       box-shadow: var(--dmi-shadow-soft);
@@ -275,9 +272,8 @@
     }
 
     .hero-heading {
-      margin: 0;
-      max-width: 18ch;
-      font-size: clamp(2.2rem, 4.4vw, 3.7rem);
+      margin: 1.5rem auto 0;
+      font-size: clamp(2.3rem, 5.2vw, 4rem);
       font-weight: 510;
       line-height: 1.04;
       letter-spacing: -0.042em;
@@ -294,20 +290,20 @@
     }
 
     .hero-sub {
-      margin: 0;
-      max-width: 56ch;
-      font-size: clamp(1rem, 1.45vw, 1.1rem);
+      margin: 1.5rem auto 0;
+      max-width: 640px;
+      font-size: clamp(1rem, 1.6vw, 1.13rem);
       line-height: 1.55;
       color: var(--dmi-secondary);
       opacity: 0; transform: translateY(14px);
       animation: rise 0.85s var(--ease-spring) 0.32s forwards;
     }
 
-    /* Composer (chat input) — compact variant */
+    /* Composer (chat input) */
     .composer-wrap {
       position: relative;
-      width: min(100%, 680px);
-      margin-top: 0.6rem;
+      width: min(100%, 760px);
+      margin: 2.6rem auto 0;
       opacity: 0; transform: translateY(14px);
       animation: rise 0.95s var(--ease-spring) 0.46s forwards;
     }
@@ -315,7 +311,7 @@
       position: relative;
       overflow: hidden;
       border: 1px solid var(--dmi-border);
-      border-radius: 1rem;
+      border-radius: 1.25rem;
       background: var(--dmi-panel);
       box-shadow:
         0 1px 2px rgba(15, 16, 17, 0.03),
@@ -341,20 +337,20 @@
     .composer:focus-within::before { opacity: 0.85; }
 
     .composer-input-wrap {
-      padding: 0.85rem 1.1rem 0.3rem;
+      padding: 1.4rem 1.45rem 0.5rem;
     }
     .composer-input {
       display: block;
       width: 100%;
-      min-height: 1.6rem;
-      max-height: 8rem;
+      min-height: 3.4rem;
+      max-height: 14rem;
       padding: 0; margin: 0;
       border: none;
       background: transparent;
       color: var(--dmi-text);
       caret-color: var(--dmi-text);
       font-family: inherit;
-      font-size: 0.98rem;
+      font-size: 1.05rem;
       line-height: 1.5;
       text-align: left;
       resize: none;
@@ -369,14 +365,14 @@
 
     .composer-toolbar {
       display: flex; align-items: center; justify-content: flex-end;
-      padding: 0 0.55rem 0.55rem;
+      padding: 0 0.85rem 0.85rem;
     }
     .submit {
       display: inline-flex; align-items: center; justify-content: center;
       flex-shrink: 0;
-      width: 2.05rem; height: 2.05rem;
+      width: 2.5rem; height: 2.5rem;
       border: none;
-      border-radius: 0.6rem;
+      border-radius: 0.7rem;
       background: var(--dmi-gradient-accent);
       color: #fff;
       cursor: pointer;
@@ -386,10 +382,10 @@
     }
     .submit:hover { background: var(--dmi-gradient-accent-hover); transform: translateY(-1px); }
     .submit:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
-    .submit svg { width: 16px; height: 16px; }
+    .submit svg { width: 18px; height: 18px; }
 
     .hero-foot {
-      margin: 0.4rem 0 0;
+      margin: 1.5rem auto 0;
       font-size: 0.82rem;
       color: var(--dmi-tertiary);
       opacity: 0; animation: rise 1s var(--ease-spring) 0.6s forwards;
