@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Netter — Build with your data, not your engineers</title>
-  <meta name="description" content="Netter is the AI data platform that connects, structures and activates your company's data. Any team can ship dashboards, workflows and operational apps — in hours, not quarters." />
+  <title>Netter | Build with your data, not your engineers</title>
+  <meta name="description" content="Netter is the AI data platform that connects, structures and activates your company's data. Any team can ship dashboards, workflows and operational apps in hours, not quarters." />
   <link rel="icon" type="image/svg+xml" href="assets/netter-symbol.svg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,7 +13,7 @@
 
   <style>
     /* ============================================================
-       NETTER DESIGN TOKENS — pulled from DMI_front/app/assets/css/main.css
+       NETTER DESIGN TOKENS - pulled from DMI_front/app/assets/css/main.css
        ============================================================ */
     :root {
       /* Surfaces */
@@ -128,7 +128,7 @@
     .section { padding: clamp(4.5rem, 8vw, 7.5rem) 0; }
 
     /* ============================================================
-       BACKGROUND GRID (Hessian style — very faint)
+       BACKGROUND GRID (Hessian style - very faint)
        ============================================================ */
     .bg-grid {
       position: fixed;
@@ -146,7 +146,7 @@
     }
 
     /* ============================================================
-       NAV — pill, floating, backdrop blur
+       NAV - pill, floating, backdrop blur
        ============================================================ */
     .nav-wrap {
       position: fixed; top: 1rem; left: 0; right: 0; z-index: 50;
@@ -212,7 +212,7 @@
       box-shadow: var(--dmi-shadow-primary);
       isolation: isolate;
     }
-    /* Hover dimming via a pseudo-element overlay — leaves the button itself
+    /* Hover dimming via a pseudo-element overlay - leaves the button itself
        (and its drop shadow) completely untouched, so nothing re-composites
        during the transition: no shadow flicker, no text re-aliasing. */
     .nav-cta::after {
@@ -237,7 +237,7 @@
        ============================================================ */
     .hero {
       position: relative;
-      padding: clamp(8.5rem, 18vh, 12rem) 0 clamp(2rem, 4vw, 3.5rem);
+      padding: clamp(6.5rem, 14vh, 9.5rem) 0 clamp(1.25rem, 2.5vw, 2rem);
       text-align: center;
     }
     .hero-content {
@@ -397,15 +397,16 @@
     }
 
     /* ============================================================
-       DASHBOARD PREVIEW (Hessian-style — perspective screenshot)
+       DASHBOARD PREVIEW (Hessian-style - perspective screenshot)
        ============================================================ */
     .preview {
       position: relative;
-      /* Big bottom pad: the dashboard shadow drops ~80px and we want it to
-         fade fully inside the preview's own bg before the next section
-         (which has a different bg) takes over. Without this, the shadow
-         got clipped at the section boundary. */
-      padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(6rem, 10vw, 9rem);
+      /* Top is intentionally tight - the hero-foot caption reads as the
+         lead-in to the dashboard, so we don't want a hard section break.
+         Bottom stays generous: the dashboard's drop shadow fans ~80px and
+         we want it to fade fully inside the preview's own bg before the
+         next (differently-colored) section takes over. */
+      padding: clamp(0.5rem, 1.5vw, 1.25rem) 0 clamp(6rem, 10vw, 9rem);
       overflow: hidden;
     }
     .preview-stage {
@@ -511,7 +512,7 @@
     }
 
     /* ============================================================
-       FLOW SECTION — sources → Netter AI → outputs
+       FLOW SECTION - sources → Netter AI → outputs
        ============================================================ */
     .flow-section { background: var(--dmi-panel-alt); border-top: 1px solid var(--dmi-border); border-bottom: 1px solid var(--dmi-border); }
     .flow-grid {
@@ -529,7 +530,7 @@
       max-width: 560px;
       margin: 0 auto;
     }
-    /* Only the direct-child SVG (the flow lines) fills the stage —
+    /* Only the direct-child SVG (the flow lines) fills the stage -
        node icons keep their declared size. */
     .flow-stage > svg.flow-lines { width: 100%; height: 100%; display: block; }
 
@@ -586,7 +587,7 @@
       width: 38px; height: 38px;
     }
 
-    /* SVG flow lines — animated dashes */
+    /* SVG flow lines - animated dashes */
     .flow-lines path { fill: none; }
     .flow-line {
       stroke: rgba(15, 16, 17, 0.32);
@@ -661,7 +662,7 @@
       display: flex; align-items: flex-end; justify-content: center;
     }
 
-    /* Bento — chat preview */
+    /* Bento - chat preview */
     .bv-chat {
       width: 100%;
       align-self: stretch;
@@ -701,7 +702,7 @@
       30% { transform: translateY(-3px); opacity: 1; }
     }
 
-    /* Bento — workflow graph */
+    /* Bento - workflow graph */
     .bv-graph { width: 100%; height: 200px; }
     .bv-graph-card {
       fill: var(--dmi-panel); stroke: rgba(15, 16, 17, 0.10); stroke-width: 1;
@@ -712,7 +713,7 @@
     .bv-graph-line { stroke: rgba(15, 16, 17, 0.16); stroke-width: 1.3; fill: none; stroke-dasharray: 3 4; animation: dash-flow 4s linear infinite; }
     .bv-graph-line-active { stroke: var(--dmi-text); stroke-dasharray: none; animation: none; }
 
-    /* Bento — connectors list (clean vertical) */
+    /* Bento - connectors list (clean vertical) */
     .bv-connectors {
       width: 100%;
       display: flex; flex-direction: column;
@@ -761,7 +762,7 @@
       letter-spacing: -0.005em;
     }
 
-    /* Bento — code snippet */
+    /* Bento - code snippet */
     .bv-code {
       width: 100%;
       padding: 1rem 1.05rem;
@@ -780,7 +781,7 @@
     .bv-code-com  { color: var(--dmi-tertiary); }
     .bv-code-line { display: block; white-space: pre; }
 
-    /* Bento — dashboard mini */
+    /* Bento - dashboard mini */
     .bv-dash {
       width: 100%;
       padding: 0.85rem;
@@ -812,7 +813,7 @@
     }
     .bv-bar { flex: 1; background: linear-gradient(180deg, var(--dmi-text), #3a3a48); border-radius: 2px; min-height: 8%; }
 
-    /* Bento — real-time logs */
+    /* Bento - real-time logs */
     .bv-logs {
       width: 100%;
       border: 1px solid var(--dmi-border);
@@ -863,7 +864,7 @@
     .bv-log-msg { color: var(--dmi-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .bv-log-dim { color: var(--dmi-tertiary); }
 
-    /* Bento — security pattern */
+    /* Bento - security pattern */
     .bv-sec {
       width: 100%; height: 100%;
       position: relative;
@@ -886,20 +887,280 @@
     }
 
     /* ============================================================
-       USE CASES — small horizontal cards
+       USE CASES - three detailed patterns + a compact second tier
        ============================================================ */
-    .uc-grid {
+    .uc-grid-primary {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      gap: 1.1rem;
       margin-top: 3rem;
     }
-    @media (max-width: 880px) { .uc-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 580px) { .uc-grid { grid-template-columns: 1fr; } }
+    .uc-grid-secondary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+      margin-top: 1.4rem;
+    }
+    @media (max-width: 980px) {
+      .uc-grid-primary   { grid-template-columns: 1fr; }
+      .uc-grid-secondary { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 580px) {
+      .uc-grid-secondary { grid-template-columns: 1fr; }
+    }
 
-    .uc-card {
+    /* Primary card */
+    .uc-card-primary {
+      display: flex; flex-direction: column;
+      border: 1px solid var(--dmi-border);
+      border-radius: var(--dmi-radius-2xl);
+      background: var(--dmi-panel);
+      box-shadow: var(--dmi-shadow-soft);
+      overflow: hidden;
+      transition: transform var(--dmi-duration-slow) var(--ease-out),
+                  box-shadow var(--dmi-duration-slow) var(--ease-out),
+                  border-color var(--dmi-duration-slow) var(--ease-out);
+    }
+    .uc-card-primary:hover {
+      border-color: var(--dmi-border-med);
+      box-shadow: var(--dmi-shadow);
+      transform: translateY(-2px);
+    }
+
+    .uc-visual {
       position: relative;
-      padding: 1.25rem 1.3rem 1.4rem;
+      padding: 1rem;
+      min-height: 158px;
+      background: var(--dmi-panel-alt);
+      border-bottom: 1px solid var(--dmi-border-subtle);
+      display: flex; flex-direction: column;
+      gap: 0.45rem;
+      overflow: hidden;
+    }
+
+    /* Visual A - invoice list (cash collection) */
+    .uc-inv-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0.65rem;
+      border: 1px solid var(--dmi-border);
+      border-radius: var(--dmi-radius-md);
+      background: var(--dmi-panel);
+    }
+    .uc-inv-id  {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      color: var(--dmi-tertiary);
+      letter-spacing: -0.005em;
+    }
+    .uc-inv-co  {
+      font-size: 0.8rem;
+      font-weight: 540;
+      color: var(--dmi-text);
+      letter-spacing: -0.01em;
+    }
+    .uc-inv-amt {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 540;
+      color: var(--dmi-text);
+    }
+    .uc-inv-risk {
+      padding: 0.12rem 0.45rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.56rem;
+      font-weight: 590;
+      letter-spacing: 0.06em;
+    }
+    .uc-inv-risk--high { background: rgba(239, 68, 68, 0.10); color: #b81818; }
+    .uc-inv-risk--med  { background: rgba(245, 158, 11, 0.14); color: #8a5b00; }
+    .uc-inv-risk--low  { background: rgba(16, 185, 129, 0.12); color: #047857; }
+
+    /* Visual B - signal feed (market intelligence) */
+    .uc-feed-row {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      padding: 0.5rem 0.7rem;
+      border: 1px solid var(--dmi-border);
+      border-radius: var(--dmi-radius-md);
+      background: var(--dmi-panel);
+    }
+    .uc-feed-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--dmi-text);
+      margin-top: 0.42rem;
+      flex-shrink: 0;
+    }
+    .uc-feed-body { flex: 1; min-width: 0; }
+    .uc-feed-title {
+      font-size: 0.78rem;
+      font-weight: 540;
+      color: var(--dmi-text);
+      letter-spacing: -0.01em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .uc-feed-meta {
+      margin-top: 0.1rem;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      color: var(--dmi-tertiary);
+    }
+
+    /* Visual C - system status rows (tower control) */
+    .uc-tower-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--dmi-border);
+      border-radius: var(--dmi-radius-md);
+      background: var(--dmi-panel);
+    }
+    .uc-tower-name {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--dmi-text);
+      letter-spacing: -0.005em;
+    }
+    .uc-tower-status {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 540;
+      color: var(--dmi-tertiary);
+    }
+    .uc-tower-status::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--dmi-quaternary);
+    }
+    .uc-tower-status--live { color: var(--dmi-success); }
+    .uc-tower-status--live::before {
+      background: var(--dmi-success);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+      animation: bv-live-pulse 1.6s var(--ease-out) infinite;
+    }
+    .uc-tower-status--warn { color: var(--dmi-warning); }
+    .uc-tower-status--warn::before { background: var(--dmi-warning); }
+
+    /* Tower-row variant - health score badge instead of live/stale dot */
+    .uc-tower-score {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 2.1rem;
+      padding: 0.18rem 0.5rem;
+      border-radius: var(--dmi-radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 590;
+      letter-spacing: -0.01em;
+      background: rgba(15, 16, 17, 0.05);
+      color: var(--dmi-text);
+    }
+    .uc-tower-score--good { background: rgba(16, 185, 129, 0.12); color: #047857; }
+    .uc-tower-score--med  { background: rgba(245, 158, 11, 0.14); color: #8a5b00; }
+    .uc-tower-score--warn { background: rgba(239, 68, 68, 0.10); color: #b81818; }
+
+    /* Receivables status badges (re-use uc-inv-row, separate semantic colors) */
+    .uc-inv-status {
+      padding: 0.12rem 0.5rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.56rem;
+      font-weight: 590;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .uc-inv-status--matched { background: rgba(16, 185, 129, 0.12); color: #047857; }
+    .uc-inv-status--dunning { background: rgba(15, 16, 17, 0.06);   color: var(--dmi-secondary); }
+    .uc-inv-status--anomaly { background: rgba(245, 158, 11, 0.16); color: #8a5b00; }
+
+    /* Body */
+    .uc-body {
+      padding: 1.4rem 1.4rem 1.5rem;
+      display: flex; flex-direction: column;
+      flex: 1;
+    }
+    .uc-icon-clean {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 2.65rem; height: 2.65rem;
+      border-radius: var(--dmi-radius-lg);
+      background: var(--dmi-gradient-accent);
+      color: #fff;
+      box-shadow: var(--dmi-shadow-primary);
+      margin-bottom: 1.15rem;
+    }
+    .uc-icon-clean svg { width: 18px; height: 18px; }
+    .uc-title {
+      font-size: 1.05rem;
+      font-weight: 590;
+      letter-spacing: -0.02em;
+      color: var(--dmi-text);
+    }
+    .uc-pain {
+      margin-top: 0.4rem;
+      font-size: 0.86rem;
+      color: var(--dmi-secondary);
+      line-height: 1.5;
+    }
+    .uc-bullets {
+      margin-top: 0.95rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .uc-bullets li {
+      position: relative;
+      padding-left: 1.05rem;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      color: var(--dmi-secondary);
+      letter-spacing: -0.005em;
+    }
+    .uc-bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.58em;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--dmi-text);
+    }
+    .uc-foot { margin-top: auto; padding-top: 1.1rem; }
+    .uc-tag {
+      display: inline-flex; align-items: center;
+      padding: 0.25rem 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      font-weight: 540;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--dmi-tertiary);
+      border: 1px solid var(--dmi-border);
+      border-radius: var(--dmi-radius-pill);
+      background: var(--dmi-bg);
+    }
+
+    /* Divider between primary and secondary tier */
+    .uc-divider {
+      margin-top: 3rem;
+      display: flex; align-items: center; gap: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dmi-tertiary);
+    }
+    .uc-divider::before,
+    .uc-divider::after {
+      content: ""; flex: 1; height: 1px; background: var(--dmi-border);
+    }
+
+    /* Secondary card */
+    .uc-card-secondary {
+      display: flex; flex-direction: column;
+      padding: 1.2rem 1.25rem 1.1rem;
       border: 1px solid var(--dmi-border);
       border-radius: var(--dmi-radius-xl);
       background: var(--dmi-panel);
@@ -908,40 +1169,97 @@
                   box-shadow var(--dmi-duration-slow) var(--ease-out),
                   border-color var(--dmi-duration-slow) var(--ease-out);
     }
-    .uc-card:hover { border-color: var(--dmi-border-med); box-shadow: var(--dmi-shadow); transform: translateY(-2px); }
-    .uc-icon {
-      width: 2.35rem; height: 2.35rem;
+    .uc-card-secondary:hover {
+      border-color: var(--dmi-border-med);
+      box-shadow: var(--dmi-shadow);
+      transform: translateY(-2px);
+    }
+    .uc-icon-small {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 2rem; height: 2rem;
       border-radius: var(--dmi-radius-md);
       background: var(--dmi-accent-soft);
       color: var(--dmi-text);
-      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-bottom: 0.95rem;
     }
-    .uc-icon svg { width: 18px; height: 18px; }
-    .uc-title {
-      margin-top: 1rem;
-      font-size: 1rem; font-weight: 590;
+    .uc-icon-small svg { width: 15px; height: 15px; }
+    .uc-sec-body {
+      display: flex; flex-direction: column;
+      gap: 0.45rem;
+      flex: 1;
+    }
+    .uc-title-sm {
+      font-size: 0.96rem;
+      font-weight: 590;
       letter-spacing: -0.018em;
       color: var(--dmi-text);
+      line-height: 1.3;
     }
-    .uc-desc {
-      margin-top: 0.4rem;
-      font-size: 0.88rem;
-      line-height: 1.5;
+    .uc-sec-desc {
+      font-size: 0.78rem;
+      line-height: 1.55;
       color: var(--dmi-secondary);
+      letter-spacing: -0.003em;
+      margin: 0;
     }
-    .uc-tag {
-      display: inline-flex; align-items: center;
-      margin-top: 1rem;
-      padding: 0.25rem 0.55rem;
+    .uc-tag-sm {
+      margin-top: 0.95rem;
       font-family: var(--font-mono);
-      font-size: 0.66rem;
-      font-weight: 540;
-      letter-spacing: 0.02em;
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
       color: var(--dmi-tertiary);
-      border: 1px solid var(--dmi-border);
-      border-radius: var(--dmi-radius-pill);
-      background: var(--dmi-bg);
+      text-transform: uppercase;
     }
+
+    /* Industries strip - showcase covered verticals */
+    .industries-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 1.6rem;
+    }
+    .industry-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.5rem 0.95rem 0.5rem 0.75rem;
+      border: 1px solid var(--dmi-border);
+      border-radius: 999px;
+      background: var(--dmi-panel);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      color: var(--dmi-secondary);
+      text-transform: uppercase;
+      transition: border-color var(--dmi-duration-slow) var(--ease-out),
+                  color var(--dmi-duration-slow) var(--ease-out),
+                  background var(--dmi-duration-slow) var(--ease-out),
+                  transform var(--dmi-duration-slow) var(--ease-out);
+    }
+    .industry-chip:hover {
+      border-color: var(--dmi-border-med);
+      color: var(--dmi-text);
+      background: var(--dmi-bg);
+      transform: translateY(-1px);
+    }
+    .industry-chip-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.45rem;
+      height: 1.45rem;
+      border-radius: 999px;
+      background: var(--dmi-accent-soft);
+      color: var(--dmi-text);
+      flex-shrink: 0;
+    }
+    .industry-chip-icon svg { width: 12px; height: 12px; }
+    .industry-chip:hover .industry-chip-icon {
+      background: var(--dmi-text);
+      color: var(--dmi-panel);
+    }
+
 
     /* ============================================================
        HOW IT WORKS (steps)
@@ -1130,7 +1448,7 @@
        ============================================================ -->
   <div class="nav-wrap">
     <nav class="nav" id="nav">
-      <a href="#hero" class="nav-brand" aria-label="Netter — home">
+      <a href="#hero" class="nav-brand" aria-label="Netter home">
         <img class="nav-logo" src="assets/netter-logo.svg" alt="Netter" />
       </a>
 
@@ -1170,7 +1488,7 @@
         </h1>
 
         <p class="hero-sub">
-          Netter is the central nervous system that connects your company's data sources to build dashboards, workflows and operational apps.
+          Netter is the central nervous system that centralizes your scattered data to deploy analytics, workflows and ML models.
         </p>
 
         <form class="composer-wrap" id="composerForm" autocomplete="off">
@@ -1194,7 +1512,7 @@
         </form>
 
         <p class="hero-foot">
-          See Netter turn your scattered data into running systems — live, in 30 minutes.
+          See Netter turn your scattered data into running systems. Live, in 30 minutes.
         </p>
       </div>
     </div>
@@ -1218,7 +1536,7 @@
   </section>
 
   <!-- ============================================================
-       FLOW SECTION — sources → Netter AI → outputs
+       FLOW SECTION - sources → Netter AI → outputs
        ============================================================ -->
   <section id="flow" class="section flow-section">
     <div class="container">
@@ -1230,7 +1548,7 @@
             <em>your data</em> and the work it powers.
           </h2>
           <p class="sect-sub">
-            Netter ingests every source you already run on, structures it into a living ontology, and lets your teams turn it into dashboards, workflows and apps — through a chat, not a ticket.
+            Netter centralizes every source you already run on, cleans and enriches it into a living ontology, then lets your teams turn it into dashboards, workflows and apps through a chat, not a ticket.
           </p>
           <div style="display: flex; gap: 1.4rem; margin-top: 1.6rem; flex-wrap: wrap;">
             <div>
@@ -1252,7 +1570,7 @@
           <div class="flow-stage" id="flowStage">
             <!-- SVG flow lines : sources (left) -> hub (center) -> outputs (right).
                  Endpoints land *inside* the node bounding boxes so the node's
-                 opaque background hides the very tip — connection always reads
+                 opaque background hides the very tip - connection always reads
                  cleanly at the node edge regardless of rendered stage size. -->
             <svg class="flow-lines" viewBox="0 0 560 480" preserveAspectRatio="xMidYMid meet"
                  fill="none" aria-hidden="true">
@@ -1332,7 +1650,7 @@
   </section>
 
   <!-- ============================================================
-       BENTO (Hessian style — features in a single grid)
+       BENTO (Hessian style - features in a single grid)
        ============================================================ -->
   <section class="section">
     <div class="container">
@@ -1364,7 +1682,7 @@
         <!-- 2. Connect anything -->
         <div class="bento-cell bento-cell-small reveal">
           <h3 class="bento-title">Connect anything.</h3>
-          <p class="bento-desc">120+ native sources — warehouses, SaaS APIs, files, webhooks.</p>
+          <p class="bento-desc">120+ native sources: warehouses, SaaS APIs, files, webhooks.</p>
           <div class="bento-visual" style="align-items: flex-start;">
             <div class="bv-connectors" aria-hidden="true">
               <div class="bv-conn">
@@ -1441,7 +1759,7 @@
         <!-- 5. Real-time logs -->
         <div class="bento-cell bento-cell-small reveal">
           <h3 class="bento-title">Observable, end-to-end.</h3>
-          <p class="bento-desc">Every step traced and logged. Filter, search, replay — across every workflow.</p>
+          <p class="bento-desc">Every step traced and logged. Filter, search, replay across every workflow.</p>
           <div class="bento-visual">
             <div class="bv-logs" aria-hidden="true">
               <div class="bv-logs-head">
@@ -1528,64 +1846,242 @@
   <section id="cases" class="section" style="border-top: 1px solid var(--dmi-border);">
     <div class="container">
       <div class="reveal" style="max-width: 720px;">
-        <span class="sect-eyebrow">Real operations</span>
-        <h2 class="sect-heading">Built for the work<br /><em>that moves the business.</em></h2>
-        <p class="sect-sub">Operations teams use Netter to ship the systems they could never get prioritized.</p>
+        <span class="sect-eyebrow">Use cases</span>
+        <h2 class="sect-heading">Concrete use cases,<br /><em>shipped on Netter.</em></h2>
+        <p class="sect-sub">Three patterns we run today, plus a few more behind them. Built for the verticals where data lives in too many places.</p>
       </div>
 
-      <div class="uc-grid">
-        <div class="uc-card reveal">
-          <div class="uc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M5 9c0-2 3-3 7-3s7 1 7 3-3 3-7 3-7 1-7 3 3 3 7 3 7-1 7-3"/></svg>
+      <div class="industries-strip reveal">
+        <span class="industry-chip">
+          <span class="industry-chip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6z"/>
+            </svg>
+          </span>
+          Healthcare
+        </span>
+
+        <span class="industry-chip">
+          <span class="industry-chip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 8h14l-1 12H6z"/>
+              <path d="M9 8a3 3 0 0 1 6 0"/>
+            </svg>
+          </span>
+          Retail
+        </span>
+
+        <span class="industry-chip">
+          <span class="industry-chip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21V11l5 3V11l5 3V8l8 4v9z"/>
+              <path d="M7 17h1.5M11 17h1.5M15 17h1.5"/>
+            </svg>
+          </span>
+          Manufacturing
+        </span>
+
+        <span class="industry-chip">
+          <span class="industry-chip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7h11v10H3z"/>
+              <path d="M14 10h4l3 3v4h-7z"/>
+              <circle cx="7" cy="18" r="1.6"/>
+              <circle cx="17" cy="18" r="1.6"/>
+            </svg>
+          </span>
+          Logistics
+        </span>
+
+        <span class="industry-chip">
+          <span class="industry-chip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 21V4h10v17M14 21V9h6v12"/>
+              <path d="M7 8h2M7 12h2M7 16h2M16 13h2M16 17h2"/>
+            </svg>
+          </span>
+          Real estate
+        </span>
+      </div>
+
+      <!-- Primary tier - three detailed use cases -->
+      <div class="uc-grid-primary">
+
+        <!-- 1. Market intelligence & sell-out operations -->
+        <article class="uc-card-primary reveal">
+          <div class="uc-visual" aria-hidden="true">
+            <div class="uc-feed-row">
+              <span class="uc-feed-dot"></span>
+              <div class="uc-feed-body">
+                <div class="uc-feed-title">Carrefour FR · Sell-out spike</div>
+                <div class="uc-feed-meta">SKU-A102 · +18% w/w</div>
+              </div>
+            </div>
+            <div class="uc-feed-row">
+              <span class="uc-feed-dot"></span>
+              <div class="uc-feed-body">
+                <div class="uc-feed-title">Tesco UK · Stock-out risk</div>
+                <div class="uc-feed-meta">SKU-B205 · 4d cover left</div>
+              </div>
+            </div>
+            <div class="uc-feed-row">
+              <span class="uc-feed-dot"></span>
+              <div class="uc-feed-body">
+                <div class="uc-feed-title">Auchan ES · Promo lag</div>
+                <div class="uc-feed-meta">SKU-C447 · -22% vs target</div>
+              </div>
+            </div>
           </div>
-          <h3 class="uc-title">Cash collection</h3>
-          <p class="uc-desc">Score every invoice on payment risk and trigger the right collection action automatically.</p>
-          <span class="uc-tag">Finance</span>
+          <div class="uc-body">
+            <span class="uc-icon-clean" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 17 9 11 13 15 21 7"/>
+                <polyline points="14 7 21 7 21 14"/>
+              </svg>
+            </span>
+            <h3 class="uc-title">Market intelligence &amp; sell-out</h3>
+            <p class="uc-pain">Sell-out, CRM and e-comm live in silos. Weekly reports always lag the shelf.</p>
+            <ul class="uc-bullets">
+              <li>Reconcile sell-in and sell-out automatically across every channel</li>
+              <li>Enrich with geography and socio-demographic signals</li>
+              <li>Forecast by SKU, region and channel. Refreshed live, not weekly</li>
+            </ul>
+            <div class="uc-foot"><span class="uc-tag">Retail · Distribution</span></div>
+          </div>
+        </article>
+
+        <!-- 2. Recovering dormant receivables -->
+        <article class="uc-card-primary reveal">
+          <div class="uc-visual" aria-hidden="true">
+            <div class="uc-inv-row">
+              <span class="uc-inv-id">INV-9821</span>
+              <span class="uc-inv-co">Site Lille</span>
+              <span class="uc-inv-amt">€3.2K</span>
+              <span class="uc-inv-status uc-inv-status--matched">Matched</span>
+            </div>
+            <div class="uc-inv-row">
+              <span class="uc-inv-id">INV-9822</span>
+              <span class="uc-inv-co">Site Lyon</span>
+              <span class="uc-inv-amt">€1.4K</span>
+              <span class="uc-inv-status uc-inv-status--anomaly">Anomaly</span>
+            </div>
+            <div class="uc-inv-row">
+              <span class="uc-inv-id">INV-9823</span>
+              <span class="uc-inv-co">Site Nice</span>
+              <span class="uc-inv-amt">€5.7K</span>
+              <span class="uc-inv-status uc-inv-status--dunning">Dunning</span>
+            </div>
+          </div>
+          <div class="uc-body">
+            <span class="uc-icon-clean" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="8" y1="13" x2="16" y2="13"/>
+                <line x1="8" y1="17" x2="13" y2="17"/>
+              </svg>
+            </span>
+            <h3 class="uc-title">Dormant receivables</h3>
+            <p class="uc-pain">Billing and treasury don't talk. Millions sit unreconciled across sites.</p>
+            <ul class="uc-bullets">
+              <li>Recover ~10% of dormant receivables within weeks of go-live</li>
+              <li>Match every invoice to its payment automatically, site by site</li>
+              <li>Flag anomalies, trigger dunning, give HQ live cash visibility</li>
+            </ul>
+            <div class="uc-foot"><span class="uc-tag">Healthcare · Multi-site</span></div>
+          </div>
+        </article>
+
+        <!-- 3. Network control tower -->
+        <article class="uc-card-primary reveal">
+          <div class="uc-visual" aria-hidden="true">
+            <div class="uc-tower-row">
+              <span class="uc-tower-name">Bordeaux #007</span>
+              <span class="uc-tower-score uc-tower-score--good">92</span>
+            </div>
+            <div class="uc-tower-row">
+              <span class="uc-tower-name">Lyon #018</span>
+              <span class="uc-tower-score uc-tower-score--med">64</span>
+            </div>
+            <div class="uc-tower-row">
+              <span class="uc-tower-name">Nice #061</span>
+              <span class="uc-tower-score uc-tower-score--warn">41</span>
+            </div>
+          </div>
+          <div class="uc-body">
+            <span class="uc-icon-clean" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1"/>
+                <rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                <rect x="14" y="14" width="7" height="7" rx="1"/>
+              </svg>
+            </span>
+            <h3 class="uc-title">Network control tower</h3>
+            <p class="uc-pain">POS, ERP, HR, reviews. Fragmented. Margin leaks compound before you see them.</p>
+            <ul class="uc-bullets">
+              <li>Consolidate every store-level source by site ID (POS, ERP, HR, reviews)</li>
+              <li>Score each location 0-100 and surface which sites need attention, why</li>
+              <li>Weekly auto-briefs for area managers, real-time benchmark for HQ</li>
+            </ul>
+            <div class="uc-foot"><span class="uc-tag">Franchise · Multi-site</span></div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Divider into the second tier -->
+      <div class="uc-divider"><span>Also running on Netter</span></div>
+
+      <!-- Secondary tier - three compact use cases -->
+      <div class="uc-grid-secondary">
+        <div class="uc-card-secondary reveal">
+          <span class="uc-icon-small">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 16a8 8 0 1 1 16 0"/>
+              <path d="M12 16l3.5-4.5"/>
+              <circle cx="12" cy="16" r="1.1" fill="currentColor"/>
+              <path d="M6.5 14.5l-1 0.4M17.5 14.5l1 0.4"/>
+            </svg>
+          </span>
+          <div class="uc-sec-body">
+            <span class="uc-title-sm">Predictive maintenance</span>
+            <p class="uc-sec-desc">Unify machine, maintenance and usage data. Predict component failure before it happens, schedule on evidence instead of fixed calendars.</p>
+          </div>
+          <span class="uc-tag-sm">Industrial · Manufacturing</span>
         </div>
 
-        <div class="uc-card reveal">
-          <div class="uc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h7l3-9 4 18 3-9h1"/></svg>
+        <div class="uc-card-secondary reveal">
+          <span class="uc-icon-small">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="16" rx="2"/>
+              <path d="M3 10h18"/>
+              <path d="M8 3v4M16 3v4"/>
+              <rect x="7" y="13" width="3" height="2" rx="0.4" fill="currentColor" stroke="none"/>
+              <rect x="14" y="17" width="3" height="2" rx="0.4" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          <div class="uc-sec-body">
+            <span class="uc-title-sm">Constrained scheduling</span>
+            <p class="uc-sec-desc">Pull bookings from incoming emails, solve daily scheduling under delivery, weight and exam constraints, push the plan back into the existing planning tool.</p>
           </div>
-          <h3 class="uc-title">Lead enrichment</h3>
-          <p class="uc-desc">Every new contact arrives with company intel, intent signals and persona-fit ranking — already routed.</p>
-          <span class="uc-tag">Revenue</span>
+          <span class="uc-tag-sm">Healthcare · Nuclear medicine</span>
         </div>
 
-        <div class="uc-card reveal">
-          <div class="uc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div class="uc-card-secondary reveal">
+          <span class="uc-icon-small">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7h11v10H3z"/>
+              <path d="M14 10h4l3 3v4h-7z"/>
+              <circle cx="7" cy="18" r="1.7"/>
+              <circle cx="17" cy="18" r="1.7"/>
+            </svg>
+          </span>
+          <div class="uc-sec-body">
+            <span class="uc-title-sm">Supply chain logistics</span>
+            <p class="uc-sec-desc">Connect TMS, ERP and fleet data into a single operational model. Auto-optimize routes, load plans and costs so trucks stop running half-empty.</p>
           </div>
-          <h3 class="uc-title">Freshness monitoring</h3>
-          <p class="uc-desc">Track every dataset's heartbeat. Catch silent breakages before they hit a board-level chart.</p>
-          <span class="uc-tag">Data ops</span>
-        </div>
-
-        <div class="uc-card reveal">
-          <div class="uc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4"/><path d="M3 17l9 4 9-4"/></svg>
-          </div>
-          <h3 class="uc-title">Route &amp; load planning</h3>
-          <p class="uc-desc">Optimize routes with live constraints. Re-plan when reality breaks the schedule.</p>
-          <span class="uc-tag">Logistics</span>
-        </div>
-
-        <div class="uc-card reveal">
-          <div class="uc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg>
-          </div>
-          <h3 class="uc-title">Market intelligence</h3>
-          <p class="uc-desc">Track competitor pricing, product moves and hiring signals. Surface anomalies daily.</p>
-          <span class="uc-tag">Strategy</span>
-        </div>
-
-        <div class="uc-card reveal">
-          <div class="uc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-          </div>
-          <h3 class="uc-title">Customer health</h3>
-          <p class="uc-desc">A single score for every account. The CSM team sees the same signal as the dashboard.</p>
-          <span class="uc-tag">Success</span>
+          <span class="uc-tag-sm">Transport · Logistics</span>
         </div>
       </div>
     </div>
@@ -1603,24 +2099,24 @@
 
       <div class="how-grid">
         <div class="how-card reveal">
-          <div class="how-num">01 — Connect</div>
+          <div class="how-num">01 / Connect</div>
           <h3 class="how-title">Plug your sources.</h3>
-          <p class="how-desc">120+ native connectors. OAuth, API key, or warehouse SQL — Netter handles incremental syncs and schema drift.</p>
+          <p class="how-desc">120+ native connectors. OAuth, API key, or warehouse SQL. Netter handles incremental syncs and schema drift.</p>
         </div>
         <div class="how-card reveal">
-          <div class="how-num">02 — Structure</div>
+          <div class="how-num">02 / Structure</div>
           <h3 class="how-title">Map the ontology.</h3>
-          <p class="how-desc">Customers, accounts, invoices, events. Netter builds a living model of your business — one place, one truth.</p>
+          <p class="how-desc">Customers, accounts, invoices, events. Netter builds a living model of your business. One place, one truth.</p>
         </div>
         <div class="how-card reveal">
-          <div class="how-num">03 — Build</div>
+          <div class="how-num">03 / Build</div>
           <h3 class="how-title">Describe the outcome.</h3>
-          <p class="how-desc">Tell Netter what you want — a dashboard, a workflow, an internal app. Review, tweak, deploy.</p>
+          <p class="how-desc">Tell Netter what you want: a dashboard, a workflow, an internal app. Review, tweak, deploy.</p>
         </div>
         <div class="how-card reveal">
-          <div class="how-num">04 — Operate</div>
+          <div class="how-num">04 / Operate</div>
           <h3 class="how-title">Ship and iterate.</h3>
-          <p class="how-desc">Versioned, observable, secured. Your team owns it from day one — no engineering hand-off.</p>
+          <p class="how-desc">Versioned, observable, secured. Your team owns it from day one, no engineering hand-off.</p>
         </div>
       </div>
     </div>
@@ -1639,7 +2135,7 @@
             <em>waiting on</em> to life.
           </h2>
           <p class="cta-sub">
-            30 minutes. We map your data, your top use case, and show you Netter shipping it live.
+            30 minutes. We map your data, pick the use case worth winning, and show you Netter shipping it live.
           </p>
           <div class="cta-buttons">
             <a href="https://calendly.com/samuel-netterai/30min?month=2026-03"
@@ -1662,7 +2158,7 @@
   <footer>
     <div class="container">
       <div class="foot">
-        <div class="foot-meta">© 2026 Netter, Inc. — All systems operational.</div>
+        <div class="foot-meta">© 2026 Netter, Inc. All systems operational.</div>
         <div class="foot-links">
           <a href="https://calendly.com/samuel-netterai/30min?month=2026-03" target="_blank" rel="noopener" class="foot-link">Book a demo</a>
           <a href="mailto:samuel@netter.ai" class="foot-link">Contact</a>
@@ -1672,10 +2168,10 @@
   </footer>
 
   <!-- ============================================================
-       JS — composer rotating placeholder, scroll reveal, nav scrolled
+       JS - composer rotating placeholder, scroll reveal, nav scrolled
        ============================================================ -->
   <script>
-    /* ---------- Calendly URL — single source ---------- */
+    /* ---------- Calendly URL - single source ---------- */
     const CALENDLY = 'https://calendly.com/samuel-netterai/30min?month=2026-03';
 
     /* ---------- Composer rotating placeholder + submit ---------- */
