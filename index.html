@@ -523,85 +523,123 @@
     }
     @media (max-width: 920px) { .flow-grid { grid-template-columns: 1fr; } }
 
-    .flow-stage {
+    /* ============================================================
+       PLATFORM ILLUSTRATION — transparent block on the flow-section bg:
+         5 source cards (left) → dark cube hub → 5 output cards (right)
+       Single inline SVG so it scales as one unit.
+       Animations are opacity / stroke-dashoffset only — never CSS
+       `transform`, since it would override SVG `transform="translate(...)"`
+       attributes on the card groups.
+       ============================================================ */
+    .platform-illust {
       position: relative;
-      aspect-ratio: 1 / 0.85;
       width: 100%;
-      max-width: 560px;
+      max-width: 580px;
       margin: 0 auto;
     }
-    /* Only the direct-child SVG (the flow lines) fills the stage -
-       node icons keep their declared size. */
-    .flow-stage > svg.flow-lines { width: 100%; height: 100%; display: block; }
+    .platform-illust > svg {
+      width: 100%; height: auto; display: block; overflow: visible;
+    }
 
-    /* Source / output node cards */
-    .flow-node {
+    /* Cards are HTML pills positioned absolutely over the SVG, so each
+       card auto-sizes to its content width (pill width follows label
+       length). Left cards are anchored by their RIGHT edge and right
+       cards by their LEFT edge — both edges align with the SVG line
+       endpoints (x=195 / x=365 → 34.82% / 66.96% of the 560-wide
+       viewBox), so line tips meet the card edge regardless of width. */
+    .pi-card {
       position: absolute;
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 0.75rem;
+      z-index: 2;
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.45rem 0.85rem 0.45rem 0.7rem;
       background: var(--dmi-panel);
       border: 1px solid var(--dmi-border);
-      border-radius: var(--dmi-radius-md);
+      border-radius: var(--dmi-radius-pill);
       box-shadow: var(--dmi-shadow-soft);
-      font-size: 0.78rem;
+      font-size: 0.86rem;
       font-weight: 540;
       color: var(--dmi-text);
       letter-spacing: -0.01em;
       white-space: nowrap;
-      z-index: 2;
+      opacity: 0;
     }
-    .flow-node svg.flow-node-icon {
-      width: 16px; height: 16px;
+    .pi-card svg {
+      width: 18px; height: 18px;
       flex-shrink: 0;
       color: var(--dmi-secondary);
       display: block;
     }
-    .flow-hub-symbol { width: 38px; height: 38px; display: block; }
-
-    /* Center hub */
-    .flow-hub {
-      position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      width: 7.5rem; height: 7.5rem;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 30% 30%, #2d2d39, #0f1011 70%);
-      box-shadow:
-        0 0 0 1px rgba(15, 16, 17, 0.18),
-        0 10px 30px rgba(15, 16, 17, 0.30),
-        0 0 0 8px rgba(28, 28, 35, 0.05),
-        0 0 0 16px rgba(28, 28, 35, 0.025);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff;
+    .pi-card-l { right: 66.96%; animation: pi-card-l-in 0.6s var(--ease-spring) forwards; }
+    .pi-card-r { left:  66.96%; animation: pi-card-r-in 0.6s var(--ease-spring) forwards; }
+    .pi-card-1 { top: 21.1%; animation-delay: 0.10s; }
+    .pi-card-2 { top: 35.7%; animation-delay: 0.18s; }
+    .pi-card-3 { top: 50.2%; animation-delay: 0.26s; }
+    .pi-card-4 { top: 64.8%; animation-delay: 0.34s; }
+    .pi-card-5 { top: 79.3%; animation-delay: 0.42s; }
+    @keyframes pi-card-l-in {
+      from { opacity: 0; transform: translate(-12px, -50%); }
+      to   { opacity: 1; transform: translate(0,    -50%); }
     }
-    .flow-hub::after {
-      content: "";
-      position: absolute; inset: -28px;
-      border-radius: 50%;
-      border: 1px dashed rgba(15, 16, 17, 0.10);
-      animation: hub-spin 22s linear infinite;
-    }
-    @keyframes hub-spin { to { transform: rotate(360deg); } }
-    .flow-hub-symbol {
-      width: 38px; height: 38px;
+    @keyframes pi-card-r-in {
+      from { opacity: 0; transform: translate(12px, -50%); }
+      to   { opacity: 1; transform: translate(0,    -50%); }
     }
 
-    /* SVG flow lines - animated dashes */
-    .flow-lines path { fill: none; }
-    .flow-line {
-      stroke: rgba(15, 16, 17, 0.32);
-      stroke-width: 1.1;
+    /* Connecting lines — draw in */
+    .pi-line {
+      fill: none;
+      stroke: rgba(15, 16, 17, 0.28);
+      stroke-width: 1;
       stroke-linecap: round;
-      stroke-dasharray: 3 6;
-      animation: dash-flow 4s linear infinite;
+      stroke-dasharray: 240;
+      stroke-dashoffset: 240;
+      animation: pi-line-draw 0.9s var(--ease-spring) forwards;
     }
-    @keyframes dash-flow { to { stroke-dashoffset: -120; } }
-    .flow-line-out { animation-direction: reverse; }
-    .flow-line-bg {
-      stroke: rgba(15, 16, 17, 0.07);
-      stroke-width: 1.1;
+    .pi-line-1 { animation-delay: 0.55s; }
+    .pi-line-2 { animation-delay: 0.62s; }
+    .pi-line-3 { animation-delay: 0.69s; }
+    .pi-line-4 { animation-delay: 0.76s; }
+    .pi-line-5 { animation-delay: 0.83s; }
+    @keyframes pi-line-draw { to { stroke-dashoffset: 0; } }
+
+    /* Travelling data-flow pulse along selected lines */
+    .pi-pulse {
+      fill: none;
+      stroke: var(--dmi-text);
+      stroke-width: 1.6;
       stroke-linecap: round;
+      stroke-dasharray: 7 240;
+      stroke-dashoffset: 240;
+      opacity: 0;
+      animation: pi-pulse-flow 5s linear infinite;
+      animation-delay: 1.6s;
+    }
+    @keyframes pi-pulse-flow {
+      0%   { stroke-dashoffset: 246; opacity: 0; }
+      8%   { opacity: 0.85; }
+      45%  { stroke-dashoffset: 0;   opacity: 0.85; }
+      55%  { stroke-dashoffset: 0;   opacity: 0; }
+      100% { stroke-dashoffset: 0;   opacity: 0; }
+    }
+    .pi-pulse-out  { animation-delay: 2.2s; }
+    .pi-pulse-2    { animation-delay: 3.0s; }
+    .pi-pulse-2-out{ animation-delay: 3.6s; }
+
+    /* Cube node pulse — opacity only (stays put). */
+    .pi-node-pulse { animation: pi-node-glow 3.2s var(--ease-spring) infinite; }
+    .pi-node-pulse-2 { animation-delay: 1.0s; }
+    .pi-node-pulse-3 { animation-delay: 2.0s; }
+    @keyframes pi-node-glow {
+      0%, 100% { opacity: 0.55; }
+      50%      { opacity: 1;    }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pi-card, .pi-line, .pi-pulse, .pi-node-pulse {
+        animation: none !important;
+        opacity: 1 !important;
+        stroke-dashoffset: 0 !important;
+      }
     }
 
     /* ============================================================
@@ -1567,81 +1605,158 @@
         </div>
 
         <div class="reveal">
-          <div class="flow-stage" id="flowStage">
-            <!-- SVG flow lines : sources (left) -> hub (center) -> outputs (right).
-                 Endpoints land *inside* the node bounding boxes so the node's
-                 opaque background hides the very tip - connection always reads
-                 cleanly at the node edge regardless of rendered stage size. -->
-            <svg class="flow-lines" viewBox="0 0 560 480" preserveAspectRatio="xMidYMid meet"
-                 fill="none" aria-hidden="true">
-              <!-- Inputs : sources -> hub -->
-              <path class="flow-line-bg" d="M 50 62  C 190 62,  220 230, 280 240"/>
-              <path class="flow-line"    d="M 50 62  C 190 62,  220 230, 280 240"/>
+          <div class="platform-illust">
+            <svg viewBox="0 0 560 440" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <radialGradient id="hubGradient" cx="35%" cy="30%" r="80%">
+                  <stop offset="0%"   stop-color="#2d2d39"/>
+                  <stop offset="65%"  stop-color="#0f1011"/>
+                  <stop offset="100%" stop-color="#0a0a0e"/>
+                </radialGradient>
+                <radialGradient id="hubHalo" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%"   stop-color="rgba(28,28,35,0.10)"/>
+                  <stop offset="55%"  stop-color="rgba(28,28,35,0.04)"/>
+                  <stop offset="100%" stop-color="rgba(28,28,35,0)"/>
+                </radialGradient>
+                <symbol id="netterN" viewBox="0 0 140 150">
+                  <path d="M6.54 0.09C7.16-0.01 8.08 0.04 8.73 0.04 10.91 0.05 13.10 0.06 15.28 0.06L40.44 0.05C43.61 0.05 46.68-0.53 49.15 2.34 50.16 3.50 50.87 5.01 51.18 6.66 51.49 8.40 51.36 12.74 51.37 14.77 51.38 20.97 51.34 27.18 51.34 33.39 51.34 37.26 53.30 40.22 56.43 40.89 57.52 41.12 59.31 41.04 60.47 41.04L67.58 41.01C69.02 41.00 71.55 40.87 72.87 41.27 73.95 41.58 74.94 42.24 75.74 43.19 77.19 44.89 77.61 47.09 77.57 49.45 77.54 51.50 77.55 53.59 77.55 55.64L77.56 70.87C77.56 73.13 77.51 75.41 77.56 77.67 77.61 79.98 78.16 81.93 79.58 83.52 80.41 84.45 81.43 85.01 82.53 85.28 84.55 85.78 87.29 85.45 89.38 85.46 92.44 85.46 95.55 85.62 98.61 85.46 101.21 85.33 103.52 83.58 104.49 80.56 105.14 78.53 104.84 69.49 104.84 66.85L104.84 25.40 104.83 13.78C104.83 11.85 104.70 9.28 104.91 7.43 105.41 2.94 108.47 0.04 112.15 0.05 117.97 0.06 123.84 0.06 129.66 0.05 131.16 0.05 133.02-0.10 134.47 0.27 135.75 0.59 136.94 1.35 137.88 2.46 139.32 4.14 139.98 6.48 139.98 8.87 139.98 18.56 139.98 28.26 139.98 37.95L139.99 137.36C139.99 138.65 140.04 140.99 139.93 142.22 139.77 144.10 139.08 145.86 137.99 147.21 135.65 150.10 133.00 149.76 129.96 149.76L124.90 149.75 96.73 149.75 88.43 149.76C85.59 149.77 82.72 150.25 80.30 148.06 76.73 144.82 77.46 139.51 77.46 134.61L77.47 114.97C77.48 111.91 77.60 108.04 77.39 105.08 77.16 101.95 74.80 99.21 72.28 98.81 71.04 98.61 69.42 98.68 68.10 98.68L60.74 98.70C59.05 98.71 57.31 98.81 55.65 98.49 53.29 98.04 51.03 95.36 50.75 92.45 50.52 90.19 50.63 87.50 50.63 85.20L50.64 68.87C50.64 66.03 50.83 62.95 50.53 60.15 50.31 58.06 49.55 56.37 48.15 55.12 46.37 53.54 44.35 53.63 42.25 53.63 41.31 53.63 40.35 53.61 39.42 53.77 37.33 54.15 35.39 55.86 34.66 58.33 33.88 61.01 34.23 72.14 34.23 75.78L34.23 134.95C34.25 138.50 34.76 143.41 32.92 146.31 31.77 148.13 30.07 149.33 28.20 149.64 27.07 149.83 25.43 149.76 24.26 149.75L18.20 149.74 10.48 149.76C7.56 149.76 5.16 150.21 2.72 147.89 1.27 146.53 0.34 144.52 0.12 142.32-0.03 140.75 0.04 137.96 0.04 136.26L0.04 16.96C0.04 13.91-0.07 10.63 0.08 7.61 0.29 3.35 3.27 0.53 6.54 0.09Z" fill="#ffffff"/>
+                </symbol>
+              </defs>
 
-              <path class="flow-line-bg" d="M 35 201 C 190 201, 220 232, 280 240"/>
-              <path class="flow-line"    d="M 35 201 C 190 201, 220 232, 280 240"/>
+              <!-- ============== CONNECTING LINES ============== -->
+              <!-- All lines fan in/out to the hub center (280, 221).
+                   Endpoints sit inside the opaque hub circle so the curves
+                   read as "merging into" Netter rather than ending visibly. -->
+              <!-- Inputs: cards (right edge x=185) → hub center -->
+              <path class="pi-line pi-line-1" d="M 185 93  C 218 93,  240 221, 280 221"/>
+              <path class="pi-line pi-line-2" d="M 185 157 C 218 157, 245 221, 280 221"/>
+              <path class="pi-line pi-line-3" d="M 185 221 C 218 221, 250 221, 280 221"/>
+              <path class="pi-line pi-line-4" d="M 185 285 C 218 285, 245 221, 280 221"/>
+              <path class="pi-line pi-line-5" d="M 185 349 C 218 349, 240 221, 280 221"/>
 
-              <path class="flow-line-bg" d="M 35 297 C 190 297, 220 248, 280 240"/>
-              <path class="flow-line"    d="M 35 297 C 190 297, 220 248, 280 240"/>
+              <!-- Outputs: hub center → cards (left edge x=375) -->
+              <path class="pi-line pi-line-1" d="M 280 221 C 320 221, 342 93,  375 93"/>
+              <path class="pi-line pi-line-2" d="M 280 221 C 315 221, 347 157, 375 157"/>
+              <path class="pi-line pi-line-3" d="M 280 221 C 310 221, 342 221, 375 221"/>
+              <path class="pi-line pi-line-4" d="M 280 221 C 315 221, 347 285, 375 285"/>
+              <path class="pi-line pi-line-5" d="M 280 221 C 320 221, 342 349, 375 349"/>
 
-              <path class="flow-line-bg" d="M 50 393 C 190 393, 220 250, 280 240"/>
-              <path class="flow-line"    d="M 50 393 C 190 393, 220 250, 280 240"/>
+              <!-- Travelling pulse on selected lines for the data-flow feel -->
+              <path class="pi-pulse"                d="M 185 157 C 218 157, 245 221, 280 221"/>
+              <path class="pi-pulse pi-pulse-out"   d="M 280 221 C 315 221, 347 157, 375 157"/>
+              <path class="pi-pulse pi-pulse-2"     d="M 185 285 C 218 285, 245 221, 280 221"/>
+              <path class="pi-pulse pi-pulse-2-out" d="M 280 221 C 315 221, 347 285, 375 285"/>
 
-              <!-- Outputs : hub -> destinations -->
-              <path class="flow-line-bg"            d="M 280 240 C 340 230, 370 62,  510 62"/>
-              <path class="flow-line flow-line-out" d="M 280 240 C 340 230, 370 62,  510 62"/>
+              <!-- ============== HUB (round Netter mark) ============== -->
+              <!-- Soft halo (radial gradient) and rotating dashed ring -->
+              <circle cx="280" cy="221" r="92" fill="url(#hubHalo)"/>
+              <circle cx="280" cy="221" r="80" fill="none"
+                      stroke="rgba(15,16,17,0.10)" stroke-width="1"
+                      stroke-dasharray="3 5">
+                <animateTransform attributeName="transform" type="rotate"
+                                  from="0 280 221" to="360 280 221"
+                                  dur="22s" repeatCount="indefinite"/>
+              </circle>
 
-              <path class="flow-line-bg"            d="M 280 240 C 340 240, 380 201, 525 201"/>
-              <path class="flow-line flow-line-out" d="M 280 240 C 340 240, 380 201, 525 201"/>
+              <!-- Main hub circle — radial gradient for depth -->
+              <circle cx="280" cy="221" r="58"
+                      fill="url(#hubGradient)"
+                      stroke="rgba(15,16,17,0.25)" stroke-width="1"/>
 
-              <path class="flow-line-bg"            d="M 280 240 C 340 250, 380 297, 525 297"/>
-              <path class="flow-line flow-line-out" d="M 280 240 C 340 250, 380 297, 525 297"/>
+              <!-- Netter N glyph centred -->
+              <use href="#netterN" x="255" y="195" width="50" height="54"/>
 
-              <path class="flow-line-bg"            d="M 280 240 C 340 250, 370 393, 510 393"/>
-              <path class="flow-line flow-line-out" d="M 280 240 C 340 250, 370 393, 510 393"/>
             </svg>
 
-            <!-- Source nodes (left) -->
-            <div class="flow-node" style="left: 0;     top:  9%;">
-              <svg class="flow-node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5c0 1.66-4.03 3-9 3S3 6.66 3 5s4.03-3 9-3 9 1.34 9 3z"/><path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6"/></svg>
-              Postgres
-            </div>
-            <div class="flow-node" style="left: -3%;  top: 38%;">
-              <svg class="flow-node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 9v12"/></svg>
-              Salesforce
-            </div>
-            <div class="flow-node" style="left: -3%;  top: 58%;">
-              <svg class="flow-node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 12h8v8"/></svg>
-              HubSpot
-            </div>
-            <div class="flow-node" style="left: 0;     top: 78%;">
-              <svg class="flow-node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2c2.5 3 4 6.5 4 10s-1.5 7-4 10c-2.5-3-4-6.5-4-10s1.5-7 4-10z"/></svg>
-              Stripe
-            </div>
-
-            <!-- Hub -->
-            <div class="flow-hub" aria-label="Netter">
-              <svg class="flow-hub-symbol" viewBox="0 0 140 150" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6.54 0.09C7.16-0.01 8.08 0.04 8.73 0.04 10.91 0.05 13.10 0.06 15.28 0.06L40.44 0.05C43.61 0.05 46.68-0.53 49.15 2.34 50.16 3.50 50.87 5.01 51.18 6.66 51.49 8.40 51.36 12.74 51.37 14.77 51.38 20.97 51.34 27.18 51.34 33.39 51.34 37.26 53.30 40.22 56.43 40.89 57.52 41.12 59.31 41.04 60.47 41.04L67.58 41.01C69.02 41.00 71.55 40.87 72.87 41.27 73.95 41.58 74.94 42.24 75.74 43.19 77.19 44.89 77.61 47.09 77.57 49.45 77.54 51.50 77.55 53.59 77.55 55.64L77.56 70.87C77.56 73.13 77.51 75.41 77.56 77.67 77.61 79.98 78.16 81.93 79.58 83.52 80.41 84.45 81.43 85.01 82.53 85.28 84.55 85.78 87.29 85.45 89.38 85.46 92.44 85.46 95.55 85.62 98.61 85.46 101.21 85.33 103.52 83.58 104.49 80.56 105.14 78.53 104.84 69.49 104.84 66.85L104.84 25.40 104.83 13.78C104.83 11.85 104.70 9.28 104.91 7.43 105.41 2.94 108.47 0.04 112.15 0.05 117.97 0.06 123.84 0.06 129.66 0.05 131.16 0.05 133.02-0.10 134.47 0.27 135.75 0.59 136.94 1.35 137.88 2.46 139.32 4.14 139.98 6.48 139.98 8.87 139.98 18.56 139.98 28.26 139.98 37.95L139.99 137.36C139.99 138.65 140.04 140.99 139.93 142.22 139.77 144.10 139.08 145.86 137.99 147.21 135.65 150.10 133.00 149.76 129.96 149.76L124.90 149.75 96.73 149.75 88.43 149.76C85.59 149.77 82.72 150.25 80.30 148.06 76.73 144.82 77.46 139.51 77.46 134.61L77.47 114.97C77.48 111.91 77.60 108.04 77.39 105.08 77.16 101.95 74.80 99.21 72.28 98.81 71.04 98.61 69.42 98.68 68.10 98.68L60.74 98.70C59.05 98.71 57.31 98.81 55.65 98.49 53.29 98.04 51.03 95.36 50.75 92.45 50.52 90.19 50.63 87.50 50.63 85.20L50.64 68.87C50.64 66.03 50.83 62.95 50.53 60.15 50.31 58.06 49.55 56.37 48.15 55.12 46.37 53.54 44.35 53.63 42.25 53.63 41.31 53.63 40.35 53.61 39.42 53.77 37.33 54.15 35.39 55.86 34.66 58.33 33.88 61.01 34.23 72.14 34.23 75.78L34.23 134.95C34.25 138.50 34.76 143.41 32.92 146.31 31.77 148.13 30.07 149.33 28.20 149.64 27.07 149.83 25.43 149.76 24.26 149.75L18.20 149.74 10.48 149.76C7.56 149.76 5.16 150.21 2.72 147.89 1.27 146.53 0.34 144.52 0.12 142.32-0.03 140.75 0.04 137.96 0.04 136.26L0.04 16.96C0.04 13.91-0.07 10.63 0.08 7.61 0.29 3.35 3.27 0.53 6.54 0.09Z"/>
+            <!-- ========== HTML CARDS — auto-width pills ========== -->
+            <!-- Left side (data sources) — anchored by RIGHT edge so they
+                 grow leftward as labels get longer. Right edge sits at
+                 66.96% from the right, which is SVG x=195 — exactly where
+                 the line endpoints land. -->
+            <div class="pi-card pi-card-l pi-card-1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
+                <path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6"/>
               </svg>
+              Databases
+            </div>
+            <div class="pi-card pi-card-l pi-card-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1"/>
+                <rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                <rect x="14" y="14" width="7" height="7" rx="1"/>
+              </svg>
+              Applications
+            </div>
+            <div class="pi-card pi-card-l pi-card-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+              APIs
+            </div>
+            <div class="pi-card pi-card-l pi-card-4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+              Files &amp; Docs
+            </div>
+            <div class="pi-card pi-card-l pi-card-5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                <circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+              IoT &amp; Sensors
             </div>
 
-            <!-- Output nodes (right) -->
-            <div class="flow-node" style="right: 0;    top:  9%;">
-              <svg class="flow-node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-              Dashboards
-            </div>
-            <div class="flow-node" style="right: -3%; top: 38%;">
-              <svg class="flow-node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6"   r="2"/><circle cx="18" cy="6"  r="2"/><circle cx="6" cy="18"  r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 6h8M8 18h8M6 8v8M18 8v8"/></svg>
+            <!-- Right side (outputs) — anchored by LEFT edge so they grow
+                 rightward as labels get longer. Left edge sits at SVG
+                 x=365 (66.96%). -->
+            <div class="pi-card pi-card-r pi-card-1">
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
               Workflows
             </div>
-            <div class="flow-node" style="right: -3%; top: 58%;">
-              <svg class="flow-node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-              Internal apps
+            <div class="pi-card pi-card-r pi-card-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="8" width="16" height="12" rx="2"/>
+                <path d="M12 8V4"/>
+                <line x1="9" y1="13" x2="9" y2="15"/>
+                <line x1="15" y1="13" x2="15" y2="15"/>
+                <path d="M2 14h2M20 14h2"/>
+              </svg>
+              AI Agent
             </div>
-            <div class="flow-node" style="right: 0;    top: 78%;">
-              <svg class="flow-node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12l3 3 5-7"/><circle cx="12" cy="12" r="10"/></svg>
-              Decisions
+            <div class="pi-card pi-card-r pi-card-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+              </svg>
+              Alerts
+            </div>
+            <div class="pi-card pi-card-r pi-card-4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="6"  y1="20" x2="6"  y2="16"/>
+                <line x1="12" y1="20" x2="12" y2="10"/>
+                <line x1="18" y1="20" x2="18" y2="4"/>
+              </svg>
+              Analytics
+            </div>
+            <div class="pi-card pi-card-r pi-card-5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6"  cy="6"  r="2" fill="currentColor" stroke="none"/>
+                <circle cx="6"  cy="18" r="2" fill="currentColor" stroke="none"/>
+                <circle cx="18" cy="12" r="2" fill="currentColor" stroke="none"/>
+                <line x1="8" y1="6"  x2="16" y2="11"/>
+                <line x1="8" y1="18" x2="16" y2="13"/>
+              </svg>
+              ML Pipeline
             </div>
           </div>
         </div>
