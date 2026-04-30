@@ -1312,19 +1312,42 @@
     @media (max-width: 580px) { .how-grid { grid-template-columns: 1fr; } }
 
     .how-card {
+      position: relative;
       padding: 1.5rem 1.4rem 1.55rem;
       border: 1px solid var(--dmi-border);
       border-radius: var(--dmi-radius-xl);
       background: var(--dmi-panel);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .how-card:hover {
+      border-color: color-mix(in srgb, var(--dmi-text) 24%, var(--dmi-border));
+      transform: translateY(-1px);
+    }
+    .how-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--dmi-panel-alt);
+      border: 1px solid var(--dmi-border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dmi-text);
+      margin-bottom: 1.1rem;
+    }
+    .how-icon svg {
+      width: 18px;
+      height: 18px;
     }
     .how-num {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
       color: var(--dmi-tertiary);
+      text-transform: uppercase;
     }
     .how-title {
-      margin-top: 1rem;
+      margin-top: 0.5rem;
       font-size: 1.05rem;
       font-weight: 590;
       letter-spacing: -0.02em;
@@ -1332,7 +1355,7 @@
     }
     .how-desc {
       margin-top: 0.45rem;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--dmi-secondary);
       line-height: 1.55;
     }
@@ -1526,7 +1549,7 @@
         </h1>
 
         <p class="hero-sub">
-          Netter is the central nervous system that centralizes your scattered data to deploy analytics, workflows and ML models.
+          Netter centralizes your scattered data to deploy analytics, workflows and ML models.
         </p>
 
         <form class="composer-wrap" id="composerForm" autocomplete="off">
@@ -1566,7 +1589,7 @@
           <span class="preview-dot"></span>
           <span class="preview-dot"></span>
           <span class="preview-dot"></span>
-          <span class="preview-url">app.netter.ai/projects/email-classifier</span>
+          <span class="preview-url">app.netter.ai/projects/main</span>
         </div>
         <img src="assets/netter-dashboard.png" alt="Netter dashboard showing an email classifier workflow" class="preview-img" />
       </div>
@@ -1582,8 +1605,8 @@
         <div class="reveal">
           <span class="sect-eyebrow">The platform</span>
           <h2 class="sect-heading">
-            One layer between<br />
-            <em>your data</em> and the work it powers.
+            A nervous system to <br />
+            <em>reconcile tools and teams.</em> 
           </h2>
           <p class="sect-sub">
             Netter centralizes every source you already run on, cleans and enriches it into a living ontology, then lets your teams turn it into dashboards, workflows and apps through a chat, not a ticket.
@@ -1765,197 +1788,6 @@
   </section>
 
   <!-- ============================================================
-       BENTO (Hessian style - features in a single grid)
-       ============================================================ -->
-  <section class="section">
-    <div class="container">
-      <div class="reveal" style="max-width: 720px;">
-        <span class="sect-eyebrow">What you get</span>
-        <h2 class="sect-heading">
-          Everything an operations team needs.<br />
-          <em>Nothing they don't.</em>
-        </h2>
-      </div>
-
-      <div class="bento">
-        <!-- 1. Build with chat -->
-        <div class="bento-cell bento-cell-wide reveal">
-          <h3 class="bento-title">Build with a conversation.</h3>
-          <p class="bento-desc">Describe the outcome. Netter shapes the data flow, picks the operators, and writes the code. You stay in the loop, you don't write it.</p>
-          <div class="bento-visual">
-            <div class="bv-chat">
-              <div class="bv-msg bv-msg-user">Build a weekly revenue health report.</div>
-              <div class="bv-msg">Pulling Stripe and HubSpot. Detecting your fiscal calendar. Suggesting 3 KPIs.</div>
-              <div class="bv-msg-thinking">
-                <span class="bv-dot"></span><span class="bv-dot"></span><span class="bv-dot"></span>
-                <span style="margin-left: 0.25rem;">Drafting the dashboard…</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. Connect anything -->
-        <div class="bento-cell bento-cell-small reveal">
-          <h3 class="bento-title">Connect anything.</h3>
-          <p class="bento-desc">120+ native sources: warehouses, SaaS APIs, files, webhooks.</p>
-          <div class="bento-visual" style="align-items: flex-start;">
-            <div class="bv-connectors" aria-hidden="true">
-              <div class="bv-conn">
-                <span class="bv-conn-mono">P</span>
-                <span class="bv-conn-name">Postgres</span>
-                <span class="bv-conn-status bv-conn-status--live"></span>
-              </div>
-              <div class="bv-conn">
-                <span class="bv-conn-mono">S</span>
-                <span class="bv-conn-name">Stripe</span>
-                <span class="bv-conn-status"></span>
-              </div>
-              <div class="bv-conn">
-                <span class="bv-conn-mono">SF</span>
-                <span class="bv-conn-name">Salesforce</span>
-                <span class="bv-conn-status"></span>
-              </div>
-              <div class="bv-conn">
-                <span class="bv-conn-mono">SN</span>
-                <span class="bv-conn-name">Snowflake</span>
-                <span class="bv-conn-status"></span>
-              </div>
-              <div class="bv-conn-more">+ 116 more</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. Workflows that run themselves -->
-        <div class="bento-cell bento-cell-small reveal">
-          <h3 class="bento-title">Workflows that run themselves.</h3>
-          <p class="bento-desc">Schedule, trigger, retry, alert. Every step versioned and auditable.</p>
-          <div class="bento-visual">
-            <svg class="bv-graph" viewBox="0 0 280 180" aria-hidden="true">
-              <!-- edges -->
-              <path class="bv-graph-line bv-graph-line-active" d="M 50 30 C 90 30, 100 60, 130 60"/>
-              <path class="bv-graph-line bv-graph-line-active" d="M 130 60 C 165 60, 175 90, 215 90"/>
-              <path class="bv-graph-line" d="M 130 60 C 165 60, 175 130, 215 130"/>
-              <path class="bv-graph-line" d="M 50 90 C 90 90, 100 60, 130 60"/>
-              <!-- nodes -->
-              <rect class="bv-graph-card bv-graph-card-active" x="6"  y="14" width="86" height="32" rx="6"/>
-              <text class="bv-graph-text bv-graph-text-active" x="49" y="34" text-anchor="middle">trigger</text>
-
-              <rect class="bv-graph-card" x="6"  y="74" width="86" height="32" rx="6"/>
-              <text class="bv-graph-text" x="49" y="94" text-anchor="middle">fetch_data</text>
-
-              <rect class="bv-graph-card bv-graph-card-active" x="98" y="44" width="76" height="32" rx="6"/>
-              <text class="bv-graph-text bv-graph-text-active" x="136" y="64" text-anchor="middle">classify</text>
-
-              <rect class="bv-graph-card" x="180" y="74"  width="92" height="32" rx="6"/>
-              <text class="bv-graph-text" x="226" y="94" text-anchor="middle">notify_slack</text>
-
-              <rect class="bv-graph-card" x="180" y="114" width="92" height="32" rx="6"/>
-              <text class="bv-graph-text" x="226" y="134" text-anchor="middle">save_db</text>
-            </svg>
-          </div>
-        </div>
-
-        <!-- 4. Code-aware SDK -->
-        <div class="bento-cell bento-cell-small reveal">
-          <h3 class="bento-title">Drop down to code anytime.</h3>
-          <p class="bento-desc">Any step is a Python function you can read and edit. No black box.</p>
-          <div class="bento-visual">
-            <div class="bv-code" aria-hidden="true">
-              <span class="bv-code-line"><span class="bv-code-com"># revenue.py</span></span>
-              <span class="bv-code-line"><span class="bv-code-key">from</span> netter <span class="bv-code-key">import</span> step</span>
-              <span class="bv-code-line"></span>
-              <span class="bv-code-line"><span class="bv-code-key">@</span><span class="bv-code-fn">step</span>(retries=<span class="bv-code-key">3</span>)</span>
-              <span class="bv-code-line"><span class="bv-code-key">def</span> <span class="bv-code-fn">classify</span>(invoice):</span>
-              <span class="bv-code-line">    <span class="bv-code-key">return</span> agent(<span class="bv-code-str">"benjamin-netter"</span>)</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 5. Real-time logs -->
-        <div class="bento-cell bento-cell-small reveal">
-          <h3 class="bento-title">Observable, end-to-end.</h3>
-          <p class="bento-desc">Every step traced and logged. Filter, search, replay across every workflow.</p>
-          <div class="bento-visual">
-            <div class="bv-logs" aria-hidden="true">
-              <div class="bv-logs-head">
-                <span class="bv-logs-title">runs/run_a1b2c3d4 · logs</span>
-                <span class="bv-logs-live"><span class="bv-logs-live-dot"></span>live</span>
-              </div>
-              <div class="bv-logs-body">
-                <div class="bv-log"><span class="bv-log-t">19:25:58</span><span class="bv-log-tag bv-log-tag--info">INFO</span><span class="bv-log-msg">trigger fired</span></div>
-                <div class="bv-log"><span class="bv-log-t">19:25:59</span><span class="bv-log-tag bv-log-tag--ok">OK</span><span class="bv-log-msg">fetch_data &nbsp;<span class="bv-log-dim">82ms</span></span></div>
-                <div class="bv-log"><span class="bv-log-t">19:26:00</span><span class="bv-log-tag bv-log-tag--info">INFO</span><span class="bv-log-msg">classify started</span></div>
-                <div class="bv-log"><span class="bv-log-t">19:26:01</span><span class="bv-log-tag bv-log-tag--ok">OK</span><span class="bv-log-msg">classify &nbsp;<span class="bv-log-dim">418ms</span></span></div>
-                <div class="bv-log"><span class="bv-log-t">19:26:01</span><span class="bv-log-tag bv-log-tag--info">INFO</span><span class="bv-log-msg">notify_slack queued</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. Dashboards in seconds (wide) -->
-        <div class="bento-cell bento-cell-wide reveal">
-          <h3 class="bento-title">Dashboards in seconds, not sprints.</h3>
-          <p class="bento-desc">Versioned, queryable, embeddable. Every chart traces back to a single source of truth.</p>
-          <div class="bento-visual">
-            <div class="bv-dash">
-              <div class="bv-dash-row">
-                <div class="bv-stat">
-                  <div class="bv-stat-label">MRR</div>
-                  <div class="bv-stat-value">$1.27M</div>
-                  <div class="bv-stat-delta">+8.4% w/w</div>
-                </div>
-                <div class="bv-stat">
-                  <div class="bv-stat-label">Churn</div>
-                  <div class="bv-stat-value">2.1%</div>
-                  <div class="bv-stat-delta">-0.6 pts</div>
-                </div>
-                <div class="bv-stat">
-                  <div class="bv-stat-label">Active</div>
-                  <div class="bv-stat-value">8,431</div>
-                  <div class="bv-stat-delta">+312</div>
-                </div>
-              </div>
-              <div class="bv-chart" aria-hidden="true">
-                <span class="bv-bar" style="height: 22%"></span>
-                <span class="bv-bar" style="height: 38%"></span>
-                <span class="bv-bar" style="height: 30%"></span>
-                <span class="bv-bar" style="height: 56%"></span>
-                <span class="bv-bar" style="height: 48%"></span>
-                <span class="bv-bar" style="height: 70%"></span>
-                <span class="bv-bar" style="height: 60%"></span>
-                <span class="bv-bar" style="height: 82%"></span>
-                <span class="bv-bar" style="height: 74%"></span>
-                <span class="bv-bar" style="height: 92%"></span>
-                <span class="bv-bar" style="height: 86%"></span>
-                <span class="bv-bar" style="height: 100%"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. Secure -->
-        <div class="bento-cell bento-cell-small reveal">
-          <h3 class="bento-title">Secure by design.</h3>
-          <p class="bento-desc">Audit logs, role-based policies, encryption at every step. SOC 2 in motion.</p>
-          <div class="bento-visual">
-            <div class="bv-sec">
-              <div class="bv-sec-grid">A1B7 9E3F C2D8 4567 0F3A E2C9 91D4 A88E
-              57BC F1A9 30D8 C7E6 1B4F A21D 88C3 0E5F 76A9 4D32 EF87 DA2C 51B7 03E9 8A4F C2D1
-              9F5A 78C4 2D03 6B1F E8A2 C49E 17DB 530F 8C2A 4F19 BD61 09E7 41AC 28F0 6E3D 7B85
-              A0F2 5C49 318B 7DAE 0962 C13F E75D 2A48 8014 BF3C 5E9A 21D6 4C8F 0B3E A971 5D24</div>
-              <svg class="bv-sec-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
-                <path d="M12 2 4 5v7c0 5 3.5 9 8 10 4.5-1 8-5 8-10V5l-8-3z"/>
-                <path d="M9 12l2 2 4-4"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
        USE CASES
        ============================================================ -->
   <section id="cases" class="section" style="border-top: 1px solid var(--dmi-border);">
@@ -1963,7 +1795,7 @@
       <div class="reveal" style="max-width: 720px;">
         <span class="sect-eyebrow">Use cases</span>
         <h2 class="sect-heading">Concrete use cases,<br /><em>shipped on Netter.</em></h2>
-        <p class="sect-sub">Three patterns we run today, plus a few more behind them. Built for the verticals where data lives in too many places.</p>
+        <p class="sect-sub">A few use cases already running in companies where data lives in too many places.</p>
       </div>
 
       <div class="industries-strip reveal">
@@ -2203,6 +2035,197 @@
   </section>
 
   <!-- ============================================================
+       BENTO (Hessian style - features in a single grid)
+       ============================================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="reveal" style="max-width: 720px;">
+        <span class="sect-eyebrow">What you get</span>
+        <h2 class="sect-heading">
+          Tell us what you need.<br />
+          <em>We set it up it for you.</em>
+        </h2>
+      </div>
+
+      <div class="bento">
+        <!-- 1. Build with chat -->
+        <div class="bento-cell bento-cell-wide reveal">
+          <h3 class="bento-title">Build with a conversation.</h3>
+          <p class="bento-desc">Describe the outcome. Netter shapes the data flow, picks the operators, and writes the code. You stay in the loop, you don't write it.</p>
+          <div class="bento-visual">
+            <div class="bv-chat">
+              <div class="bv-msg bv-msg-user">Build a weekly revenue health report.</div>
+              <div class="bv-msg">Pulling Stripe and HubSpot. Detecting your fiscal calendar. Suggesting 3 KPIs.</div>
+              <div class="bv-msg-thinking">
+                <span class="bv-dot"></span><span class="bv-dot"></span><span class="bv-dot"></span>
+                <span style="margin-left: 0.25rem;">Drafting the dashboard…</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Connect anything -->
+        <div class="bento-cell bento-cell-small reveal">
+          <h3 class="bento-title">Connect anything.</h3>
+          <p class="bento-desc">120+ native sources: warehouses, SaaS APIs, files, webhooks.</p>
+          <div class="bento-visual" style="align-items: flex-start;">
+            <div class="bv-connectors" aria-hidden="true">
+              <div class="bv-conn">
+                <span class="bv-conn-mono">P</span>
+                <span class="bv-conn-name">Postgres</span>
+                <span class="bv-conn-status bv-conn-status--live"></span>
+              </div>
+              <div class="bv-conn">
+                <span class="bv-conn-mono">S</span>
+                <span class="bv-conn-name">Stripe</span>
+                <span class="bv-conn-status"></span>
+              </div>
+              <div class="bv-conn">
+                <span class="bv-conn-mono">SF</span>
+                <span class="bv-conn-name">Salesforce</span>
+                <span class="bv-conn-status"></span>
+              </div>
+              <div class="bv-conn">
+                <span class="bv-conn-mono">SN</span>
+                <span class="bv-conn-name">Snowflake</span>
+                <span class="bv-conn-status"></span>
+              </div>
+              <div class="bv-conn-more">+ 116 more</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Workflows that run themselves -->
+        <div class="bento-cell bento-cell-small reveal">
+          <h3 class="bento-title">Workflows that work for you.</h3>
+          <p class="bento-desc">Schedule, trigger, retry, alert. Every step versioned and auditable.</p>
+          <div class="bento-visual">
+            <svg class="bv-graph" viewBox="0 0 280 180" aria-hidden="true">
+              <!-- edges -->
+              <path class="bv-graph-line bv-graph-line-active" d="M 50 30 C 90 30, 100 60, 130 60"/>
+              <path class="bv-graph-line bv-graph-line-active" d="M 130 60 C 165 60, 175 90, 215 90"/>
+              <path class="bv-graph-line" d="M 130 60 C 165 60, 175 130, 215 130"/>
+              <path class="bv-graph-line" d="M 50 90 C 90 90, 100 60, 130 60"/>
+              <!-- nodes -->
+              <rect class="bv-graph-card bv-graph-card-active" x="6"  y="14" width="86" height="32" rx="6"/>
+              <text class="bv-graph-text bv-graph-text-active" x="49" y="34" text-anchor="middle">trigger</text>
+
+              <rect class="bv-graph-card" x="6"  y="74" width="86" height="32" rx="6"/>
+              <text class="bv-graph-text" x="49" y="94" text-anchor="middle">fetch_data</text>
+
+              <rect class="bv-graph-card bv-graph-card-active" x="98" y="44" width="76" height="32" rx="6"/>
+              <text class="bv-graph-text bv-graph-text-active" x="136" y="64" text-anchor="middle">classify</text>
+
+              <rect class="bv-graph-card" x="180" y="74"  width="92" height="32" rx="6"/>
+              <text class="bv-graph-text" x="226" y="94" text-anchor="middle">notify_slack</text>
+
+              <rect class="bv-graph-card" x="180" y="114" width="92" height="32" rx="6"/>
+              <text class="bv-graph-text" x="226" y="134" text-anchor="middle">save_db</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 4. Code-aware SDK -->
+        <div class="bento-cell bento-cell-small reveal">
+          <h3 class="bento-title">Drop down to code anytime.</h3>
+          <p class="bento-desc">Any step is a Python script you can read and edit. Fully dertiministic, no black box.</p>
+          <div class="bento-visual">
+            <div class="bv-code" aria-hidden="true">
+              <span class="bv-code-line"><span class="bv-code-com"># revenue.py</span></span>
+              <span class="bv-code-line"><span class="bv-code-key">from</span> netter <span class="bv-code-key">import</span> step</span>
+              <span class="bv-code-line"></span>
+              <span class="bv-code-line"><span class="bv-code-key">@</span><span class="bv-code-fn">step</span>(retries=<span class="bv-code-key">3</span>)</span>
+              <span class="bv-code-line"><span class="bv-code-key">def</span> <span class="bv-code-fn">classify</span>(invoice):</span>
+              <span class="bv-code-line">    <span class="bv-code-key">return</span> agent(<span class="bv-code-str">"benjamin"</span>)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Real-time logs -->
+        <div class="bento-cell bento-cell-small reveal">
+          <h3 class="bento-title">Observable, end-to-end.</h3>
+          <p class="bento-desc">Every step traced and logged. Filter, search, replay across every workflow.</p>
+          <div class="bento-visual">
+            <div class="bv-logs" aria-hidden="true">
+              <div class="bv-logs-head">
+                <span class="bv-logs-title">runs/run_a1b2c3d4 · logs</span>
+                <span class="bv-logs-live"><span class="bv-logs-live-dot"></span>live</span>
+              </div>
+              <div class="bv-logs-body">
+                <div class="bv-log"><span class="bv-log-t">19:25:58</span><span class="bv-log-tag bv-log-tag--info">INFO</span><span class="bv-log-msg">trigger fired</span></div>
+                <div class="bv-log"><span class="bv-log-t">19:25:59</span><span class="bv-log-tag bv-log-tag--ok">OK</span><span class="bv-log-msg">fetch_data &nbsp;<span class="bv-log-dim">82ms</span></span></div>
+                <div class="bv-log"><span class="bv-log-t">19:26:00</span><span class="bv-log-tag bv-log-tag--info">INFO</span><span class="bv-log-msg">classify started</span></div>
+                <div class="bv-log"><span class="bv-log-t">19:26:01</span><span class="bv-log-tag bv-log-tag--ok">OK</span><span class="bv-log-msg">classify &nbsp;<span class="bv-log-dim">418ms</span></span></div>
+                <div class="bv-log"><span class="bv-log-t">19:26:01</span><span class="bv-log-tag bv-log-tag--info">INFO</span><span class="bv-log-msg">notify_teams queued</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Dashboards in seconds (wide) -->
+        <div class="bento-cell bento-cell-wide reveal">
+          <h3 class="bento-title">Analytics in seconds, not sprints.</h3>
+          <p class="bento-desc">Versioned, queryable, embeddable. Every chart traces back to a single source of truth.</p>
+          <div class="bento-visual">
+            <div class="bv-dash">
+              <div class="bv-dash-row">
+                <div class="bv-stat">
+                  <div class="bv-stat-label">MRR</div>
+                  <div class="bv-stat-value">$1.27M</div>
+                  <div class="bv-stat-delta">+8.4% w/w</div>
+                </div>
+                <div class="bv-stat">
+                  <div class="bv-stat-label">Churn</div>
+                  <div class="bv-stat-value">2.1%</div>
+                  <div class="bv-stat-delta">-0.6 pts</div>
+                </div>
+                <div class="bv-stat">
+                  <div class="bv-stat-label">Active</div>
+                  <div class="bv-stat-value">8,431</div>
+                  <div class="bv-stat-delta">+312</div>
+                </div>
+              </div>
+              <div class="bv-chart" aria-hidden="true">
+                <span class="bv-bar" style="height: 22%"></span>
+                <span class="bv-bar" style="height: 38%"></span>
+                <span class="bv-bar" style="height: 30%"></span>
+                <span class="bv-bar" style="height: 56%"></span>
+                <span class="bv-bar" style="height: 48%"></span>
+                <span class="bv-bar" style="height: 70%"></span>
+                <span class="bv-bar" style="height: 60%"></span>
+                <span class="bv-bar" style="height: 82%"></span>
+                <span class="bv-bar" style="height: 74%"></span>
+                <span class="bv-bar" style="height: 92%"></span>
+                <span class="bv-bar" style="height: 86%"></span>
+                <span class="bv-bar" style="height: 100%"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Secure -->
+        <div class="bento-cell bento-cell-small reveal">
+          <h3 class="bento-title">Secure by design.</h3>
+          <p class="bento-desc">Audit logs, role-based policies, end-to-end encrypted. Already used in high-security environments.</p>
+          <div class="bento-visual">
+            <div class="bv-sec">
+              <div class="bv-sec-grid">A1B7 9E3F C2D8 4567 0F3A E2C9 91D4 A88E
+              57BC F1A9 30D8 C7E6 1B4F A21D 88C3 0E5F 76A9 4D32 EF87 DA2C 51B7 03E9 8A4F C2D1
+              9F5A 78C4 2D03 6B1F E8A2 C49E 17DB 530F 8C2A 4F19 BD61 09E7 41AC 28F0 6E3D 7B85
+              A0F2 5C49 318B 7DAE 0962 C13F E75D 2A48 8014 BF3C 5E9A 21D6 4C8F 0B3E A971 5D24</div>
+              <svg class="bv-sec-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+                <path d="M12 2 4 5v7c0 5 3.5 9 8 10 4.5-1 8-5 8-10V5l-8-3z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        HOW IT WORKS
        ============================================================ -->
   <section class="section" style="background: var(--dmi-panel-alt); border-top: 1px solid var(--dmi-border); border-bottom: 1px solid var(--dmi-border);">
@@ -2214,24 +2237,53 @@
 
       <div class="how-grid">
         <div class="how-card reveal">
+          <span class="how-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 3v5M15 3v5"/>
+              <path d="M5 8h14v3a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5z"/>
+              <path d="M12 16v5"/>
+            </svg>
+          </span>
           <div class="how-num">01 / Connect</div>
           <h3 class="how-title">Plug your sources.</h3>
-          <p class="how-desc">120+ native connectors. OAuth, API key, or warehouse SQL. Netter handles incremental syncs and schema drift.</p>
+          <p class="how-desc">120+ connectors. OAuth, API or SQL. Incremental syncs and schema drift handled.</p>
         </div>
         <div class="how-card reveal">
+          <span class="how-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="5" r="2"/>
+              <circle cx="5" cy="13" r="2"/>
+              <circle cx="19" cy="13" r="2"/>
+              <circle cx="9" cy="20" r="1.6"/>
+              <circle cx="15" cy="20" r="1.6"/>
+              <path d="M11 6.6 6 11.4M13 6.6l5 4.8M6 14.8l3 3.6M18 14.8l-3 3.6"/>
+            </svg>
+          </span>
           <div class="how-num">02 / Structure</div>
           <h3 class="how-title">Map the ontology.</h3>
-          <p class="how-desc">Customers, accounts, invoices, events. Netter builds a living model of your business. One place, one truth.</p>
+          <p class="how-desc">A living model of your business. One place, one truth.</p>
         </div>
         <div class="how-card reveal">
+          <span class="how-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 3l1.7 4.3L17 9l-4.3 1.7L11 15l-1.7-4.3L5 9l4.3-1.7z"/>
+              <path d="M18 14l.8 2L21 16.8l-2.2.7L18 19.5l-.8-1.7L15 16.8l2.2-.8z"/>
+            </svg>
+          </span>
           <div class="how-num">03 / Build</div>
           <h3 class="how-title">Describe the outcome.</h3>
-          <p class="how-desc">Tell Netter what you want: a dashboard, a workflow, an internal app. Review, tweak, deploy.</p>
+          <p class="how-desc">Tell Netter what you want. Review, tweak, deploy.</p>
         </div>
         <div class="how-card reveal">
+          <span class="how-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </span>
           <div class="how-num">04 / Operate</div>
           <h3 class="how-title">Ship and iterate.</h3>
-          <p class="how-desc">Versioned, observable, secured. Your team owns it from day one, no engineering hand-off.</p>
+          <p class="how-desc">Versioned, observable, secure. Owned by your team, day one.</p>
         </div>
       </div>
     </div>
