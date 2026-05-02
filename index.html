@@ -1941,7 +1941,9 @@
     @media (max-width: 600px) {
       .lead-modal {
         align-items: flex-end;
-        padding: 0 0.65rem;
+        /* Bezels on all four sides. Bottom uses the safe-area inset so the
+           card never collides with the home indicator on iOS. */
+        padding: 0 0.65rem max(0.65rem, env(safe-area-inset-bottom));
       }
 
       .lead-modal-card {
@@ -1949,12 +1951,11 @@
         max-width: 100%;
         width: 100%;
         height: auto;
-        max-height: 92vh;
-        max-height: 92dvh;
-        padding: 1.4rem 1.25rem max(1.25rem, env(safe-area-inset-bottom));
-        /* Rounded top corners only — bottom is flush with the screen */
-        border-radius: var(--dmi-radius-2xl) var(--dmi-radius-2xl) 0 0;
-        border-bottom: none;
+        max-height: 90vh;
+        max-height: 90dvh;
+        padding: 1.4rem 1.25rem 1.25rem;
+        /* Card has bezels all around now → round all four corners */
+        border-radius: var(--dmi-radius-2xl);
         transform: translateY(20px);
       }
       .lead-modal.is-visible .lead-modal-card { transform: translateY(0); }
@@ -3052,7 +3053,7 @@
 
       <div class="lead-field">
         <label>
-          <span class="lead-field-label">Your biggest challenge on this — optional</span>
+          <span class="lead-field-label">Your biggest data challenge (optional)</span>
           <textarea
             name="pain"
             rows="3"
@@ -3415,8 +3416,26 @@
         if (e.key === 'Escape' && isOpen) close();
       });
 
+      // Auto-trigger the timed modal — but cancel it the moment the
+      // visitor starts engaging with the static form. No point nagging
+      // someone who's already filling their email in the section below.
+      let openTimer = null;
       if (!sessionStorage.getItem(LEAD_MODAL_FLAG)) {
-        setTimeout(open, 10000);
+        openTimer = setTimeout(open, 10000);
+
+        const cancelTimedOpen = () => {
+          if (openTimer) {
+            clearTimeout(openTimer);
+            openTimer = null;
+          }
+          staticHost.removeEventListener('focusin', cancelTimedOpen);
+          staticHost.removeEventListener('input', cancelTimedOpen);
+        };
+
+        if (staticHost) {
+          staticHost.addEventListener('focusin', cancelTimedOpen);
+          staticHost.addEventListener('input', cancelTimedOpen);
+        }
       }
     })();
   </script>
