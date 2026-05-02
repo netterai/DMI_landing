@@ -1479,6 +1479,475 @@
     .foot-link:hover { color: var(--dmi-text); }
 
     /* ============================================================
+       LEAD CAPTURE - static section + reusable form
+       ============================================================ */
+    .lead-section {
+      border-top: 1px solid var(--dmi-border);
+    }
+    .lead-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2.5rem, 6vw, 5rem);
+    }
+    @media (max-width: 920px) {
+      .lead-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    .lead-copy { padding-top: 0.25rem; }
+
+    /* Report-cover visual — front card + tilted back page peek for depth */
+    .lead-visual {
+      position: relative;
+      margin-top: 2.25rem;
+      max-width: 440px;
+    }
+    .lead-visual-back {
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--dmi-border);
+      border-radius: var(--dmi-radius-xl);
+      background: var(--dmi-panel);
+      transform: translate(7px, 9px) rotate(1.6deg);
+      transform-origin: top left;
+      box-shadow: var(--dmi-shadow-soft);
+      z-index: 0;
+    }
+    .lead-visual-card {
+      position: relative;
+      z-index: 1;
+      padding: 1.25rem 1.4rem 1.4rem;
+      border: 1px solid var(--dmi-border);
+      border-radius: var(--dmi-radius-xl);
+      background: var(--dmi-panel);
+      box-shadow: var(--dmi-shadow-soft);
+    }
+    .lead-visual-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .lead-visual-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dmi-tertiary);
+    }
+    .lead-visual-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 540;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dmi-tertiary);
+      padding: 0.18rem 0.5rem;
+      border: 1px solid var(--dmi-border);
+      border-radius: var(--dmi-radius-xs);
+    }
+
+    .lead-visual-stat-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .lead-visual-stat-label {
+      font-size: 0.86rem;
+      font-weight: 540;
+      color: var(--dmi-text);
+      letter-spacing: -0.01em;
+    }
+    .lead-visual-stat-trend {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 540;
+      letter-spacing: 0.02em;
+      color: var(--dmi-success);
+    }
+    .lead-visual-stat-trend svg {
+      width: 11px; height: 11px;
+      color: currentColor;
+    }
+    .lead-visual-bars {
+      display: flex; align-items: flex-end;
+      gap: 5px;
+      height: 56px;
+      margin-top: 0.7rem;
+    }
+    .lead-visual-bars span {
+      flex: 1;
+      background: var(--dmi-text);
+      border-radius: 2px;
+      min-height: 3px;
+    }
+    .lead-visual-bars span:nth-child(1) { opacity: 0.18; }
+    .lead-visual-bars span:nth-child(2) { opacity: 0.30; }
+    .lead-visual-bars span:nth-child(3) { opacity: 0.45; }
+    .lead-visual-bars span:nth-child(4) { opacity: 0.60; }
+    .lead-visual-bars span:nth-child(5) { opacity: 0.75; }
+    .lead-visual-bars span:nth-child(6) { opacity: 0.88; }
+    .lead-visual-bars span:nth-child(7) { opacity: 1; }
+
+    .lead-visual-divider {
+      height: 1px;
+      margin: 1.05rem 0;
+      background: var(--dmi-border-subtle);
+    }
+
+    .lead-visual-list {
+      display: flex; flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.9rem;
+      color: var(--dmi-secondary);
+      line-height: 1.45;
+    }
+    .lead-visual-list li {
+      display: flex; align-items: center; gap: 0.65rem;
+      letter-spacing: -0.005em;
+    }
+    .lead-visual-list li::before {
+      content: "+";
+      flex-shrink: 0;
+      width: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 590;
+      color: var(--dmi-text);
+      line-height: 1;
+      text-align: center;
+    }
+
+    @media (max-width: 920px) {
+      .lead-visual { max-width: 100%; }
+    }
+
+    /* Form */
+    .lead-form-host {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    /* When the form is in success state, vertically center the (smaller)
+       confirmation card within its grid cell so it sits aligned with
+       the rest of the left column instead of floating at the top. */
+    .lead-form-host:has([data-state="success"]) {
+      justify-content: center;
+    }
+    .lead-form {
+      width: 100%;
+      display: flex; flex-direction: column;
+      gap: 1.05rem;
+      padding: 1.6rem;
+      border: 1px solid var(--dmi-border);
+      border-radius: var(--dmi-radius-2xl);
+      background: var(--dmi-panel);
+    }
+    .lead-field { display: flex; flex-direction: column; gap: 0.45rem; }
+    .lead-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    @media (max-width: 480px) {
+      .lead-row { grid-template-columns: 1fr; gap: 1.05rem; }
+    }
+    .lead-field-label,
+    .lead-form label {
+      font-size: 0.78rem;
+      font-weight: 540;
+      color: var(--dmi-secondary);
+      letter-spacing: -0.005em;
+    }
+    .lead-form input[type="text"],
+    .lead-form input[type="email"],
+    .lead-form textarea {
+      width: 100%;
+      padding: 0.7rem 0.85rem;
+      border: 1px solid var(--dmi-border);
+      border-radius: var(--dmi-radius-md);
+      background: var(--dmi-panel);
+      color: var(--dmi-text);
+      font-size: 0.94rem;
+      font-family: inherit;
+      line-height: 1.45;
+      outline: none;
+      transition: border-color var(--dmi-duration-base) var(--ease-out),
+                  box-shadow var(--dmi-duration-base) var(--ease-out);
+    }
+    .lead-form input:focus,
+    .lead-form textarea:focus {
+      border-color: var(--dmi-accent);
+      box-shadow: 0 0 0 3px var(--dmi-accent-soft);
+    }
+    .lead-form textarea { resize: vertical; min-height: 4.6rem; }
+    .lead-form input::placeholder,
+    .lead-form textarea::placeholder { color: var(--dmi-quaternary); }
+
+    /* Industry pills - 2-col grid, full radius, 0.5px border, uppercase 12px */
+    .lead-pills {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    .lead-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 0.9rem;
+      border: 0.5px solid var(--dmi-border-med);
+      border-radius: var(--dmi-radius-pill);
+      background: var(--dmi-panel);
+      color: var(--dmi-text);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 540;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--dmi-duration-base) var(--ease-out),
+                  border-color var(--dmi-duration-base) var(--ease-out),
+                  color var(--dmi-duration-base) var(--ease-out);
+    }
+    .lead-pill svg {
+      flex-shrink: 0;
+      width: 14px; height: 14px;
+      color: currentColor;
+    }
+    .lead-pill:hover { border-color: var(--dmi-text); }
+    .lead-pill[aria-checked="true"] {
+      background: var(--dmi-text);
+      border-color: var(--dmi-text);
+      color: #fff;
+    }
+    .lead-pill[aria-checked="true"]:hover { background: var(--dmi-brand-400); }
+    .lead-input-other {
+      margin-top: 0.55rem;
+    }
+    .lead-input-other[hidden] { display: none; }
+
+    /* Submit button - full width, dark */
+    .lead-submit {
+      width: 100%;
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 2.85rem; padding: 0 1.2rem;
+      border: none;
+      border-radius: var(--dmi-radius-pill);
+      background: var(--dmi-text);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 540;
+      letter-spacing: -0.005em;
+      cursor: pointer;
+      transition: background var(--dmi-duration-base) var(--ease-out);
+    }
+    .lead-submit:hover:not(:disabled) { background: var(--dmi-brand-400); }
+    .lead-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .lead-msg {
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      display: none;
+      letter-spacing: -0.005em;
+    }
+    .lead-msg.is-error   { display: block; color: var(--dmi-error); }
+    .lead-msg.is-success { display: block; color: var(--dmi-success); }
+
+    .lead-foot {
+      margin: 0;
+      font-size: 0.78rem;
+      color: var(--dmi-tertiary);
+      text-align: center;
+      letter-spacing: -0.005em;
+    }
+
+    /* Success state - swaps in where the form fields were */
+    .lead-form-fields {
+      display: flex; flex-direction: column;
+      gap: 1.05rem;
+    }
+    .lead-form-fields[hidden] { display: none; }
+
+    .lead-success {
+      display: flex; flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.7rem;
+      padding: 1.25rem 0.5rem 0.75rem;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: leadSuccessIn 0.5s var(--ease-spring) forwards;
+    }
+    .lead-success[hidden] {
+      display: none;
+      animation: none;
+    }
+    @keyframes leadSuccessIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .lead-success-icon {
+      width: 60px; height: 60px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--dmi-border-med);
+      border-radius: 50%;
+      color: var(--dmi-text);
+      background: var(--dmi-panel);
+    }
+    .lead-success-icon svg { width: 26px; height: 26px; }
+    .lead-success-title {
+      margin: 0.6rem 0 0;
+      font-size: 1.45rem;
+      font-weight: 510;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--dmi-text);
+    }
+    .lead-success-msg {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--dmi-secondary);
+      max-width: 34ch;
+    }
+    .lead-success-msg em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.06em;
+      letter-spacing: -0.01em;
+      color: var(--dmi-text);
+    }
+    .lead-success-foot {
+      margin: 0.85rem 0 0;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--dmi-border-subtle);
+      width: 100%;
+      max-width: 22rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: var(--dmi-tertiary);
+    }
+    .lead-success-foot strong {
+      font-weight: 540;
+      color: var(--dmi-secondary);
+    }
+
+    /* ============================================================
+       LEAD MODAL - timed overlay (10s, once per session)
+       ============================================================ */
+    .lead-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center; justify-content: center;
+      padding: 1.5rem;
+      background: rgba(15, 16, 17, 0.55);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transition: opacity 0.2s var(--ease-out);
+    }
+    .lead-modal.is-open { display: flex; }
+    .lead-modal.is-visible { opacity: 1; }
+
+    .lead-modal-card {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      max-height: calc(100vh - 3rem);
+      overflow-y: auto;
+      padding: 1.75rem;
+      border: 1px solid var(--dmi-border);
+      border-radius: var(--dmi-radius-2xl);
+      background: var(--dmi-panel);
+      transform: scale(0.96);
+      opacity: 0;
+      transition: transform 0.2s var(--ease-out),
+                  opacity 0.2s var(--ease-out);
+    }
+    .lead-modal.is-visible .lead-modal-card {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .lead-modal-close {
+      position: absolute;
+      top: 0.75rem; right: 0.75rem;
+      width: 2rem; height: 2rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: none;
+      border-radius: var(--dmi-radius-pill);
+      background: transparent;
+      color: var(--dmi-tertiary);
+      cursor: pointer;
+      transition: background var(--dmi-duration-base) var(--ease-out),
+                  color var(--dmi-duration-base) var(--ease-out);
+    }
+    .lead-modal-close svg { width: 16px; height: 16px; }
+    .lead-modal-close:hover {
+      background: var(--dmi-surface);
+      color: var(--dmi-text);
+    }
+
+    .lead-modal-head {
+      margin-bottom: 1.25rem;
+      padding-right: 1.75rem;
+    }
+    .lead-modal-title {
+      font-size: 1.4rem;
+      font-weight: 510;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--dmi-text);
+    }
+    .lead-modal-title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      font-size: 1.04em;
+    }
+    .lead-modal-sub {
+      margin-top: 0.5rem;
+      font-size: 0.92rem;
+      color: var(--dmi-secondary);
+      line-height: 1.5;
+    }
+    .lead-modal .lead-form {
+      border: none;
+      padding: 0;
+      background: transparent;
+    }
+
+    /* Modal full-screen on mobile, rounded top corners only */
+    @media (max-width: 600px) {
+      .lead-modal {
+        align-items: flex-end;
+        padding: 0;
+      }
+      .lead-modal-card {
+        max-width: 100%;
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: var(--dmi-radius-2xl) var(--dmi-radius-2xl) 0 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        transform: translateY(20px);
+      }
+      .lead-modal.is-visible .lead-modal-card {
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .lead-modal,
+      .lead-modal-card { transition: none; }
+    }
+
+    /* ============================================================
        SCROLL REVEAL
        ============================================================ */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s var(--ease-spring), transform 0.8s var(--ease-spring); }
@@ -2290,6 +2759,68 @@
   </section>
 
   <!-- ============================================================
+       LEAD CAPTURE - static section (just before the final CTA)
+       ============================================================ -->
+  <section id="leads" class="section lead-section">
+    <div class="container">
+      <div class="lead-grid">
+        <div class="lead-copy reveal">
+          <span class="sect-eyebrow">Free report</span>
+          <h2 class="sect-heading">
+            The AI use cases<br />
+            <em>reshaping your industry</em>.
+          </h2>
+          <p class="sect-sub">
+            Get our report on the highest-impact AI use cases in your industry. Concrete data, real-world results, measured ROI.
+          </p>
+
+          <div class="lead-visual" aria-label="What's inside the report">
+            <div class="lead-visual-back" aria-hidden="true"></div>
+            <div class="lead-visual-card">
+              <div class="lead-visual-head">
+                <span class="lead-visual-eyebrow">— Inside the report</span>
+                <span class="lead-visual-tag">5 pages</span>
+              </div>
+
+              <div class="lead-visual-stat">
+                <div class="lead-visual-stat-row">
+                  <span class="lead-visual-stat-label">ROI by use case</span>
+                  <span class="lead-visual-stat-trend">
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3 8l3-3 2 2 3-4"/>
+                    </svg>
+                    avg. +38%
+                  </span>
+                </div>
+                <div class="lead-visual-bars" aria-hidden="true">
+                  <span style="height: 22%"></span>
+                  <span style="height: 32%"></span>
+                  <span style="height: 46%"></span>
+                  <span style="height: 58%"></span>
+                  <span style="height: 72%"></span>
+                  <span style="height: 88%"></span>
+                  <span style="height: 100%"></span>
+                </div>
+              </div>
+
+              <div class="lead-visual-divider"></div>
+
+              <ul class="lead-visual-list">
+                <li>Top use cases by industry</li>
+                <li>Observed ROI &amp; deployment timelines</li>
+                <li>Mistakes to avoid</li>
+                <li>Where to start</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="lead-form-host reveal" data-lead-host="static"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        FINAL CTA
        ============================================================ -->
   <section id="contact" class="section">
@@ -2320,6 +2851,156 @@
   </section>
 
   <!-- ============================================================
+       LEAD MODAL - timed overlay (auto-opens after 10s, once/session)
+       ============================================================ -->
+  <div class="lead-modal" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle" hidden>
+    <div class="lead-modal-card" role="document">
+      <button type="button" class="lead-modal-close" data-lead-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
+      <div class="lead-modal-head">
+        <h2 id="leadModalTitle" class="lead-modal-title">
+          The <em>AI</em> report for your industry.
+        </h2>
+        <p class="lead-modal-sub">
+          Concrete use cases, measured ROI, and where to start, straight to your inbox.
+        </p>
+      </div>
+      <div class="lead-form-host" data-lead-host="modal"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       LEAD FORM TEMPLATE - cloned into both static section & modal
+       ============================================================ -->
+  <template id="leadFormTemplate">
+    <form class="lead-form" data-lead-form novalidate>
+      <div class="lead-form-fields" data-lead-fields>
+      <div class="lead-row">
+        <div class="lead-field">
+          <label>
+            <span class="lead-field-label">First name</span>
+            <input type="text" name="first_name" autocomplete="given-name" required />
+          </label>
+        </div>
+        <div class="lead-field">
+          <label>
+            <span class="lead-field-label">Last name</span>
+            <input type="text" name="last_name" autocomplete="family-name" required />
+          </label>
+        </div>
+      </div>
+
+      <div class="lead-field">
+        <label>
+          <span class="lead-field-label">Work email</span>
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+      </div>
+
+      <div class="lead-field">
+        <span class="lead-field-label">Industry</span>
+        <div class="lead-pills" role="radiogroup" aria-label="Industry">
+          <button type="button" class="lead-pill" data-industry="healthcare" role="radio" aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            <span>Healthcare</span>
+          </button>
+          <button type="button" class="lead-pill" data-industry="retail" role="radio" aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 8h14l-1.2 11.2a1.6 1.6 0 0 1-1.6 1.4H7.8a1.6 1.6 0 0 1-1.6-1.4L5 8z"/>
+              <path d="M9 8a3 3 0 0 1 6 0"/>
+            </svg>
+            <span>Retail</span>
+          </button>
+          <button type="button" class="lead-pill" data-industry="manufacturing" role="radio" aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="2.6"/>
+              <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M5.2 18.8l2.1-2.1M16.7 7.3l2.1-2.1"/>
+            </svg>
+            <span>Manufacturing</span>
+          </button>
+          <button type="button" class="lead-pill" data-industry="logistics" role="radio" aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 6h11v10H3z"/>
+              <path d="M14 9h4l3 3v4h-7"/>
+              <circle cx="7.5" cy="17.5" r="1.7"/>
+              <circle cx="17" cy="17.5" r="1.7"/>
+            </svg>
+            <span>Logistics</span>
+          </button>
+          <button type="button" class="lead-pill" data-industry="real_estate" role="radio" aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 21V5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v16"/>
+              <path d="M14 10h4a1 1 0 0 1 1 1v10"/>
+              <path d="M3 21h18"/>
+              <path d="M8 8h2M8 12h2M8 16h2"/>
+            </svg>
+            <span>Real Estate</span>
+          </button>
+          <button type="button" class="lead-pill" data-industry="other" role="radio" aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="6" cy="12" r="1.2"/>
+              <circle cx="12" cy="12" r="1.2"/>
+              <circle cx="18" cy="12" r="1.2"/>
+            </svg>
+            <span>Other</span>
+          </button>
+        </div>
+        <input
+          type="text"
+          name="industry_other"
+          class="lead-input-other"
+          data-industry-other
+          placeholder="Tell us your industry"
+          hidden
+        />
+      </div>
+
+      <div class="lead-field">
+        <label>
+          <span class="lead-field-label">Your biggest challenge on this — optional</span>
+          <textarea
+            name="pain"
+            rows="3"
+            placeholder="e.g. we don't know where to start…"
+          ></textarea>
+        </label>
+      </div>
+
+      <button type="submit" class="lead-submit" data-lead-submit>
+        <span data-lead-submit-label>Send me the report</span>
+      </button>
+
+      <p class="lead-msg" data-lead-msg role="status" aria-live="polite"></p>
+
+      <p class="lead-foot">No spam. We'll never share your email.</p>
+      </div>
+
+      <div class="lead-success" data-lead-success role="status" aria-live="polite" hidden>
+        <span class="lead-success-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="6" width="18" height="13" rx="2"/>
+            <path d="M3 8l9 6 9-6"/>
+          </svg>
+        </span>
+        <h3 class="lead-success-title">
+          Thanks, <span data-lead-success-name>there</span>.
+        </h3>
+        <p class="lead-success-msg">
+          Samuel (CEO) is preparing your report :) Expect it in your inbox shortly!
+        </p>
+        <p class="lead-success-foot">
+          We'll send it to <strong data-lead-success-email></strong>
+        </p>
+      </div>
+    </form>
+  </template>
+
+  <!-- ============================================================
        FOOTER
        ============================================================ -->
   <footer>
@@ -2337,9 +3018,23 @@
   <!-- ============================================================
        JS - composer rotating placeholder, scroll reveal, nav scrolled
        ============================================================ -->
+  <!-- Supabase JS client (UMD) - exposes window.supabase.createClient -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script>
     /* ---------- Calendly URL - single source ---------- */
     const CALENDLY = 'https://calendly.com/samuel-netterai/30min?month=2026-03';
+
+    /* ---------- Supabase client ----------
+       The publishable key is safe to embed in front-end code:
+       security is enforced by Row Level Security (RLS) policies on
+       the `leads` table, not by keeping the key secret. */
+    const SUPABASE_URL = 'https://auofuopmehawbwsfloev.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_V3iMT9l0hPZZG_X1dgyd9w_vaROCyov';
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
 
     /* ---------- Composer rotating placeholder + submit ---------- */
     (function setupComposer() {
@@ -2477,6 +3172,163 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    /* ---------- Lead capture form (shared by static section + modal) ---------- */
+    const LEAD_MODAL_FLAG = 'lead_modal_seen';
+
+    function setupLeadForm(form, opts) {
+      opts = opts || {};
+      const pills = Array.from(form.querySelectorAll('[data-industry]'));
+      const otherInput = form.querySelector('[data-industry-other]');
+      const submitBtn = form.querySelector('[data-lead-submit]');
+      const submitLabel = form.querySelector('[data-lead-submit-label]');
+      const msg = form.querySelector('[data-lead-msg]');
+      const fieldsEl = form.querySelector('[data-lead-fields]');
+      const successEl = form.querySelector('[data-lead-success]');
+      const successName = form.querySelector('[data-lead-success-name]');
+      const successEmail = form.querySelector('[data-lead-success-email]');
+
+      let selectedIndustry = null;
+
+      function setIndustry(value) {
+        selectedIndustry = value;
+        pills.forEach((p) => {
+          p.setAttribute('aria-checked', p.dataset.industry === value ? 'true' : 'false');
+        });
+        const isOther = value === 'other';
+        otherInput.hidden = !isOther;
+        if (!isOther) otherInput.value = '';
+      }
+
+      pills.forEach((pill) => {
+        pill.addEventListener('click', () => setIndustry(pill.dataset.industry));
+      });
+
+      function clearMsg() {
+        msg.className = 'lead-msg';
+        msg.textContent = '';
+      }
+      function showMsg(kind, text) {
+        msg.className = 'lead-msg is-' + kind;
+        msg.textContent = text;
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearMsg();
+
+        const data = new FormData(form);
+        const firstName = (data.get('first_name') || '').toString().trim();
+        const lastName  = (data.get('last_name')  || '').toString().trim();
+        const email     = (data.get('email')      || '').toString().trim();
+        const pain      = (data.get('pain')       || '').toString().trim();
+        const industryOther = (data.get('industry_other') || '').toString().trim();
+
+        let industry = selectedIndustry;
+        if (industry === 'other') industry = industryOther || 'other';
+
+        if (!firstName || !lastName || !email || !selectedIndustry) {
+          showMsg('error', 'Please fill in all required fields.');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitLabel.textContent = 'Sending…';
+
+        const payload = {
+          first_name: firstName,
+          last_name:  lastName,
+          email,
+          industry,
+          pain,
+        };
+        console.log('[lead] submit', payload);
+
+        try {
+          const { error } = await supabaseClient
+            .from('leads')
+            .insert([payload]);
+          if (error) throw error;
+
+          sessionStorage.setItem(LEAD_MODAL_FLAG, 'true');
+          form.dataset.state = 'success';
+          successName.textContent = firstName;
+          successEmail.textContent = email;
+          fieldsEl.hidden = true;
+          successEl.hidden = false;
+          if (typeof opts.onSuccess === 'function') opts.onSuccess();
+        } catch (err) {
+          console.error('[lead] submit failed', err);
+          showMsg('error', 'Something went wrong. Please try again.');
+          submitBtn.disabled = false;
+          submitLabel.textContent = 'Send me the report';
+        }
+      });
+    }
+
+    function injectLeadForm(host, opts) {
+      const tpl = document.getElementById('leadFormTemplate');
+      if (!tpl || !host) return null;
+      const form = tpl.content.firstElementChild.cloneNode(true);
+      host.appendChild(form);
+      setupLeadForm(form, opts);
+      return form;
+    }
+
+    /* ---------- Lead modal (auto-trigger after 10s, once per session) ---------- */
+    (function setupLeadModal() {
+      const modal = document.getElementById('leadModal');
+      if (!modal) return;
+
+      const closeBtn = modal.querySelector('[data-lead-close]');
+      const staticHost = document.querySelector('[data-lead-host="static"]');
+      const modalHost  = modal.querySelector('[data-lead-host="modal"]');
+
+      let isOpen = false;
+
+      function open() {
+        if (isOpen) return;
+        if (sessionStorage.getItem(LEAD_MODAL_FLAG)) return;
+        isOpen = true;
+        modal.hidden = false;
+        modal.classList.add('is-open');
+        // Allow the display:flex to commit before triggering the transition
+        requestAnimationFrame(() => modal.classList.add('is-visible'));
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        if (!isOpen) return;
+        isOpen = false;
+        sessionStorage.setItem(LEAD_MODAL_FLAG, 'true');
+        modal.classList.remove('is-visible');
+        document.body.style.overflow = '';
+        const onEnd = () => {
+          modal.classList.remove('is-open');
+          modal.hidden = true;
+          modal.removeEventListener('transitionend', onEnd);
+        };
+        modal.addEventListener('transitionend', onEnd);
+        // Fallback in case transitionend doesn't fire (reduced motion, etc.)
+        setTimeout(onEnd, 260);
+      }
+
+      injectLeadForm(staticHost, {});
+      injectLeadForm(modalHost, {
+        onSuccess: () => setTimeout(close, 4000),
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) close();
+      });
+      closeBtn.addEventListener('click', close);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) close();
+      });
+
+      if (!sessionStorage.getItem(LEAD_MODAL_FLAG)) {
+        setTimeout(open, 10000);
+      }
+    })();
   </script>
 </body>
 </html>
