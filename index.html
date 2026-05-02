@@ -1920,48 +1920,114 @@
       background: transparent;
     }
 
-    /* Modal bottom-sheet on mobile, rounded top corners only.
-       - max-height: 92dvh leaves an 8% peek of backdrop at the top so the
-         user can always tap-outside to dismiss, even when the form is tall.
-       - dvh (dynamic viewport height) accounts for mobile browser chrome
-         and the on-screen keyboard. Falls back to vh on older browsers.
-       - The close button becomes position: sticky so it stays glued to
-         the top of the visible card area while the form scrolls, instead
-         of scrolling out of view with the content. */
+    /* ---------- Mobile bottom-sheet modal ----------
+       Clean, dense, mobile-first overrides for the modal + form.
+       - max-height: 92dvh leaves a peek of backdrop so users can tap
+         outside to dismiss even when the form is tall.
+       - dvh accounts for Safari URL bar and on-screen keyboard resizing.
+       - Close button is sticky in the top-right via flex-end + sticky.
+       - All form typography is explicitly sized so we never inherit
+         heading-sized labels from any cascade quirks. */
     @media (max-width: 600px) {
-      .lead-modal {
-        align-items: flex-end;
-        padding: 0;
-      }
+      .lead-modal { align-items: flex-end; padding: 0; }
+
       .lead-modal-card {
+        display: flex; flex-direction: column;
         max-width: 100%;
         width: 100%;
         height: auto;
         max-height: 92vh;
         max-height: 92dvh;
-        padding-bottom: max(1.75rem, env(safe-area-inset-bottom));
+        padding: 1.25rem 1.25rem max(1.25rem, env(safe-area-inset-bottom));
         border-radius: var(--dmi-radius-2xl) var(--dmi-radius-2xl) 0 0;
         border-left: none;
         border-right: none;
         border-bottom: none;
         transform: translateY(20px);
-        /* Flex column lets the sticky close button align to the right
-           edge via align-self (margin: auto doesn't work on inline-flex). */
-        display: flex;
-        flex-direction: column;
       }
-      .lead-modal.is-visible .lead-modal-card {
-        transform: translateY(0);
-      }
+      .lead-modal.is-visible .lead-modal-card { transform: translateY(0); }
+
+      /* Close: stays glued to the top-right of the visible card while the
+         form scrolls. Negative margin keeps it out of normal flow. */
       .lead-modal-close {
         position: sticky;
         top: 0;
         align-self: flex-end;
-        margin-bottom: -2.5rem;
+        margin: -0.25rem -0.25rem -2rem auto;
         background: rgba(255, 255, 255, 0.92);
         -webkit-backdrop-filter: saturate(140%) blur(8px);
         backdrop-filter: saturate(140%) blur(8px);
         z-index: 5;
+      }
+
+      /* Header */
+      .lead-modal-head {
+        margin-bottom: 1rem;
+        padding-right: 2.25rem;
+      }
+      .lead-modal-title {
+        font-size: 1.25rem;
+        line-height: 1.2;
+        letter-spacing: -0.022em;
+      }
+      .lead-modal-sub {
+        margin-top: 0.4rem;
+        font-size: 0.86rem;
+        line-height: 1.45;
+      }
+
+      /* Form: tighter and explicitly sized so no cascade weirdness */
+      .lead-modal .lead-form { gap: 0.85rem; }
+      .lead-modal .lead-form-fields { gap: 0.85rem; }
+      .lead-modal .lead-field { gap: 0.35rem; }
+
+      /* Force the field labels to a sane small size on mobile.
+         Higher specificity (.lead-modal scope) and explicit value beats
+         any default UA / boosted text styling. */
+      .lead-modal .lead-form label,
+      .lead-modal .lead-field-label {
+        font-size: 0.75rem;
+        font-weight: 540;
+        line-height: 1.3;
+        color: var(--dmi-secondary);
+        letter-spacing: 0;
+        text-transform: none;
+      }
+
+      /* Inputs: 16px font-size prevents iOS Safari auto-zoom on focus,
+         which is the #1 source of "form looks weird on mobile" issues. */
+      .lead-modal .lead-form input[type="text"],
+      .lead-modal .lead-form input[type="email"],
+      .lead-modal .lead-form textarea {
+        font-size: 16px;
+        padding: 0.65rem 0.8rem;
+      }
+      .lead-modal .lead-form textarea {
+        min-height: 3.6rem;
+      }
+
+      /* Pills: compact 2-col on mobile, smaller text */
+      .lead-modal .lead-pills { gap: 0.4rem; }
+      .lead-modal .lead-pill {
+        padding: 0.5rem 0.7rem;
+        font-size: 11px;
+        gap: 0.4rem;
+      }
+      .lead-modal .lead-pill svg { width: 12px; height: 12px; }
+
+      /* Submit + footnote */
+      .lead-modal .lead-submit { height: 2.65rem; font-size: 0.9rem; }
+      .lead-modal .lead-foot { font-size: 0.72rem; }
+    }
+
+    /* Apply the iOS no-zoom rule to BOTH static and modal forms on mobile.
+       Any input < 16px font-size triggers a viewport zoom on iOS Safari
+       when the user focuses the field, which is jarring. */
+    @media (max-width: 600px) {
+      .lead-form input[type="text"],
+      .lead-form input[type="email"],
+      .lead-form textarea {
+        font-size: 16px;
       }
     }
 
