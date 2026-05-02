@@ -1871,9 +1871,20 @@
       opacity: 1;
     }
 
+    /* Header is a flex row: text on the left grows, close in the corner.
+       align-items: flex-start ensures the close vertically aligns with
+       the FIRST LINE of the title rather than the optical center of the
+       whole text block (which would visually drift down on multi-line). */
+    .lead-modal-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .lead-modal-head-text { flex: 1; min-width: 0; }
+
     .lead-modal-close {
-      position: absolute;
-      top: 0.75rem; right: 0.75rem;
+      flex-shrink: 0;
       width: 2rem; height: 2rem;
       display: inline-flex; align-items: center; justify-content: center;
       border: none;
@@ -1881,6 +1892,10 @@
       background: transparent;
       color: var(--dmi-tertiary);
       cursor: pointer;
+      /* Nudge up slightly so the icon optical-centers with the title's
+         first-line cap height (it's 32px tall, the title line is shorter). */
+      margin-top: -0.2rem;
+      margin-right: -0.4rem;
       transition: background var(--dmi-duration-base) var(--ease-out),
                   color var(--dmi-duration-base) var(--ease-out);
     }
@@ -1888,11 +1903,6 @@
     .lead-modal-close:hover {
       background: var(--dmi-surface);
       color: var(--dmi-text);
-    }
-
-    .lead-modal-head {
-      margin-bottom: 1.25rem;
-      padding-right: 1.75rem;
     }
     .lead-modal-title {
       font-size: 1.4rem;
@@ -1921,15 +1931,18 @@
     }
 
     /* ---------- Mobile bottom-sheet modal ----------
-       Clean, dense, mobile-first overrides for the modal + form.
+       - Modal has a small horizontal padding so the card has side bezels
+         instead of going edge-to-edge.
        - max-height: 92dvh leaves a peek of backdrop so users can tap
          outside to dismiss even when the form is tall.
        - dvh accounts for Safari URL bar and on-screen keyboard resizing.
-       - Close button is sticky in the top-right via flex-end + sticky.
-       - All form typography is explicitly sized so we never inherit
-         heading-sized labels from any cascade quirks. */
+       - Close stays correctly aligned with the title via the flex header
+         layout (.lead-modal-head as a flex row, defined above). */
     @media (max-width: 600px) {
-      .lead-modal { align-items: flex-end; padding: 0; }
+      .lead-modal {
+        align-items: flex-end;
+        padding: 0 0.65rem;
+      }
 
       .lead-modal-card {
         display: flex; flex-direction: column;
@@ -1938,32 +1951,18 @@
         height: auto;
         max-height: 92vh;
         max-height: 92dvh;
-        padding: 1.25rem 1.25rem max(1.25rem, env(safe-area-inset-bottom));
+        padding: 1.4rem 1.25rem max(1.25rem, env(safe-area-inset-bottom));
+        /* Rounded top corners only — bottom is flush with the screen */
         border-radius: var(--dmi-radius-2xl) var(--dmi-radius-2xl) 0 0;
-        border-left: none;
-        border-right: none;
         border-bottom: none;
         transform: translateY(20px);
       }
       .lead-modal.is-visible .lead-modal-card { transform: translateY(0); }
 
-      /* Close: stays glued to the top-right of the visible card while the
-         form scrolls. Negative margin keeps it out of normal flow. */
-      .lead-modal-close {
-        position: sticky;
-        top: 0;
-        align-self: flex-end;
-        margin: -0.25rem -0.25rem -2rem auto;
-        background: rgba(255, 255, 255, 0.92);
-        -webkit-backdrop-filter: saturate(140%) blur(8px);
-        backdrop-filter: saturate(140%) blur(8px);
-        z-index: 5;
-      }
-
-      /* Header */
+      /* Header: keep the new flex-row alignment; just tune sizes */
       .lead-modal-head {
         margin-bottom: 1rem;
-        padding-right: 2.25rem;
+        gap: 0.6rem;
       }
       .lead-modal-title {
         font-size: 1.25rem;
@@ -2944,18 +2943,20 @@
        ============================================================ -->
   <div class="lead-modal" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle" hidden>
     <div class="lead-modal-card" role="document">
-      <button type="button" class="lead-modal-close" data-lead-close aria-label="Close">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M6 6l12 12M18 6L6 18"/>
-        </svg>
-      </button>
       <div class="lead-modal-head">
-        <h2 id="leadModalTitle" class="lead-modal-title">
-          The <em>AI</em> report for your industry.
-        </h2>
-        <p class="lead-modal-sub">
-          Concrete use cases, measured ROI, and where to start, straight to your inbox.
-        </p>
+        <div class="lead-modal-head-text">
+          <h2 id="leadModalTitle" class="lead-modal-title">
+            The <em>AI</em> report for your industry.
+          </h2>
+          <p class="lead-modal-sub">
+            Concrete use cases, measured ROI, and where to start, straight to your inbox.
+          </p>
+        </div>
+        <button type="button" class="lead-modal-close" data-lead-close aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+        </button>
       </div>
       <div class="lead-form-host" data-lead-host="modal"></div>
     </div>
