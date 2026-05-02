@@ -1920,7 +1920,14 @@
       background: transparent;
     }
 
-    /* Modal full-screen on mobile, rounded top corners only */
+    /* Modal bottom-sheet on mobile, rounded top corners only.
+       - max-height: 92dvh leaves an 8% peek of backdrop at the top so the
+         user can always tap-outside to dismiss, even when the form is tall.
+       - dvh (dynamic viewport height) accounts for mobile browser chrome
+         and the on-screen keyboard. Falls back to vh on older browsers.
+       - The close button becomes position: sticky so it stays glued to
+         the top of the visible card area while the form scrolls, instead
+         of scrolling out of view with the content. */
     @media (max-width: 600px) {
       .lead-modal {
         align-items: flex-end;
@@ -1929,8 +1936,10 @@
       .lead-modal-card {
         max-width: 100%;
         width: 100%;
-        height: 100vh;
-        max-height: 100vh;
+        height: auto;
+        max-height: 92vh;
+        max-height: 92dvh;
+        padding-bottom: max(1.75rem, env(safe-area-inset-bottom));
         border-radius: var(--dmi-radius-2xl) var(--dmi-radius-2xl) 0 0;
         border-left: none;
         border-right: none;
@@ -1939,6 +1948,16 @@
       }
       .lead-modal.is-visible .lead-modal-card {
         transform: translateY(0);
+      }
+      .lead-modal-close {
+        position: sticky;
+        top: 0;
+        right: 0;
+        margin: 0 0 -2.5rem auto;
+        background: rgba(255, 255, 255, 0.92);
+        -webkit-backdrop-filter: saturate(140%) blur(8px);
+        backdrop-filter: saturate(140%) blur(8px);
+        z-index: 5;
       }
     }
 
