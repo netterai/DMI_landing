@@ -514,7 +514,7 @@
     /* ============================================================
        FLOW SECTION - sources → Netter AI → outputs
        ============================================================ */
-    .flow-section { background: var(--dmi-panel-alt); border-top: 1px solid var(--dmi-border); border-bottom: 1px solid var(--dmi-border); }
+    .flow-section { background: var(--dmi-panel-alt); border-top: 1px solid var(--dmi-border); }
     .flow-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2506,7 +2506,7 @@
   <!-- ============================================================
        BENTO (Hessian style - features in a single grid)
        ============================================================ -->
-  <section class="section">
+  <section class="section" style="border-top: 1px solid var(--dmi-border);">
     <div class="container">
       <div class="reveal" style="max-width: 720px;">
         <span class="sect-eyebrow">What you get</span>
@@ -2697,7 +2697,7 @@
   <!-- ============================================================
        HOW IT WORKS
        ============================================================ -->
-  <section class="section" style="background: var(--dmi-panel-alt); border-top: 1px solid var(--dmi-border); border-bottom: 1px solid var(--dmi-border);">
+  <section class="section" style="background: var(--dmi-panel-alt); border-top: 1px solid var(--dmi-border);">
     <div class="container">
       <div class="reveal" style="max-width: 680px;">
         <span class="sect-eyebrow">How it works</span>
@@ -2823,7 +2823,7 @@
   <!-- ============================================================
        FINAL CTA
        ============================================================ -->
-  <section id="contact" class="section">
+  <section id="contact" class="section" style="border-top: 1px solid var(--dmi-border);">
     <div class="container">
       <div class="cta reveal">
         <div class="cta-content">
@@ -2882,13 +2882,13 @@
         <div class="lead-field">
           <label>
             <span class="lead-field-label">First name</span>
-            <input type="text" name="first_name" autocomplete="given-name" required />
+            <input type="text" name="first_name" autocomplete="given-name" placeholder="Jane" required />
           </label>
         </div>
         <div class="lead-field">
           <label>
             <span class="lead-field-label">Last name</span>
-            <input type="text" name="last_name" autocomplete="family-name" required />
+            <input type="text" name="last_name" autocomplete="family-name" placeholder="Smith" required />
           </label>
         </div>
       </div>
@@ -2896,7 +2896,7 @@
       <div class="lead-field">
         <label>
           <span class="lead-field-label">Work email</span>
-          <input type="email" name="email" autocomplete="email" required />
+          <input type="email" name="email" autocomplete="email" placeholder="jane@company.com" required />
         </label>
       </div>
 
