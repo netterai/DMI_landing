@@ -1945,6 +1945,10 @@
         border-right: none;
         border-bottom: none;
         transform: translateY(20px);
+        /* Flex column lets the sticky close button align to the right
+           edge via align-self (margin: auto doesn't work on inline-flex). */
+        display: flex;
+        flex-direction: column;
       }
       .lead-modal.is-visible .lead-modal-card {
         transform: translateY(0);
@@ -1952,8 +1956,8 @@
       .lead-modal-close {
         position: sticky;
         top: 0;
-        right: 0;
-        margin: 0 0 -2.5rem auto;
+        align-self: flex-end;
+        margin-bottom: -2.5rem;
         background: rgba(255, 255, 255, 0.92);
         -webkit-backdrop-filter: saturate(140%) blur(8px);
         backdrop-filter: saturate(140%) blur(8px);
